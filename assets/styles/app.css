@@ -1,3 +1,84 @@
-body {
-    background-color: skyblue;
+/* couleurs de l'application
+
+:root {
+    --darkCoffee: #291C0E;
+    --hotChocolate: #6E473B;
+    --cookie: #A78D78;
+    --capuccino: #643F24;
+    --tiramisu2: #E1D4C2;
+    --tiramisu: #593d3b;
 }
+
+.logo img {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+}
+
+
+body {
+    background-color: var(--tiramisu2);
+}
+
+
+.btnUserConnexion {
+    background-color: var(--darkCoffee);
+    border-color: var(--darkCoffee);
+}
+
+.btnUserSignUp {
+    background-color: var(--capuccino);
+    border-color: var(--capuccino);
+    color: white;
+}
+
+/* .btnUserSignUp,
+.btnUserConnexion {
+    border-radius: 20px;
+} */
+/*
+.btnUserConnexion:hover {
+    background-color: var(--capuccino);
+    border-color: var(--capuccino);
+}
+
+.btnUserSignUp:hover {
+    background-color: var(--darkCoffee);
+    border-color: var(--darkCoffee);
+}
+
+.nougat .hero-grisou {
+    background: linear-gradient(to right, var(--darkCoffee), rgb(216, 173, 144));
+    width: 100%;
+}
+
+.img-grisou img {
+    width: 100%;
+}
+
+.text-hero h1 {
+    padding-top: 20%;
+}
+
+.grisou-sticker {
+    max-width: 100%;
+    width: 150px;
+}
+
+
+/* responsive drinks*/
+/*
+.card-img-top {
+    height: 500px;
+    width: 100%;
+    object-fit: contain;
+    background-color: #F1EFE9;
+}
+
+@media (min-width: 768px) {
+    .card-img-top {
+        height: 200px;
+        padding: 20px;
+    }
+}
+ 
