@@ -1,0 +1,12 @@
+<h1>Bienvenue chez Cappucino ! Veuillez confirmer votre email.</h1>
+
+<p>
+	Merci de vous être inscrit. Pour valider votre compte et commencer à réserver vos moments avec nos chats, merci de cliquer sur le lien ci-dessous :<br><br>
+	<a href="{{ signedUrl|raw }}">Confirmer mon adresse email</a>.
+						    Ce lien expirera dans
+	{{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+</p>
+
+<p>
+	À très bientôt pour un café et des ronrons !
+</p>
