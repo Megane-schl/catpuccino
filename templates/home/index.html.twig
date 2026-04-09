@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Catpuccino, café à chats
+{% endblock %}
+
+{% block body %}
+	<!-- section 1 hero -->
+	<div class="nougat">
+		<div class="hero-grisou">
+			<div class="container-fluid">
+				<div class="row g-0 text-hero">
+					<div class="col-6 mt-5 text-center text-white">
+						<h1>Un café, un chat, un moment de douceur</h1>
+						<p>Venez déguster nos boissons et pâtisseries en compagnie de nos félins</p>
+						<a href="#" class="btn btn-lg btnUserConnexion px-5 text-white">Réserver</a>
+						<div class="mt-4">
+							<img class="img-fluid grisou-sticker" src="./grisou_sticker.png" alt="Sticker Grisou">
+						</div>
+					</div>
+					<div class="img-grisou col-6 text-center">
+						<img class="img-fluid" src="./unsplash_pOO5ligUC7w.jpg" alt="Hero chat">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- section 2 news drinks -->
+	<section class="container">
+		<h1 class="py-5 mt-5 text-center">Nos boissons du moment</h1>
+		<div class="container py-5">
+			<div class="row">
+				{% set drinkList = [
+            { name: 'Cappuccino', price: 4.50, img: 'cappuccino.png' },
+            { name: 'Matcha Latte', price: 5.00, img: 'matcha.png' },
+            { name: 'Chocolat chaud', price: 4.00, img: 'chocolat.png' },
+            { name: 'Chai Latte', price: 4.80, img: 'chai.png' } ] %}
+				{% for drink in drinkList %}
+					<div class="col-6 col-md-3 mb-4">
+						<twig:ProductCard name="{{ drink.name }}" price="{{ drink.price }}" img="{{ drink.img }}">
+							<div class="mt-3">
+								<twig:BootstrapButton class="d-inline-block" text="Découvrir" type="primary" link="#"/>
+							</div>
+						</twig:ProductCard>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	<!-- section 3 pastry -->
+{% endblock %}

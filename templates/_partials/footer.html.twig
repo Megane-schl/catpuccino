@@ -1,0 +1,63 @@
+<footer class="footer">
+	<div class="container">
+		<div
+			class="row g-4">
+			<!-- logo part -->
+			<div class="col-md-4 logo">
+				<a href="{{ path('app_home') }}">
+					<img src="{{ asset('images/logo_catpuccino.svg') }}" alt="Logo Catpuccino">
+				</a>
+				<p class="small mt-2">Café, pâtisseries et ronronthérapie à Colmar.</p>
+			</div>
+			<!-- nav part -->
+			<div class="col-md-2 col-6">
+				<h6>Navigation</h6>
+				<ul class="list-unstyled small">
+					<li>
+						<a href="#">Accueil</a>
+					</li>
+					<li>
+						<a href="#">Nos produits</a>
+					</li>
+					<li>
+						<a href="#">Nos chats</a>
+					</li>
+					<li>
+						<a href="#">Réserver</a>
+					</li>
+				</ul>
+			</div>
+			<!-- contact part -->
+			<div class="col-md-3 col-6">
+				<h6 class="mb-3">Contact</h6>
+				<ul class="list-unstyled small">
+					<li>12 rue de Minou, 68000 Colmar</li>
+					<li>03 89 00 00 00</li>
+					<li>contact@catpuccino.fr</li>
+				</ul>
+			</div>
+			<!-- schedules part-->
+			<div class="col-md-3">
+				<h6>Horaire</h6>
+				<ul class="list-unstyled small">
+					<li>
+						Lundi - 12h -13h
+					</li>
+					<li>
+						Lundi - 12h -13h
+					</li>
+					<li>
+						Lundi - 12h -13h
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="text-center mt-3">
+			<small>
+				&copy;
+				{{ 'now'|date('Y') }}
+				Catpuccino - Tous droits réservés
+			</small>
+		</div>
+	</div>
+</footer>
