@@ -1,0 +1,18 @@
+<div{{attributes}}>
+	<section class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-6 col-md-9">
+				<div class="card card-register">
+					<div class="card-body">
+						<div class="text-center sticker-grisou mb-5">
+							<img class="img-fluid" src="{{ asset('images/grisou_sticker.png') }}" alt="Sticker de chat">
+							<h1>{{ this.title }}</h1>
+							<h2>{{ this.subTitle }}</h2>
+						</div>
+						{% block content %}{% endblock %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

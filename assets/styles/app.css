@@ -138,3 +138,11 @@ nav {
 .card-register .btn {
     border-radius: 20px;
 }
+
+/* initial letters of the users */
+.avatar-letters {
+    width: 40px;
+    height: 40px;
+    color: white;
+    background-color: var(--capuccino);
+}

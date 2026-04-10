@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réinitialser votre mot de passe
+{% endblock %}
+
+{% block body %}
+
+<twig:FormCard title="Choississez un nouveau mot de passe">
+
+	{{ form_start(resetForm) }}
+	{{ form_row(resetForm.plainPassword) }}
+	<div class="alert alert-light">
+		<p class="fw-semibold">
+			Conseils :
+		</p>
+		<ul>
+			<li>Au moins 12 caractères</li>
+			<li>Mélangez lettres, chiffres et caractères spéciaux</li>
+			<li>Évitez les mots de passe courants</li>
+		</ul>
+	</div>
+	<button type="submit" class="btn btn-primary w-100 my-4">Confirmer</button>
+	{{ form_end(resetForm) }}
+</twig:FormCard {% endblock %}

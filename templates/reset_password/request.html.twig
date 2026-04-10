@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Mot de passe oublié - Catpuccino
+{% endblock %}
+
+{% block body %}
+
+	<twig:FormCard title="Réinitialiser votre mot de passe">
+		{% for flash_error in app.flashes('reset_password_error') %}
+			<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+		{% endfor %}
+
+		{{ form_start(requestForm) }}
+		{{ form_row(requestForm.email) }}
+		<div>
+			<small class="mt-4">
+				Si votre adresse e-mail est correcte et associée à un compte chez nous, vous recevrez un lien pour réinitialiser votre mot de passe d'ici quelques instants.
+			</small>
+		</div>
+
+		<button type="submit" class="btn btn-primary w-100 my-4">Envoyer le lien de récupération</button>
+		{{ form_end(requestForm) }}
+
+	</twig:FormCard>
+{% endblock %}

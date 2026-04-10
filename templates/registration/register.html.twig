@@ -1,52 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register
+{% block title %}Inscription - Catpuccino
 {% endblock %}
 
 {% block body %}
-	<section class="container py-5">
-		<div class="row justify-content-center">
-			<div class="col-lg-6 col-md-9">
-				<div class="card card-register">
-					<div class="card-body">
-						<div class="text-center sticker-grisou mb-5">
-							<img class="img-fluid" src="images/grisou_sticker.png" alt="Sticker de chat">
-							<h1>Rejoignez Catpuccino !</h1>
-							<h2>Créer votre compte</h2>
-						</div>
+	<twig:FormCard title="Rejoignez Catpuccino !" subtitle="Créer votre compte">
+		{% for flash_error in app.flashes('verify_email_error') %}
+			<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+		{% endfor %}
 
-						{% for flash_error in app.flashes('verify_email_error') %}
-							<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-						{% endfor %}
+		{{ form_start(registrationForm) }}
 
-						{{ form_errors(registrationForm) }}
-
-						{{ form_start(registrationForm) }}
+		{{ form_errors(registrationForm) }}
 
 
-						<div class="row">
-							<div class="col-md-6">
-								{{ form_row(registrationForm.lastname) }}
-							</div>
-							<div class="col-md-6">
-								{{ form_row(registrationForm.firstname) }}
-							</div>
-						</div>
-						{{ form_row(registrationForm.email) }}
-						{{ form_row(registrationForm.allergen) }}
-						{{ form_row(registrationForm.plainPassword.first) }}
-						{{ form_row(registrationForm.plainPassword.second) }}
-						{{ form_row(registrationForm.agreeTerms) }}
-
-						<button type="submit" class="btn btn-primary w-100">S'inscrire</button>
-						{{ form_end(registrationForm) }}
-						<p class="text-center text-muted mt-4">
-							Vous avez déjà un compte ?
-							<a href="{{ path('app_login')}}" class="fw-semibold">Connectez-vous</a>
-						</p>
-					</div>
-				</div>
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_row(registrationForm.lastname) }}
+			</div>
+			<div class="col-md-6">
+				{{ form_row(registrationForm.firstname) }}
 			</div>
 		</div>
-	</section>
+		{{ form_row(registrationForm.email) }}
+		{{ form_row(registrationForm.allergen) }}
+		{{ form_row(registrationForm.plainPassword.first) }}
+		{{ form_row(registrationForm.plainPassword.second) }}
+		{{ form_row(registrationForm.agreeTerms) }}
+
+		<button type="submit" class="btn btn-primary w-100">S'inscrire</button>
+		{{ form_end(registrationForm) }}
+		<p class="text-center text-muted mt-4">
+			Vous avez déjà un compte ?
+			<a href="{{ path('app_login')}}" class="fw-semibold">Connectez-vous</a>
+		</p>
+
+	</twig:FormCard>
 {% endblock %}

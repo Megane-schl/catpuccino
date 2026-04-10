@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ title }}
+	- Catpuccino
+{% endblock %}
+
+{% block body %}
+	<twig:BootstrapButton type="secondary" link="{{ path('app_user') }}" text="Retour à la liste"/>
+	<twig:FormCard title="{{ title }}" subtitle="{{ subtitle }}">
+		{{ form(userForm) }}
+			<button type="submit" class="btn btn-primary w-100 my-4">Confirmer</button>
+		</twig:FormCard>
+	{% endblock %}

@@ -1,67 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!
+{% block title %}
+	Connexion - Catpuccino
 {% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+	<twig:FormCard title="Bon retour parminou !" subtitle="Connectez-vous">
 
-    {% if app.user %}
-    <div class="mb-3">
-        You are logged in as
-        {{ app.user.userIdentifier }},
-        <a href="{{ logout_path() }}">Logout</a>
-    </div>
-    {% endif %}
-    <section class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-9">
-                <div class="card card-register">
-                    <div class="card-body">
-                        <div class="text-center sticker-grisou mb-5">
-                            <img class="img-fluid" src="images/grisou_sticker.png" alt="Sticker de chat">
-                            <h1>Bon retour parminou !</h1>
-                            <h2>Connectez-vous à votre compte</h2>
+		{% if app.user %}
+			<div class="mb-3">
+				Vous êtes connecté en tant que
+				{{ app.user.userIdentifier }},
+				<a href="{{ logout_path() }}">Déconnexion</a>
+			</div>
+		{% endif %}
 
-                        </div>
-                        <div class="mb-3">
-                            <label for="username" class="mb-2">Adresse e-mail</label>
-                            <input type="email" value="{{ last_username }}" name="_username" id="username"
-                                class="form-control" autocomplete="email" required autofocus>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="mb-2">Mot de passe</label>
-                            <input type="password" name="_password" id="password" class="form-control"
-                                autocomplete="current-password" required>
-                            <input type="hidden" name="_csrf_token" data-controller="csrf-protection"
-                                value="{{ csrf_token('authenticate') }}">
-                        </div>
-                        {#
-                        Uncomment this section and add a remember_me option below your firewall to activate remember me
-                        functionality.
-                        See https://symfony.com/doc/current/security/remember_me.html
-                        #}
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="_remember_me" id="_remember_me">
-                                <label for="_remember_me">Se souvenir de moi</label>
-                            </div>
-                            <a href="" class="d-flex">Mot de passe oublié ?</a>
-                        </div>
+		{% if error %}
+			<div class="alert alert-danger">
+				Adresse e-mail ou mot de passe invalide
+			</div>
+		{% endif %}
+		<form method="post">
+			<div class="mb-3">
+				<label for="username" class="mb-2">Adresse e-mail</label>
+				<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+			</div>
+			<div class="mb-3">
+				<label for="password" class="mb-2">Mot de passe</label>
+				<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+				<input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+			</div>
+			<!-- Remember me -->
+			<div class="d-flex justify-content-between align-items-center mb-3">
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="_remember_me" id="_remember_me">
+					<label for="_remember_me">Se souvenir de moi</label>
+				</div>
+				<!-- Forget password-->
+				<a href="{{ path('app_forgot_password_request') }}" class="d-flex">Mot de passe oublié ?</a>
+			</div>
 
-
-                        <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
-                        <p class="text-center text-muted mt-4">
-                            Vous n'avez pas de compte ?
-                            <a href="{{ path('app_register') }}" class="fw-semibold">Inscrivez-vous</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</form>
-{% endblock %}
+			<!-- No account ?-->
+			<button type="submit" class="btn btn-primary w-100">Se connecter</button>
+		</form>
+		<p class="text-center text-muted mt-4">
+			Vous n'avez pas de compte ?
+			<a href="{{ path('app_register') }}" class="fw-semibold">Inscrivez-vous</a>
+		</p>
+	</twig:FormCard>
+</div></form>{% endblock %}
