@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affecter des rôles - Catpuccino
+{% endblock %}
+
+{% block body %}
+	<div class="container text-center mt-5">
+		<twig:BootstrapButton type="dark" link="{{ path('app_user') }}" text="Retour à la liste"/>
+	</div>
+	<twig:FormCard
+		title="{{ title }}" subtitle="{{ subtitle }}">
+		{# if error, there will be a bootstrap error #}
+		{% if formError %}
+			<div class="alert alert-danger" role="alert">{{ formError }}</div>
+		{% endif %}
+
+		{# Manual form #}
+		<form method="POST" action="{{ path('app_user_roles', { id: user.id }) }}">
+
+			<div class="form-check form-switch">
+				<input type="checkbox" class="form-check-input" {% if 'ROLE_ADMIN' in user.roles %} checked {% endif %} name="user-role-admin" id="user-role-admin"/>
+
+				<label class="form-check-label" for="user-role-admin">
+					Administrateur
+					<twig:ux:icon name="eos-icons:admin"/>
+				</label>
+			</div>
+			<div class="form-check form-switch">
+				<input type="checkbox" class="form-check-input" {% if 'ROLE_MODO' in user.roles %} checked {% endif %} name="user-role-modo" id="user-role-modo"/>
+				<label class="form-check-label" for="user-role-modo">
+					Modérateur
+					<twig:ux:icon name="eos-icons:admin-outlined"/>
+				</label>
+			</div>
+
+			{# CSRF TOKEN #}
+			<input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('user_role') }}">
+
+			<button type="submit" class="btn btn-primary w-100 my-4">Enregister</button>
+		</form>
+	</twig:FormCard>
+{% endblock %}

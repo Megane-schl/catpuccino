@@ -7,8 +7,11 @@
 
 	<section class="container my-5">
 		<h1 class="mb-5 text-center">Gestion des utilisateurs</h1>
+		<div class="d-flex justify-content-end align-items-center my-5">
+			<twig:BootstrapButton type="success" link="{{ path('app_user_create') }}" text="+ Nouvel utilisateur"/>
+		</div>
 
-		<table class="table table-striped">
+		<table class="table table-striped align-middle">
 			<thead class="table-dark">
 				<tr class="text-center">
 					<th scope="col">ID</th>
@@ -36,8 +39,22 @@
 						<td>{{ user.email }}</td>
 						<td>
 							{% for role in user.roles %}
-								<span class="badge text-bg-info rounded-pill">{{ role }}</span>
+								<!-- default color -->
+								{% set badgeColor = 'secondary' %}
+								{% set badgeRole = role %}
+								{% if role == 'ROLE_ADMIN' %}
+									{% set badgeColor = 'success' %}
+									{% set badgeRole = 'Administrateur' %}
+								{% elseif role == 'ROLE_MODO' %}
+									{% set badgeColor = 'dark' %}
+									{% set badgeRole = 'Modérateur' %}
+								{% elseif role == 'ROLE_USER' %}
+									{% set badgeColor = 'info' %}
+									{% set badgeRole = 'Utilisateur' %}
+								{% endif %}
+								<span class="badge text-bg-{{ badgeColor }} rounded-pill">{{ badgeRole }}</span>
 							{% endfor %}
+
 						</td>
 						<td>
 							{% if user.isBan %}
@@ -48,10 +65,10 @@
 						</td>
 						<td>
 							<div class="d-flex justify-content-center gap-2">
-								<twig:BootstrapButton type="primary" link="" text="Modifier"/>
-								<twig:BootstrapButton type="dark" link="" text="Affecter des rôles"/>
-								<twig:BootstrapButton type="light" link="" text="Bannir"/>
-								<twig:BootstrapButton type="danger" link="" text="Supprimer"/>
+								<twig:BootstrapButton type="primary" link="{{ path('app_user_update', { id: user.id }) }}" size="sm" text="Modifier"/>
+								<twig:BootstrapButton type="dark" link="{{ path('app_user_roles', { id: user.id }) }}" size="sm" text="Affecter des rôles"/>
+								<twig:BootstrapButton type="warning" link="" size="sm" text="Bannir"/>
+								<twig:BootstrapButton type="danger" link="" size="sm" text="Supprimer"/>
 							</div>
 						</td>
 					</tr>
