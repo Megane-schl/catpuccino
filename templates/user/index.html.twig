@@ -67,8 +67,8 @@
 							<div class="d-flex justify-content-center gap-2">
 								<twig:BootstrapButton type="primary" link="{{ path('app_user_update', { id: user.id }) }}" size="sm" text="Modifier"/>
 								<twig:BootstrapButton type="dark" link="{{ path('app_user_roles', { id: user.id }) }}" size="sm" text="Affecter des rôles"/>
-								<twig:BootstrapButton type="warning" link="" size="sm" text="Bannir"/>
-								<twig:BootstrapButton type="danger" link="" size="sm" text="Supprimer"/>
+								<twig:BootstrapButton type="warning" link="{{ path('app_user_ban', { id: user.id }) }}" size="sm" text="{{ user.isBan ? 'Débannir' : 'Bannir' }}"/>
+								<twig:BootstrapButton type="danger" link="{{ path('app_user_delete', { id: user.id }) }}" size="sm" text="Supprimer"/>
 							</div>
 						</td>
 					</tr>
