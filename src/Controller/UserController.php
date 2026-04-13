@@ -7,11 +7,13 @@ use App\Form\UserInfoFormType;
 use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class UserController extends AbstractController
@@ -90,7 +92,8 @@ final class UserController extends AbstractController
      * @return Response The success or the failure of updating the user and redirect to the user list
      */
     #[Route('/user/{id<\d+>}/update', name: 'app_user_update')]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_USER')]
+    #[IsGranted('USER_EDIT', subject: 'user', message: "Droit insuffisant pour la modification")]
     public function update(
         User $user,
         Request $request,
@@ -138,6 +141,7 @@ final class UserController extends AbstractController
      */
     #[Route('/user/{id<\d+>}/roles', name: 'app_user_roles')]
     #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('USER_ROLE', subject: 'user', message: "Droit insuffisant pour la modification")]
     public function updateRoles(
         User $user,
         Request $request,
@@ -185,20 +189,19 @@ final class UserController extends AbstractController
      * @param EntityManagerInterface $entityManager Use to save and change the data
      * @return Response The success or the failure of deleting the user and redirect to the user list
      */
-    #[Route('/user/{id<\d+>}/delete', name: 'app_user_delete')]
+    #[Route('/user/{id<\d+>}/delete', name: 'app_user_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('USER_DELETE', subject: 'user', message: "Droit insuffisant pour la suppression")]
+    #[IsCsrfTokenValid('delete-user', '_csrf_token')]
     public function delete(User $user, EntityManagerInterface $entityManager): Response
     {
-        //in case the admin try to delete himself
-        if ($user == $this->getUser()) {
-
-            $this->addFlash('danger', "Vous ne pouvez pas supprimer votre propre compte");
-            return $this->redirectToRoute('app_user');
+        try {
+            $user->setDeletedAt(new DateTimeImmutable('now'));
+            $entityManager->flush();
+            $this->addFlash('success', "L'utilisateur a été supprimé");
+        } catch (Exception $exc) {
+            $this->addFlash('danger', "Une erreur est survenue. Réessayez");
         }
-
-        $user->setDeletedAt(new DateTimeImmutable('now'));
-        $entityManager->flush();
-        $this->addFlash('success', "L'utilisateur a été supprimé");
 
         return $this->redirectToRoute('app_user');
     }
@@ -207,28 +210,27 @@ final class UserController extends AbstractController
      * Method to ban or urban an user
      * @param User $user The user ban/unban
      * @param EntityManagerInterface $entityManager Use to save and change the data
-     * @return Response The success or the failure of banning/unbanning the user and redirect to the user list
+     * @return Response The success or the failure of banning/unban the user and redirect to the user list
      */
-    #[Route('/user/{id<\d+>}/ban', name: 'app_user_ban')]
+    #[Route('/user/{id<\d+>}/ban', name: 'app_user_ban', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('USER_BAN', subject: 'user', message: "Droit insuffisant pour le bannissement")]
+    #[IsCsrfTokenValid('ban-user', '_csrf_token')]
     public function ban(User $user, EntityManagerInterface $entityManager): Response
     {
-        //in case the admin try to ban himself
-        if ($user == $this->getUser()) {
 
-            $this->addFlash('danger', "Vous ne pouvez pas bannir votre propre compte");
-            return $this->redirectToRoute('app_user');
+        try {
+            $user->setIsBan(!$user->isBan()); // if the user is ban : unban, if the user is not banned : ban
+            $entityManager->flush();
+            if ($user->isBan()) {
+                $this->addFlash('success', "L'utilisateur " . $user->getFirstname() . ' ' . $user->getLastname() . " a été banni");
+            } else {
+                $this->addFlash('success', "L'utilisateur " . $user->getFirstname() . ' ' . $user->getLastname() . " a été débanni");
+            }
+        } catch (Exception $exc) {
+            $this->addFlash('danger', "Une erreur est survenue");
         }
 
-        if ($user->isBan()) {
-            $user->setIsBan(false);
-            $this->addFlash('warning', "L'utilisateur a été débanni");
-        } else {
-            $user->setIsBan(true);
-            $this->addFlash('success', "L'utilisateur a été banni");
-        }
-
-        $entityManager->flush();
         return $this->redirectToRoute('app_user');
     }
 }
