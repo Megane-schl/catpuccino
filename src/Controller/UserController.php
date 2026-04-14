@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[Route('/user', name: 'app_user_')]
 final class UserController extends AbstractController
 {
     /**
@@ -23,11 +24,11 @@ final class UserController extends AbstractController
      * @param UserRepository $userRepository to collect the users
      * @return Response the list of the users
      */
-    #[Route('/user', name: 'app_user')]
+    #[Route('/', name: 'index')]
     #[IsGranted('ROLE_ADMIN')]
     public function index(UserRepository $userRepository): Response
     {
-        $arrUsers = $userRepository->findAll();
+        $arrUsers = $userRepository->findAllActive();
 
         return $this->render('user/index.html.twig', [
             'userList' => $arrUsers
@@ -41,7 +42,7 @@ final class UserController extends AbstractController
      * @return Response The success or the failure of the creating user and redirect to the user list
      */
 
-    #[Route('/user/create', name: 'app_user_create')]
+    #[Route('/create', name: 'create')]
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
@@ -73,7 +74,7 @@ final class UserController extends AbstractController
 
             $this->addFlash('success', "L'utilisateur a été créé");
 
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('app_user_index');
         }
 
         return $this->render('user/form.html.twig', [
@@ -91,7 +92,7 @@ final class UserController extends AbstractController
      * @param EntityManagerInterface Use to save and change data
      * @return Response The success or the failure of updating the user and redirect to the user list
      */
-    #[Route('/user/{id<\d+>}/update', name: 'app_user_update')]
+    #[Route('/{id<\d+>}/update', name: 'update')]
     #[IsGranted('ROLE_USER')]
     #[IsGranted('USER_EDIT', subject: 'user', message: "Droit insuffisant pour la modification")]
     public function update(
@@ -122,7 +123,7 @@ final class UserController extends AbstractController
 
             $this->addFlash('success', "L'utilisateur a été mis à jour");
 
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('app_user_index');
         }
 
         return $this->render('user/form.html.twig', [
@@ -139,7 +140,7 @@ final class UserController extends AbstractController
      * @param EntityManagerInterface Use to save and change the role of the user
      * @return Response The success or the failure of updating the user and redirect to the user list
      */
-    #[Route('/user/{id<\d+>}/roles', name: 'app_user_roles')]
+    #[Route('/{id<\d+>}/roles', name: 'roles')]
     #[IsGranted('ROLE_ADMIN')]
     #[IsGranted('USER_ROLE', subject: 'user', message: "Droit insuffisant pour la modification")]
     public function updateRoles(
@@ -169,7 +170,7 @@ final class UserController extends AbstractController
 
                 $this->addFlash('success', "Les rôles de l'utilisateur ont été modifiés");
 
-                return $this->redirectToRoute('app_user');
+                return $this->redirectToRoute('app_user_index');
             }
 
             $strFormError = "Le jeton de sécurité n'est pas valide. Réessayez ou actualisez la page";
@@ -189,7 +190,7 @@ final class UserController extends AbstractController
      * @param EntityManagerInterface $entityManager Use to save and change the data
      * @return Response The success or the failure of deleting the user and redirect to the user list
      */
-    #[Route('/user/{id<\d+>}/delete', name: 'app_user_delete', methods: ['POST'])]
+    #[Route('/{id<\d+>}/delete', name: 'delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     #[IsGranted('USER_DELETE', subject: 'user', message: "Droit insuffisant pour la suppression")]
     #[IsCsrfTokenValid('delete-user', '_csrf_token')]
@@ -203,7 +204,7 @@ final class UserController extends AbstractController
             $this->addFlash('danger', "Une erreur est survenue. Réessayez");
         }
 
-        return $this->redirectToRoute('app_user');
+        return $this->redirectToRoute('app_user_index');
     }
 
     /**
@@ -212,7 +213,7 @@ final class UserController extends AbstractController
      * @param EntityManagerInterface $entityManager Use to save and change the data
      * @return Response The success or the failure of banning/unban the user and redirect to the user list
      */
-    #[Route('/user/{id<\d+>}/ban', name: 'app_user_ban', methods: ['POST'])]
+    #[Route('/{id<\d+>}/ban', name: 'ban', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     #[IsGranted('USER_BAN', subject: 'user', message: "Droit insuffisant pour le bannissement")]
     #[IsCsrfTokenValid('ban-user', '_csrf_token')]
@@ -231,6 +232,6 @@ final class UserController extends AbstractController
             $this->addFlash('danger', "Une erreur est survenue");
         }
 
-        return $this->redirectToRoute('app_user');
+        return $this->redirectToRoute('app_user_index');
     }
 }

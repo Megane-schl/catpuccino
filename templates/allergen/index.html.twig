@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des allergènes - Catpuccino
+{% endblock %}
+
+{% block body %}
+
+	<section class="container my-5">
+		<h1 class="mb-5 text-center">Gestion des allergènes</h1>
+		<div class="d-flex justify-content-end align-items-center my-5">
+			<twig:BootstrapButton type="success" link="{{ path('app_allergen_create') }}" text="+ Ajouter un allergène"/>
+		</div>
+
+		<table class="table table-hover table-borderless align-middle shadow-sm">
+			<thead class="table-dark">
+				<tr class="text-center">
+					<th scope="col">Icone</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Informations</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for allergen in allergenList %}
+					<tr>
+						<td class="text-center">
+							<div class="p-2 bg-light rounded d-inline-block border">
+								<twig:ux:icon name="streamline-plump:allergens-gluten-remix" class="w-8 h-8 text-warning"/>
+							</div>
+						</td>
+						<td class="fw-bold text-center">{{ allergen.name }}</td>
+						<td class="small text-muted">
+							{{ allergen.info }}
+						</td>
+						<td class="text-center">
+							<div class="d-flex justify-content-center gap-2">
+								<twig:BootstrapButton type="primary" link="{{ path('app_allergen_update', { id: allergen.id }) }}" size="sm" text="Modifier" :outlined="true"/>
+								<button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ allergen.id }}">
+									Supprimer
+								</button>
+								<twig:BootstrapModal id="deleteModal-{{ allergen.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir supprimer l'allergène {{ allergen.name }} ?" action="{{ path('app_allergen_delete', { id: allergen.id } ) }}" token="delete-allergen"/>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</section>
+{% endblock %}

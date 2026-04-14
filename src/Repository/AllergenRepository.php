@@ -40,4 +40,13 @@ class AllergenRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findAllActive()
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->where('al.deletedAt is NULL')
+            ->orderBy('al.id', 'DESC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block body %}
+
 	<div class="container text-center mt-5">
-		<twig:BootstrapButton type="dark" link="{{ path('app_user_index') }}" text="Retour à la liste"/>
+		<twig:BootstrapButton type="dark" link="{{ path('app_allergen_index') }}" text="Retour à la liste"/>
 	</div>
 	<twig:FormCard title="{{ title }}" subtitle="{{ subtitle }}">
-		{{ form(userForm) }}
+		{{ form(createForm) }}
 		</twig:FormCard>
 	{% endblock %}

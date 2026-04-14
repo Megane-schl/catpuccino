@@ -5,7 +5,9 @@ namespace App\Entity;
 use App\Repository\AllergenRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AllergenRepository::class)]
 #[ORM\Table(name: 'allergens')]
@@ -17,7 +19,12 @@ class Allergen
     private ?int $id = null;
 
     #[ORM\Column(name: 'allergen_name', length: 40)]
+    #[Assert\NotBlank(message: "Le nom est obligatoire")]
     private ?string $name = null;
+
+    #[ORM\Column(name: 'allergen_info', type: Types::TEXT)]
+    #[Assert\NotBlank(message: "La description complémentaire est obligatoire")]
+    private ?string $info = null;
 
     #[ORM\Column(name: 'allergen_created_at')]
     private ?\DateTimeImmutable $createdAt = null;
@@ -28,17 +35,20 @@ class Allergen
     #[ORM\Column(name: 'allergen_deleted_at', nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
 
+
     /**
      * @var Collection<int, Ingredient>
      */
     #[ORM\ManyToMany(targetEntity: Ingredient::class, mappedBy: 'allergen')]
     private Collection $ingredients;
 
+
     /**
      * @var Collection<int, User>
      */
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'allergen')]
     private Collection $users;
+
 
     public function __construct()
     {
@@ -59,6 +69,18 @@ class Allergen
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getInfo(): ?string
+    {
+        return $this->info;
+    }
+
+    public function setInfo(string $info): static
+    {
+        $this->info = $info;
 
         return $this;
     }

@@ -11,7 +11,7 @@
 			<twig:BootstrapButton type="success" link="{{ path('app_user_create') }}" text="+ Nouvel utilisateur"/>
 		</div>
 
-		<table class="table table-striped align-middle">
+		<table class="table table-hover table-striped align-middle">
 			<thead class="table-dark">
 				<tr class="text-center">
 					<th scope="col">ID</th>
@@ -66,19 +66,21 @@
 						<td>
 							<div class="d-flex justify-content-center gap-2">
 								<twig:BootstrapButton type="primary" link="{{ path('app_user_update', { id: user.id }) }}" size="sm" text="Modifier"/>
-								<twig:BootstrapButton
-								type="dark" link="{{ path('app_user_roles', { id: user.id }) }}" size="sm" text="Affecter des rôles"/>
-								<!-- ban modal -->
-								<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#banModal-{{ user.id }}">
-									{{ user.isBan ? 'Débannir' : 'Bannir' }}
-								</button>
-								<twig:BootstrapModal
-								id="banModal-{{ user.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir {{ user.isBan ? 'débannir' : 'bannir' }} {{ user.lastname ~ ' ' ~ user.firstname }} ?" action="{{ path('app_user_ban', { id: user.id } ) }}" token="ban-user"/>
-								<!-- delete modal -->
-								<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ user.id }}">
-									Supprimer
-								</button>
-								<twig:BootstrapModal id="deleteModal-{{ user.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir supprimer {{ user.lastname ~ ' ' ~ user.firstname }} ?" action="{{ path('app_user_delete', { id: user.id } ) }}" token="delete-user"/>
+								{% if user.id != app.user.id %}
+									<twig:BootstrapButton
+									type="dark" link="{{ path('app_user_roles', { id: user.id }) }}" size="sm" text="Affecter des rôles"/>
+									{# ban modal #}
+									<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#banModal-{{ user.id }}">
+										{{ user.isBan ? 'Débannir' : 'Bannir' }}
+									</button>
+									{# delete modal #}
+									<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ user.id }}">
+										Supprimer
+									</button>
+									<twig:BootstrapModal id="banModal-{{ user.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir {{ user.isBan ? 'débannir' : 'bannir' }} {{ user.lastname ~ ' ' ~ user.firstname }} ?" action="{{ path('app_user_ban', { id: user.id } ) }}" token="ban-user"/>
+									<twig:BootstrapModal id="deleteModal-{{ user.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir supprimer {{ user.lastname ~ ' ' ~ user.firstname }} ?" action="{{ path('app_user_delete', { id: user.id } ) }}" token="delete-user"/>
+
+								{% endif %}
 							</div>
 						</td>
 					</tr>
