@@ -70,11 +70,11 @@ final class IngredientController extends AbstractController
     }
 
     /**
-     * Method to create a new ingredient in the database
-     * @param Request $request To collect the new ingredient
-     * @param EntityManagerInterface $entityManager Use to create the new ingredient
+     * Method to update an ingredient in the database
+     * @param Request $request To collect the news informations about the ingredient
+     * @param EntityManagerInterface $entityManager Use to update the ingredient
      * @param Ingredient $ingredient The ingredient to update
-     * @return Response The success or the failure of the creating an ingredient and redirect to the ingredient list
+     * @return Response The success or the failure of updating an ingredient and redirect to the ingredient list
      */
     #[Route('/{id<\d+>}/update', name: 'update')]
     #[IsGranted('ROLE_MODO')]

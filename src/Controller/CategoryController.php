@@ -67,11 +67,11 @@ final class CategoryController extends AbstractController
     }
 
     /**
-     * Method to update a new category in the database
-     * @param Request $request To collect the new category
-     * @param EntityManagerInterface $entityManager Use to create the new category
+     * Method to update a category in the database
+     * @param Request $request To collect the news informations about the category
+     * @param EntityManagerInterface $entityManager Use to update the category
      * @param Category $category The category to update
-     * @return Response The success or the failure of the creating a category and redirect to the category list
+     * @return Response The success or the failure of updating the category and redirect to the category list
      */
     #[Route('/{id<\d+>}/update', name: 'update')]
     #[IsGranted('ROLE_MODO')]

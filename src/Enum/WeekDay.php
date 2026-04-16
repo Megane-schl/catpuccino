@@ -4,11 +4,11 @@ namespace App\Enum;
 
 enum WeekDay: string
 {
-    case Lundi      = 'lundi';
-    case Mardi      = 'mardi';
-    case Mercredi   = 'mercredi';
-    case Jeudi      = 'jeudi';
-    case Vendredi   = 'vendredi';
-    case Samedi     = 'samedi';
-    case Dimanche   = 'dimanche';
+    case Monday         = 'Lundi';
+    case Tuesday        = 'Mardi';
+    case Wednesday      = 'Mercredi';
+    case Thursday       = 'Jeudi';
+    case Friday         = 'Vendredi';
+    case Saturday       = 'Samedi';
+    case Sunday         = 'Dimanche';
 }

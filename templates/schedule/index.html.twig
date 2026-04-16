@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des horaires - Catpuccino
+{% endblock %}
+
+{% block body %}
+
+	<section class="container my-5">
+		<h1 class="mb-5 text-center">Gestion des horaires du café</h1>
+
+		<table class="table table-hover table-borderless align-middle shadow-sm">
+			<thead class="table-dark">
+				<tr class="text-center">
+					<th scope="col">Jour de la semaine</th>
+					<th scope="col">Café fermé</th>
+					<th scope="col">Heure d'ouverture</th>
+					<th scope="col">Heure de fermeture</th>
+					<th scope="col">Maximum de clients</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for schedule in scheduleList %}
+					<tr class="text-center">
+						<td class="fw-bold">
+							{{ schedule.day.value }}
+						</td>
+
+						<td>
+							{% if schedule.isClose %}
+								<span class="badge bg-danger">Fermé</span>
+							{% else %}
+								<span class="badge bg-success">Ouvert</span>
+							{% endif %}
+						</td>
+						<td>
+							{% if schedule.isClose %}
+								-
+							{% else %}
+								{{ schedule.openTime|date('H:i') }}
+							{% endif %}
+						</td>
+						<td>
+							{% if schedule.isClose %}
+								-
+							{% else %}
+								{{ schedule.closeTime|date('H:i') }}
+							{% endif %}
+						</td>
+						<td>
+							{% if schedule.isClose %}
+								-
+							{% else %}
+								{{ schedule.maxPeople }}
+								personnes</td>
+						{% endif %}
+						<td>
+							<div>
+								<twig:BootstrapButton type="primary" link="{{ path('app_schedule_update', { id: schedule.id }) }}" size="sm" text="Modifier"/>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</tbody>
+		</tr>
+	{% endfor %}
+</tbody></table></section>{% endblock %}

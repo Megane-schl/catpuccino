@@ -16,6 +16,19 @@ class ScheduleRepository extends ServiceEntityRepository
         parent::__construct($registry, Schedule::class);
     }
 
+    /**
+     * Method to show all the days in correct order
+     * @return array The list of days sorted in ASC order
+     */
+
+    public function findAllDayOrder(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->orderBy('s.id', 'ASC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Schedule[] Returns an array of Schedule objects
     //     */

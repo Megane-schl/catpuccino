@@ -34,7 +34,7 @@ final class AllergenController extends AbstractController
     }
 
     /**
-     * Method to create an new allergen in the database
+     * Method to create a new allergen in the database
      * @param Request $request To collect the new allergen
      * @param EntityManagerInterface $entityManager Use to create the new allergen
      * @return Response The success or the failure of the creating an allergen and redirect to the allergen list
@@ -70,11 +70,11 @@ final class AllergenController extends AbstractController
     }
 
     /**
-     * Method to update a new allergen in the database
-     * @param Request $request To collect the new allergen
-     * @param EntityManagerInterface $entityManager Use to create the new allergen
+     * Method to update an allergen in the database
+     * @param Request $request To collect the news informations about the allergen
+     * @param EntityManagerInterface $entityManager Use to update the allergen
      * @param Allergen $allergen The allergen to update
-     * @return Response The success or the failure of the creating an allergen and redirect to the allergen list
+     * @return Response The success or the failure of updating an allergen and redirect to the allergen list
      */
     #[Route('/{id<\d+>}/update', name: 'update')]
     #[IsGranted('ROLE_MODO')]

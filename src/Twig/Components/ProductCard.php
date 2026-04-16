@@ -21,7 +21,7 @@ final class ProductCard
      * @param string $season The season name of the product
      * @param array $actions The differents buttons depend on the user roles
      */
-    public function mount(string $name, float $price, string $img, string $season, array $actions = []): void
+    public function mount(string $name, float $price, string $img, string $season = '', array $actions = []): void
     {
         $this->_strName         = $name;
         $this->_flPrice         = $price;

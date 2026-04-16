@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réserver un créneau - Catpuccino
+{% endblock %}
+
+
+{% block body %}
+
+	<section class="container">
+		<h1>Réserver un créneau</h1>
+		{# form 1 : to select the date and show the time slot available for this date #}
+		<form method="get">
+			<div class="mb-3">
+				<label for="date" class="mb-2">Date</label>
+				<input type="text" name="date" id="date" class="form-control flatpickr" value="" placeholder="Choisissez une date" required>
+			</div>
+			<button type="submit" class="btn btn-secondary">Voir les créneau disponible pour cette date</button>
+		</form>
+
+		{# form 2 : time slot available for the date #}
+		<form method="post">
+			<input type="hidden" name="_csrf_token" value="">
+			<input type="hidden" name="date" value="">
+
+			<div class="mb-3">
+				<label class="mb-2">Créneau(x) disponible(s)</label>
+			</div>
+		</section>
+	{% endblock %}

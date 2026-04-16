@@ -2,9 +2,12 @@
 
 namespace App\Story;
 
+use App\Enum\WeekDay;
 use App\Factory\AllergenFactory;
 use App\Factory\IngredientFactory;
+use App\Factory\ScheduleFactory;
 use App\Factory\UserFactory;
+use DateTimeImmutable;
 use Zenstruck\Foundry\Attribute\AsFixture;
 use Zenstruck\Foundry\Story;
 
@@ -175,7 +178,7 @@ final class AppStory extends Story
             ],
             [
                 'name'      => 'Oeufs',
-                'isVegan'   => true,
+                'isVegan'   => false,
                 'allergen'  => [$objOeufs]
             ],
             [
@@ -206,7 +209,7 @@ final class AppStory extends Story
             [
                 'name'      => 'Miel',
                 'isVegan'   => false,
-                'allergen'  => [$objFruitsCoques]
+                'allergen'  => []
             ],
             [
                 'name'      => 'Beurre de cacahuète',
@@ -252,6 +255,59 @@ final class AppStory extends Story
                 'name'      => 'Granola maison',
                 'isVegan'   => false,
                 'allergen'  => [$objGluten, $objFruitsCoques, $objSesame]
+            ],
+
+        ]);
+
+        ScheduleFactory::createSequence([
+            [
+                'day'           => WeekDay::Monday,
+                'openTime'      => new DateTimeImmutable('09:30'),
+                'closeTime'     => new DateTimeImmutable('19:00'),
+                'isClose'       => true,
+                'maxPeople'     => 20,
+            ],
+            [
+                'day'           => WeekDay::Tuesday,
+                'openTime'      => new DateTimeImmutable('09:30'),
+                'closeTime'     => new DateTimeImmutable('19:00'),
+                'isClose'       => false,
+                'maxPeople'     => 20,
+            ],
+            [
+                'day'           => WeekDay::Wednesday,
+                'openTime'      => new DateTimeImmutable('09:30'),
+                'closeTime'     => new DateTimeImmutable('19:00'),
+                'isClose'       => false,
+                'maxPeople'     => 20,
+            ],
+            [
+                'day'           => WeekDay::Thursday,
+                'openTime'      => new DateTimeImmutable('10:30'),
+                'closeTime'     => new DateTimeImmutable('20:00'),
+                'isClose'       => false,
+                'maxPeople'     => 20,
+            ],
+            [
+                'day'           => WeekDay::Friday,
+                'openTime'      => new DateTimeImmutable('10:30'),
+                'closeTime'     => new DateTimeImmutable('20:00'),
+                'isClose'       => false,
+                'maxPeople'     => 20,
+            ],
+            [
+                'day'           => WeekDay::Saturday,
+                'openTime'      => new DateTimeImmutable('09:30'),
+                'closeTime'     => new DateTimeImmutable('20:00'),
+                'isClose'       => false,
+                'maxPeople'     => 30,
+            ],
+            [
+                'day'           => WeekDay::Sunday,
+                'openTime'      => new DateTimeImmutable('09:30'),
+                'closeTime'     => new DateTimeImmutable('20:00'),
+                'isClose'       => false,
+                'maxPeople'     => 30,
             ],
 
         ]);
