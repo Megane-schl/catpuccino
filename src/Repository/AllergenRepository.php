@@ -41,7 +41,12 @@ class AllergenRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findAllActive()
+    /**
+     * Method to show all the allergens that was not soft deleted
+     * @return array the list of the active allergens
+     */
+
+    public function findAllActive(): array
     {
         $queryBuilder = $this->createQueryBuilder('u')
             ->where('al.deletedAt is NULL')

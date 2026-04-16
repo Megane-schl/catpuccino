@@ -35,19 +35,23 @@ final class UserFactory extends PersistentObjectFactory
     #[\Override]
     protected function defaults(): array|callable
     {
+
+        $dteUpdatedAt = self::faker()->dateTime();
+        $dteDeletedAt = self::faker()->dateTime();
+
         return [
             'email'         => self::faker()->email(),
             'firstname'     => self::faker()->firstName(),
             'lastname'      => self::faker()->lastName(),
             'password'      => $this->userPasswordHasher->hashPassword(new User(), self::DEFAULT_PASSWORD),
             'isVerified'    => self::faker()->boolean(),
-            'isBan'         => self::faker()->boolean(10),
+            'isBan'         => self::faker()->boolean(0.1),
             'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            // 30% chance that updated at is filled with a datetime or else stay null
+            // 30% chance that updatedAt is filled with a datetime or else stay null
             'updatedAt' => self::faker()->boolean(0.3)
-                ? \DateTimeImmutable::createFromMutable(self::faker()->dateTime()) : null,
+                ? \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween($dteUpdatedAt, '+1 year')) : null,
             'deletedAt' => self::faker()->boolean(0.3)
-                ? \DateTimeImmutable::createFromMutable(self::faker()->dateTime()) : null,
+                ? \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween($dteDeletedAt, '+1 month')) : null,
             'roles' => [],
         ];
     }

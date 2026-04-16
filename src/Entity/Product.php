@@ -29,6 +29,9 @@ class Product
     #[ORM\Column(name: 'product_description', type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\Column(name: 'product_season_name', length: 100, nullable: true)]
+    private ?string $seasonName = null;
+
     #[ORM\Column(name: 'product_period_start', type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $periodStart = null;
 
@@ -120,6 +123,18 @@ class Product
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSeasonName(): ?string
+    {
+        return $this->seasonName;
+    }
+
+    public function setSeasonName(?string $seasonName): static
+    {
+        $this->seasonName = $seasonName;
 
         return $this;
     }

@@ -27,7 +27,7 @@ final class IngredientController extends AbstractController
     #[IsGranted('ROLE_MODO')]
     public function index(IngredientRepository $ingredientRepository): Response
     {
-        $arrIngredients = $ingredientRepository->findAll();
+        $arrIngredients = $ingredientRepository->findAllActive();
         return $this->render('ingredient/index.html.twig', [
             'ingredientList' => $arrIngredients,
         ]);
@@ -70,7 +70,7 @@ final class IngredientController extends AbstractController
     }
 
     /**
-     * Method to create an new ingredient in the database
+     * Method to create a new ingredient in the database
      * @param Request $request To collect the new ingredient
      * @param EntityManagerInterface $entityManager Use to create the new ingredient
      * @param Ingredient $ingredient The ingredient to update

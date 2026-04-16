@@ -33,7 +33,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
-    public function findAllActive()
+    /**
+     * Method to show all the users that was not soft deleted
+     * @return array the list of the active users
+     */
+
+    public function findAllActive(): array 
     {
         $queryBuilder = $this->createQueryBuilder('u')
             ->where('u.deletedAt is NULL')

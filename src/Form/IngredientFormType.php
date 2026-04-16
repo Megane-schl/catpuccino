@@ -29,16 +29,17 @@ class IngredientFormType extends AbstractType
                 'required'  => false, // <-- mean that he is not checked by default
                 'attr' => [
                     'class' => 'form-check-input',
-                ] 
+                ]
 
             ])
+
             ->add('allergen', EntityType::class, [
                 'label' => 'Allergène(s) associé(s)',
                 'class' => Allergen::class,
                 'choice_label' => 'name',
                 'multiple' => true,
                 'required' => false,
-                'expanded' => true 
+                'expanded' => true
             ])
 
             ->add('submit', SubmitType::class, [

@@ -1,22 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil - Catpuccino, café à chats
+{% block title %}Notre carte - Catpuccino
 {% endblock %}
 
+
 {% block body %}
-	<div class="container text-center my-5">
-		<h1>Notre carte</h1>
-		<p class="text-muted">tuyvujujh</p>
+	<div class="container py-5">
+		<div class="text-center mb-5">
+			<h1 class="display-4 fw-bold">La carte de Catpuccino</h1>
+			<p class="lead text-muted">Découvrez nos douceurs artisanales à savourer avec nos petits félins.</p>
+			<div class="d-flex justify-content-end align-items-center my-5">
+				<twig:BootstrapButton type="success" link="{{ path('app_product_create') }}" text="+ Ajouter un produit"/>
+			</div>
+		</div>
+
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+			{% for product in productList %}
+				<twig:ProductCard name="{{ product.name }}" price="{{ product.price }}" img="{{ product.img }}" season="{{ product.seasonName }}"/>
+			{% else %}
+				<div class="col-12 text-center text-muted">
+					Aucun produit disponible pour le moment.
+				</div>
+			{% endfor %}
+		</div>
 	</div>
-
-	<div class="container d-flex justify-content-center mb-4">
-		<form class="searchbar d-flex w-50" role="search" method="post" action="">
-			<input class="form-control me-2 rounded-pill" type="search" placeholder="Rechercher un produit..." aria-label="Rechercher" name="keywords" value="">
-			<button class="rounded-pill btn" type="submit">
-				Rechercher
-			</button>
-		</form>
-	</div>
-
-
 {% endblock %}

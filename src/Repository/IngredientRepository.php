@@ -16,6 +16,20 @@ class IngredientRepository extends ServiceEntityRepository
         parent::__construct($registry, Ingredient::class);
     }
 
+
+    /**
+     * Method to show all the ingredients that was not soft deleted
+     * @return array the list of the active ingredients
+     */
+
+    public function findAllActive(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('i')
+            ->where('i.deletedAt is NULL')
+            ->orderBy('i.id', 'DESC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
     //    /**
     //     * @return Ingredient[] Returns an array of Ingredient objects
     //     */

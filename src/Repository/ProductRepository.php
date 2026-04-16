@@ -16,6 +16,18 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    /**
+     * Method to show all the products that was not soft deleted
+     * @return array the list of the active products
+     */
+    public function findAllActive(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.deletedAt is NULL')
+            ->orderBy('p.id', 'DESC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
     //    /**
     //     * @return Product[] Returns an array of Product objects
     //     */

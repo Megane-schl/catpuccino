@@ -70,7 +70,7 @@ final class AllergenController extends AbstractController
     }
 
     /**
-     * Method to create an new allergen in the database
+     * Method to update a new allergen in the database
      * @param Request $request To collect the new allergen
      * @param EntityManagerInterface $entityManager Use to create the new allergen
      * @param Allergen $allergen The allergen to update

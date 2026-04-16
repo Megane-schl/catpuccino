@@ -8,6 +8,7 @@
     --capuccino: #643F24;
     --tiramisu2: #E1D4C2;
     --tiramisu: #593d3b;
+    --milkChocolate: #6F4E37;
 }
 
 .logo img {
@@ -145,4 +146,128 @@ nav {
     height: 40px;
     color: white;
     background-color: var(--capuccino);
+}
+
+
+#ingredient_form_allergen,
+#product_form_ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-weight: 400;
+}
+
+#ingredient_form_allergen .form-check,
+#product_form_ingredients .form-check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--tiramisu2);
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 4px 12px;
+    margin: 0;
+}
+
+#ingredient_form_allergen .form-check-input,
+#product_form_ingredients .form-check-input {
+    margin: 0;
+}
+
+.hover-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+}
+
+.transition-all {
+    transition: all 0.3s ease-in-out;
+}
+
+
+.card-product-custom {
+    border: 2px solid var(--milkChocolate);
+    background-color: #fdfaf8;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+}
+
+.img-wrapper {
+    overflow: hidden;
+    border-radius: 13px 13px 0 0;
+    background-color: #fdfaf8;
+}
+
+.img-wrapper img {
+    transition: transform 0.5s ease;
+}
+
+.card-product-custom:hover img {
+    transform: scale(1.1);
+}
+
+
+.card-title-product {
+    color: white;
+}
+
+.btn-custom {
+    border: 2px solid var(--milkChocolate);
+    color: white;
+    background: transparent;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: var(--milkChocolate);
+    color: white;
+}
+
+.badge-price {
+    background-color: var(--darkCoffee);
+    color: white;
+    border: none;
+}
+
+
+.card-product-custom {
+    border: 1px solid;
+    background-color: var(--darkCoffee);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+}
+
+
+.card-body {
+    background-color: transparent;
+}
+
+.img-wrapper img {
+    background-color: transparent;
+    transition: transform 0.5s ease;
+    height: 250px;
+    object-fit: contain;
+    padding: 15px;
+}
+
+.img-wrapper {
+    background-color: var(--milkChocolate);
+    overflow: hidden;
+}
+
+.card-text-product {
+    color: white;
+}
+
+.badge-custom {
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid #6F4E37;
+    color: #6F4E37;
+}
+
+
+.badge-status {
+    background-color: #6F4E37;
+    color: white;
 }
