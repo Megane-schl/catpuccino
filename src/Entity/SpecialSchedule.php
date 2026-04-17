@@ -18,10 +18,13 @@ class SpecialSchedule
     #[ORM\Column(name: 'spe_date', type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $date = null;
 
-    #[ORM\Column(name: 'spe_open_time', type: Types::TIME_IMMUTABLE)]
+    #[ORM\Column(name: 'spe_name', length: 100)]
+    private ?string $name = null;
+
+    #[ORM\Column(name: 'spe_open_time', type: Types::TIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $openTime = null;
 
-    #[ORM\Column(name: 'spe_close_time', type: Types::TIME_IMMUTABLE)]
+    #[ORM\Column(name: 'spe_close_time', type: Types::TIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $closeTime = null;
 
     #[ORM\Column(name: 'spe_is_closed')]
@@ -56,12 +59,24 @@ class SpecialSchedule
         return $this;
     }
 
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function getOpenTime(): ?\DateTimeImmutable
     {
         return $this->openTime;
     }
 
-    public function setOpenTime(\DateTimeImmutable $openTime): static
+    public function setOpenTime(?\DateTimeImmutable $openTime): static
     {
         $this->openTime = $openTime;
 
@@ -73,7 +88,7 @@ class SpecialSchedule
         return $this->closeTime;
     }
 
-    public function setCloseTime(\DateTimeImmutable $closeTime): static
+    public function setCloseTime(?\DateTimeImmutable $closeTime): static
     {
         $this->closeTime = $closeTime;
 

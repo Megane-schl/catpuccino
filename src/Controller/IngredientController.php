@@ -34,10 +34,10 @@ final class IngredientController extends AbstractController
     }
 
     /**
-     * Method to create an new ingredient in the database
+     * Method to create a new ingredient in the database
      * @param Request $request To collect the new ingredient
      * @param EntityManagerInterface $entityManager Use to create the new ingredient
-     * @return Response The success or the failure of the creating an ingredient and redirect to the ingredient list
+     * @return Response The success or the failure of creating an ingredient and redirect to the ingredient list
      */
     #[Route('/create', name: 'create')]
     #[IsGranted('ROLE_MODO')]
@@ -107,7 +107,7 @@ final class IngredientController extends AbstractController
      * Method to soft delete an ingredient
      * @param Ingredient $ingredient The ingredient to delete
      * @param EntityManagerInterface $entityManager Use to save and change the data
-     * @return Response The success or the failure of deleting the ingredient and redirect to the alleingredientrgen list
+     * @return Response The success or the failure of deleting the ingredient and redirect to the ingredient list
      */
     #[Route('/{id<\d+>}/delete', name: 'delete', methods: ['POST'])]
     #[IsGranted('ROLE_MODO')]

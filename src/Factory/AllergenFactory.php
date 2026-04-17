@@ -34,7 +34,9 @@ final class AllergenFactory extends PersistentObjectFactory
         return [
             'name'      => self::faker()->text(40),
             'info'      => self::faker()->text(),
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'createdAt' => \DateTimeImmutable::createFromMutable(
+                self::faker()->dateTime()
+            ),
         ];
     }
 

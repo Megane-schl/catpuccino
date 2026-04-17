@@ -15,9 +15,7 @@ final class IngredientFactory extends PersistentObjectFactory
      *
      * @todo inject services if required
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     #[\Override]
     public static function class(): string
@@ -33,11 +31,13 @@ final class IngredientFactory extends PersistentObjectFactory
     #[\Override]
     protected function defaults(): array|callable
     {
-         return [
+        return [
             'name'      => self::faker()->text(40),
             'isVegan'   => self::faker()->boolean(60),
             'allergen'  => AllergenFactory::randomRange(0, 3),
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'createdAt' => \DateTimeImmutable::createFromMutable(
+                self::faker()->dateTime()
+            ),
         ];
     }
 

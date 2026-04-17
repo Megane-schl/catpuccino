@@ -46,12 +46,18 @@ final class UserFactory extends PersistentObjectFactory
             'password'      => $this->userPasswordHasher->hashPassword(new User(), self::DEFAULT_PASSWORD),
             'isVerified'    => self::faker()->boolean(),
             'isBan'         => self::faker()->boolean(0.1),
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'createdAt' => \DateTimeImmutable::createFromMutable(
+                self::faker()->dateTime()
+            ),
             // 30% chance that updatedAt is filled with a datetime or else stay null
             'updatedAt' => self::faker()->boolean(0.3)
-                ? \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween($dteUpdatedAt, '+1 year')) : null,
+                ? \DateTimeImmutable::createFromMutable(
+                    self::faker()->dateTimeBetween($dteUpdatedAt, '+1 year')
+                ) : null,
             'deletedAt' => self::faker()->boolean(0.3)
-                ? \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween($dteDeletedAt, '+1 month')) : null,
+                ? \DateTimeImmutable::createFromMutable(
+                    self::faker()->dateTimeBetween($dteDeletedAt, '+1 month')
+                ) : null,
             'roles' => [],
         ];
     }

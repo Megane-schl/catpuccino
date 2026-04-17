@@ -12,7 +12,7 @@
 			<thead class="table-dark">
 				<tr class="text-center">
 					<th scope="col">Jour de la semaine</th>
-					<th scope="col">Café fermé</th>
+					<th scope="col">Disponibilité</th>
 					<th scope="col">Heure d'ouverture</th>
 					<th scope="col">Heure de fermeture</th>
 					<th scope="col">Maximum de clients</th>
@@ -52,16 +52,17 @@
 								-
 							{% else %}
 								{{ schedule.maxPeople }}
-								personnes</td>
-						{% endif %}
+								personnes
+							{% endif %}
+						</td>
 						<td>
 							<div>
 								<twig:BootstrapButton type="primary" link="{{ path('app_schedule_update', { id: schedule.id }) }}" size="sm" text="Modifier"/>
 							</div>
 						</td>
 					</tr>
-				</tbody>
+				{% endfor %}
 			</tbody>
-		</tr>
-	{% endfor %}
-</tbody></table></section>{% endblock %}
+		</table>
+	</section>
+{% endblock %}

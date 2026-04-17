@@ -6,6 +6,7 @@ use App\Enum\WeekDay;
 use App\Factory\AllergenFactory;
 use App\Factory\IngredientFactory;
 use App\Factory\ScheduleFactory;
+use App\Factory\SpecialScheduleFactory;
 use App\Factory\UserFactory;
 use DateTimeImmutable;
 use Zenstruck\Foundry\Attribute\AsFixture;
@@ -308,6 +309,66 @@ final class AppStory extends Story
                 'closeTime'     => new DateTimeImmutable('20:00'),
                 'isClose'       => false,
                 'maxPeople'     => 30,
+            ],
+
+        ]);
+
+        SpecialScheduleFactory::createSequence([
+            [
+                'date'          => new DateTimeImmutable('2026-05-01'),
+                'name'         => 'Congé',
+                'openTime'      => null,
+                'closeTime'     => null,
+                'isClosed'       => true,
+                'maxPeople'     => 0,
+            ],
+            [
+                'date'          => new DateTimeImmutable('2026-07-14'),
+                'name'         => 'Fête nationale',
+                'openTime'      => null,
+                'closeTime'     => null,
+                'isClosed'       => true,
+                'maxPeople'     => 0,
+            ],
+            [
+                'date'          => new DateTimeImmutable('2026-12-25'),
+                'name'         => 'Noël',
+                'openTime'      => null,
+                'closeTime'     => null,
+                'isClosed'       => true,
+                'maxPeople'     => 20,
+            ],
+            [
+                'date'          => new DateTimeImmutable('2026-04-23'),
+                'name'         => 'Goûter des Patounes',
+                'openTime'      => new DateTimeImmutable('11:00'),
+                'closeTime'     => new DateTimeImmutable('15:00'),
+                'isClosed'       => false,
+                'maxPeople'     => 20,
+            ],
+            [
+                'date'          => new DateTimeImmutable('2026-01-23'),
+                'name'         => 'Goûter avec Minou',
+                'openTime'      => new DateTimeImmutable('10:00'),
+                'closeTime'     => new DateTimeImmutable('21:00'),
+                'isClosed'       => false,
+                'maxPeople'     => 15,
+            ],
+            [
+                'date'          => new DateTimeImmutable('2026-07-19'),
+                'name'         => 'Brunch',
+                'openTime'      => new DateTimeImmutable('08:00'),
+                'closeTime'     => new DateTimeImmutable('12:00'),
+                'isClosed'       => false,
+                'maxPeople'     => 20,
+            ],
+            [
+                'date'          => new DateTimeImmutable('2026-12-24'),
+                'name'         => 'Noël entouré de chats',
+                'openTime'      => new DateTimeImmutable('18:00'),
+                'closeTime'     => new DateTimeImmutable('23:00'),
+                'isClosed'       => false,
+                'maxPeople'     => 20,
             ],
 
         ]);

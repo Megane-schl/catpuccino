@@ -16,6 +16,18 @@ class SpecialScheduleRepository extends ServiceEntityRepository
         parent::__construct($registry, SpecialSchedule::class);
     }
 
+    /**
+     * Method to show all the specials schedules that was not soft deleted
+     * @return array the list of the active specials schedules
+     */
+    public function findAllActive(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('sp')
+            ->where('sp.deletedAt is NULL')
+            ->orderBy('sp.date', 'ASC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
     //    /**
     //     * @return SpecialSchedule[] Returns an array of SpecialSchedule objects
     //     */

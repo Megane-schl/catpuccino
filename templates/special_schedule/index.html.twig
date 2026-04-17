@@ -1,20 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SpecialScheduleController!{% endblock %}
+{% block title %}Gestion des horaires exceptionnels - Catpuccino
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<section class="container my-5">
+		<h1 class="mb-5 text-center">Gestion des horaires exceptionnels du café</h1>
+		<div class="d-flex justify-content-end align-items-center my-5">
+			<twig:BootstrapButton type="success" link="{{ path('app_special_schedule_create') }}" text="+ Ajouter un horaire exceptionnel"/>
+		</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/megan/Documents/catpuccino/src/Controller/SpecialScheduleController.php</code></li>
-        <li>Your template at <code>C:/Users/megan/Documents/catpuccino/templates/special_schedule/index.html.twig</code></li>
-    </ul>
-</div>
+		<table class="table table-hover table-borderless align-middle shadow-sm">
+			<thead class="table-dark">
+				<tr class="text-center">
+					<th scope="col">Date d'exception</th>
+					<th scope="col">Nom de l'évènement</th>
+					<th scope="col">Disponibilité</th>
+					<th scope="col">Heure d'ouverture</th>
+					<th scope="col">Heure de fermeture</th>
+					<th scope="col">Maximum de clients</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for specialSchedule in specialScheduleList %}
+					<tr class="text-center">
+						<td class="fw-bold">
+							{{ specialSchedule.date|date('d/m/Y') }}
+						</td>
+						<td>
+							{% if specialSchedule.name %}
+								<span class="badge badge-catpuccino">{{ specialSchedule.name }}</span>
+							{% else %}
+								-
+							{% endif %}
+						</td>
+						<td>
+							{% if specialSchedule.isClosed %}
+								<span class="badge bg-danger">Fermé</span>
+							{% else %}
+								<span class="badge bg-success">Ouvert</span>
+							{% endif %}
+						</td>
+						<td>
+							{% if specialSchedule.isClosed %}
+								-
+							{% else %}
+								{{ specialSchedule.openTime|date('H:i') }}
+							{% endif %}
+						</td>
+						<td>
+							{% if specialSchedule.isClosed %}
+								-
+							{% else %}
+								{{ specialSchedule.closeTime|date('H:i') }}
+							{% endif %}
+						</td>
+						<td>
+							{% if specialSchedule.isClosed %}
+								-
+							{% else %}
+								{{ specialSchedule.maxPeople }}
+								personnes
+							{% endif %}
+						</td>
+						<td>
+							<div class="d-flex justify-content-center gap-2">
+								<twig:BootstrapButton type="primary" link="{{ path('app_special_schedule_update', { id: specialSchedule.id }) }}" size="sm" :outlined="true" text="Modifier"/>
+
+								<button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ specialSchedule.id }}">
+									Supprimer
+								</button>
+								<twig:BootstrapModal id="deleteModal-{{ specialSchedule.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir supprimer l'horaire exceptionnel {{ specialSchedule.name }} ?" action="{{ path('app_special_schedule_delete', { id: specialSchedule.id } ) }}" token="delete-special-schedule"/>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</section>
 {% endblock %}

@@ -2,14 +2,13 @@
 
 namespace App\Factory;
 
-use App\Entity\Schedule;
-use App\Enum\WeekDay;
+use App\Entity\SpecialSchedule;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
- * @extends PersistentObjectFactory<Schedule>
+ * @extends PersistentObjectFactory<SpecialSchedule>
  */
-final class ScheduleFactory extends PersistentObjectFactory
+final class SpecialScheduleFactory extends PersistentObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -21,7 +20,7 @@ final class ScheduleFactory extends PersistentObjectFactory
     #[\Override]
     public static function class(): string
     {
-        return Schedule::class;
+        return SpecialSchedule::class;
     }
 
     /**
@@ -33,14 +32,16 @@ final class ScheduleFactory extends PersistentObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'day' => self::faker()->unique()->randomElement(WeekDay::cases()),
+            'date' => \DateTimeImmutable::createFromMutable(
+                self::faker()->unique()->dateTimeBetween('now', '+1 year')
+            ),
             'openTime' => \DateTimeImmutable::createFromMutable(
                 self::faker()->datetimeBetween('08:00', '10:30')
             ),
             'closeTime' => \DateTimeImmutable::createFromMutable(
                 self::faker()->datetimeBetween('17:00', '23:00')
             ),
-            'isClose' => self::faker()->boolean(10),
+            'isClosed' => self::faker()->boolean(10),
             'maxPeople' => self::faker()->numberBetween(15, 30),
             'createdAt' => \DateTimeImmutable::createFromMutable(
                 self::faker()->dateTime()
@@ -55,7 +56,7 @@ final class ScheduleFactory extends PersistentObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(Schedule $schedule): void {})
+            // ->afterInstantiate(function(SpecialSchedule $specialSchedule): void {})
         ;
     }
 }

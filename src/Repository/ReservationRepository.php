@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Reservation;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,6 +15,24 @@ class ReservationRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Reservation::class);
+    }
+
+    /**
+     * Method to calculate the total of people on a time slot
+     * @param DateTimeImmutable $timeSlot The timeslot to verify
+     * @return int The result : the total number of people reserved for this time slot
+     */
+    public function countPeopleForTimeSlot(DateTimeImmutable $timeSlot): int
+    {
+
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->select('SUM(r.nbPeople)')
+            ->andWhere('r.timeSlot = :slot ')
+            ->andWhere('r.isCanceled = false')
+            ->setParameter('slot', $timeSlot);
+
+        // 0 or i get an error when it's null
+        return ($queryBuilder->getQuery()->getSingleScalarResult() ?? 0); //<-- to return the result of a calcul 
     }
 
     //    /**

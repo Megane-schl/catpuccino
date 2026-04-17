@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Schedule;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +31,7 @@ class ScheduleFormType extends AbstractType
                 'label'     => 'Heure de fermeture du café ce jour-ci :',
                 'widget' => 'single_text',
             ])
-            ->add('maxPeople', NumberType::class, [
+            ->add('maxPeople', IntegerType::class, [
                 'label'     => 'Nombre de clients maximum que le café accepte ce jour-ci :',
             ])
 

@@ -40,6 +40,10 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
         - { path: ^/user, roles: ROLE_ADMIN }
+        - { path: ^/schedule, roles: ROLE_ADMIN }
+        - { path: ^/allergen, roles: ROLE_MODO }
+        - { path: ^/ingredient, roles: ROLE_MODO }
+        - { path: ^/category, roles: ROLE_MODO }
 
     role_hierarchy:
         ROLE_MODO: ROLE_USER

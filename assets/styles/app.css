@@ -272,4 +272,10 @@ nav {
     color: white;
 }
 
-/* form schedule */
+/* badge special schedule*/
+.badge-catpuccino {
+    background-color: var(--hotChocolate);
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+}
