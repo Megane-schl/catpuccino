@@ -5,57 +5,84 @@
 
 {% block body %}
 
-	<section class="container">
-		<h1>Réserver un créneau</h1>
-		<p
-			class="text-muted">
-			{# show it in french #}
-			{{ selectedDate|format_date('full', locale='fr') }}
-		</p>
-		{# form 1 : to select the date and show the time slot available for this date #}
-		<form method="get">
-			<div class="mb-3">
-				<label for="date" class="mb-2">Date</label>
-				<input type="text" name="date" id="date" class="form-control flatpickr" value="{{ selectedDate }}" placeholder="Choisissez une date" required>
-			</div>
-			<button type="submit" class="btn btn-secondary">Voir les créneau disponible pour cette date</button>
-		</form>
+	<section class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<div class="card border rounded-4 shadow-sm overflow-hidden">
+					<div class="row g-0">
+						<div class="col-md-4 d-md-flex align-items-center justify-content-center p-4 text-center">
+							<div>
+								<img src="{{ asset('images/grisou_sticker.png') }}" alt="Sticker Grisou" class="img-fluid mb-3">
+							</div>
+						</div>
 
-		{# form 2 : time slot available for the date #}
-		<form method="post" action="{{ path('app_reservation_create') }}">
-			<input type="hidden" name="_csrf_token" value="{{ csrf_token('reservation_create') }}">
-			<input type="hidden" name="date" value="{{ selectedDate }}">
+						<div
+							class="col-md-8 p-4 p-lg-5 bg-white">
 
-			<div class="mb-3">
-				<label class="mb-2">Créneau(x) disponible(s)</label>
-				{% for slot in timeSlots %}
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="timeSlot" id="" value=""required>
-						<label class="form-check-label" for="">
-							{{ slot.label }}
-							{% if slot.isFull %}
-								— Complet
-							{% elseif slot.isPast %}
-								— Passé
-							{% else %}
-								({{ slot.available }}
-								places)
-							{% endif %}
-						</label>
+							{# form 1 : to select the date and show the time slot available for this date #}
+							<form method="get">
+								<div class="mb-3">
+									<div class="text-center mb-5">
+										<h1>Réserver un créneau</h1>
+									</div>
+									<div class="text-center">
+										<label for="date" class="mb-2 fw-bold">Choisir la date</label>
+										{# show it in french #}
+										<p class="text-muted">
+											{{ selectedDate|format_date('full', locale='fr') }}
+										</p>
+									</div>
+									<input type="text" name="date" id="date" class="form-control rounded-pill border-2 flatpickr" value="{{ selectedDate }}" placeholder="Choisissez une date" required>
+								</div>
+								<div class="text-center">
+									<button type="submit" class="btn btn-dark rounded-pill mb-5">
+									Voir les créneaux disponibles pour cette date</button>
+								</div>
+							</form>
+
+							{# form 2 : time slot available for the date #}
+							<form method="post" action="{{ path('app_reservation_create') }}">
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('reservation-create') }}">
+								<input type="hidden" name="date" value="{{ selectedDate }}">
+
+								<div class="mb-3">
+									<label class="form-label mb-2">Créneaux disponibles pour le
+										<strong>{{ selectedDate|format_date('full', locale='fr') }}
+										</strong>
+									</label>
+									<div class="d-flex flex-wrap gap-2">
+										{% for slot in timeSlots %}
+											<input class="btn-check" type="radio" name="timeSlot" id="slot_{{ loop.index }}" value="{{ slot.timeSlot|date('Y-m-d H:i:s') }}" {{ (slot.isFull or slot.isPast) ? 'disabled' : '' }} required>
+											<label class="btn btn-outline-dark btn-reservation rounded-pill mb-2" for="slot_{{ loop.index }}">
+												{{ slot.label }}
+												{% if slot.isFull %}
+													<span class="badge bg-secondary">Complet</span>
+												{% elseif slot.isPast %}
+													<span class="badge bg-secondary">Passé</span>
+												{% else %}
+													<span class="badge bg-success">{{ slot.available }}
+														{{ slot.available == 1 ? 'place' : 'places' }}
+													</span>
+												{% endif %}
+											</label>
+										{% else %}
+											<p>Aucun créneau disponible à cette date.</p>
+										{% endfor %}
+									</div>
+								</div>
+								<div class="mb-3">
+									<label for="nbPeople" class="mb-2 fw-semibold">Pour combien de personnes ?</label>
+									<input type="number" name="nbPeople" id="nbPeople" class="form-control rounded-pill" value="1" required>
+								</div>
+
+								<button type="submit" class="btn btn-dark rounded-pill w-100">
+									Valider ma réservation
+								</button>
+							</form>
+						</div>
 					</div>
-				{% else %}
-					<p class="text-muted">Aucun créneau disponible pour cette date.</p>
-				{% endfor %}
+				</div>
 			</div>
-
-			<div class="mb-3">
-				<label for="nbPeople" class="mb-2">Nombre de personnes</label>
-				<input type="number" name="nbPeople" id="nbPeople" class="form-control" min="1" max="20" value="1" required>
-			</div>
-
-			<button type="submit" class="btn btn-primary">
-				Réserver
-			</button>
-		</form>
+		</div>
 	</section>
 {% endblock %}

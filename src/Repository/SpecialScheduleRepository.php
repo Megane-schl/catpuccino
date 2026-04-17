@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\SpecialSchedule;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -28,6 +29,23 @@ class SpecialScheduleRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getResult();
     }
+
+    /**
+     * Find a special schedule for a specific date (excluding the soft deleted)
+     * @param DateTimeImmutable $date The date to search for
+     * @return SpecialSchedule|null The special schedule is found or not or null
+     */
+    public function findOneByDate(DateTimeImmutable $date): ?SpecialSchedule
+    {
+        $queryBuilder = $this->createQueryBuilder('sp')
+            ->where('sp.date = :date')
+            ->andWhere('sp.deletedAt IS NULL')
+            ->setParameter('date', $date);
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
+
     //    /**
     //     * @return SpecialSchedule[] Returns an array of SpecialSchedule objects
     //     */

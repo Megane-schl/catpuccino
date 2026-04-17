@@ -5,20 +5,30 @@
 
 {% block body %}
 	<!-- section 1 hero -->
-	<div class="nougat">
-		<div class="hero-grisou">
-			<div class="container-fluid">
-				<div class="row g-0 text-hero">
-					<div class="col-6 mt-5 text-center text-white">
-						<h1>Un café, un chat, un moment de douceur</h1>
-						<p>Venez déguster nos boissons et pâtisseries en compagnie de nos félins</p>
-						<a href="#" class="btn btn-lg btnUserConnexion px-5 text-white">Réserver</a>
-						<div class="mt-4">
-							<img class="img-fluid grisou-sticker" src="./grisou_sticker.png" alt="Sticker Grisou">
+	<div class="nougat overflow-hidden">
+		<div class="hero-grisou bg-dark position-relative">
+			<div class="container-fluid p-0">
+				<div class="row g-0 align-items-center vh-100">
+					<div class="col-lg-6 z-1 px-5 text-center text-lg-start">
+						<div class="ps-lg-5 content-wrapper">
+							<h1 class="display-3 fw-bold text-white mb-4 leading-tight">
+								Un café, un chat,<br>
+								<span class="text-accent">un moment de douceur</span>
+							</h1>
+							<p class="lead text-white-50 mb-5">
+								Venez déguster nos boissons et pâtisseries en compagnie de nos félins dans une ambiance chaleureuse.
+							</p>
+
+							<div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start align-items-center">
+								<a href="#" class="btn btn-lg btn-custom-primary px-5 py-3 shadow-sm">Réserver</a>
+								<img class="grisou-sticker" src="{{ asset('images/grisou_sticker.png') }}" alt="Sticker Grisou">
+							</div>
 						</div>
 					</div>
-					<div class="img-grisou col-6 text-center">
-						<img class="img-fluid" src="./unsplash_pOO5ligUC7w.jpg" alt="Hero chat">
+
+					<div class="col-lg-6 position-relative h-100">
+						<div class="img-overlay"></div>
+						<img class="img-hero-main" src="{{ asset('images/coffee_cat.jpg') }}" alt="Hero chat">
 					</div>
 				</div>
 			</div>

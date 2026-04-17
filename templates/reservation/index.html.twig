@@ -4,7 +4,8 @@
 {% endblock %}
 
 {% block body %}
-	<section class="container my-5 text-center">
+<section class="container my-5 text-center">
+		<img class="img-fluid" src="{{ asset('images/catpuccino_banner.png') }}" alt="bannière Catpuccino">
 		<h1 class="mb-4">Réservez votre moment câlin</h1>
 		<p>Un café, un chat, un instant de douceur</p>
 
@@ -12,4 +13,47 @@
 			Réserver un créneau
 		</a>
 	</section>
+<section class="reservation-steps py-5">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-6 fw-bold">Votre parenthèse enchantée en 3 étapes</h2>
+                <div class="divider-cat mx-auto">🐾</div>
+            </div>
+        </div>
+
+        <div class="row g-4 position-relative">
+            <div class="col-md-4">
+                <div class="step-item p-4">
+                    <div class="step-icon mb-3">☕</div>
+                    <h4>Choisissez votre créneau</h4>
+                    <p class="text-muted">Sélectionnez la date et l'heure qui vous conviennent pour votre pause douceur.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="step-item p-4">
+                    <div class="step-icon mb-3">🐱</div>
+                    <h4>Préparez vos caresses</h4>
+                    <p class="text-muted">Grisou, Nougat et toute la bande vous attendent de pattes fermes.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="step-item p-4">
+                    <div class="step-icon mb-3">🍰</div>
+                    <h4>Savourez l'instant</h4>
+                    <p class="text-muted">Installez-vous, commandez votre boisson et laissez la magie opérer.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="#formulaire" class="btn btn-reserver-final px-5 py-3 shadow-lg">
+                Réserver mon moment câlin
+            </a>
+        </div>
+    </div>
+</section>
+	
 {% endblock %}

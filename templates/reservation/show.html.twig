@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des réservations - Catpuccino
+{% endblock %}
+
+{% block body %}
+
+	<section class="container my-5">
+		<h1 class="mb-5 text-center">Gestion des réservations</h1>
+		<div class="d-flex justify-content-center align-items-center my-5 gap-5">
+			<twig:BootstrapButton type="success" link="{{ path('app_reservation_show') }}" :outlined="true" text="Toutes les réservations"/>
+			<twig:BootstrapButton type="dark" link="{{ path('app_reservation_today') }}" :outlined="true" text="Voir les réservations prévues d'aujourd'hui"/>
+		</div>
+
+		<table class="table table-hover table-borderless align-middle shadow-sm">
+			<thead class="table-dark">
+				<tr class="text-center">
+					<th scope="col">Réservé par</th>
+					<th scope="col">Email du client</th>
+					<th scope="col">Date</th>
+					<th scope="col">Créneau</th>
+					<th scope="col">Nombre de personne</th>
+					<th scope="col">Statut</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for reservation in reservationList %}
+					<tr class="text-center">
+						<td class="text-center">
+							{{ reservation.createdBy.lastname ~ ' ' ~ reservation.createdBy.firstname }}
+						</td>
+						<td class="text-center">{{ reservation.createdBy.email }}</td>
+						<td>
+							{{ reservation.timeSlot|date('d/m/Y') }}
+						</td>
+						<td>
+							{{ reservation.timeSlot|date('H:i') }}
+						</td>
+						<td class="">
+							{{ reservation.nbPeople }}
+						</td>
+						<td class="">
+							{% if reservation.isCanceled %}
+								<span class="badge bg-danger">Annulée</span>
+							{% else %}
+								<span class="badge bg-success">Confirmée</span>
+							{% endif %}
+						</td>
+						<td class="text-center">
+							<div class="d-flex justify-content-center gap-2">
+								{% if reservation.isCanceled %}
+									<small class="text-muted">Déjà annulée</small>
+								{% else %}
+									<button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ reservation.id }}">
+										Annuler
+									</button>
+									<twig:BootstrapModal id="deleteModal-{{ reservation.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir annuler la réservation de {{ reservation.createdBy.lastname ~ ' ' ~ reservation.createdBy.firstname }} prévu pour le {{ reservation.timeSlot|date('d/m/Y') }} à {{ reservation.timeSlot|date('H:i') }} ?" action="{{ path('app_reservation_cancel', { id: reservation.id } ) }}" token="cancel-reservation"/>
+								{% endif %}
+							</div>
+						</td>
+					</tr>
+				</td>
+			</tbody>
+		</tr>
+	</td>
+</tbody></tr>{% else %}<tr>
+<td colspan="6">Aucune réservation.</td></tr>{% endfor %}</tbody></table></section>{% endblock %}

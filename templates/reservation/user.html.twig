@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes réservations - Catpuccino
+{% endblock %}
+
+{% block body %}
+
+	<section class="container my-5">
+		<h1 class="mb-5 text-center">Mes réservations
+			<twig:ux:icon name="icon-park:cat"/></h1>
+		<div class="d-flex justify-content-end align-items-center my-5">
+			<twig:BootstrapButton type="success" link="{{ path('app_reservation_create') }}" text="+ Nouvelle réservation"/>
+		</div>
+
+		<table class="table table-hover table-borderless align-middle shadow-sm">
+			<thead class="table-dark">
+				<tr class="text-center">
+					<th scope="col">Date</th>
+					<th scope="col">Créneau</th>
+					<th scope="col">Nombre de personne</th>
+					<th scope="col">Statut</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for myReservation in myReservationList %}
+					<tr class="text-center">
+						<td>
+							{{ myReservation.timeSlot|date('d/m/Y') }}
+						</td>
+						<td>
+							{{ myReservation.timeSlot|date('H:i') }}
+						</td>
+						<td class="">
+							{{ myReservation.nbPeople }}
+						</td>
+						<td class="">
+							{% if myReservation.isCanceled %}
+								<span class="badge bg-danger">Annulée</span>
+							{% else %}
+								<span class="badge bg-success">Confirmée</span>
+							{% endif %}
+						</td>
+						<td class="text-center">
+							<div class="d-flex justify-content-center gap-2">
+								{% if myReservation.isCanceled %}
+									<small class="text-muted">Déjà annulée</small>
+								{% elseif myReservation.timeSlot < date() %}
+									<span class="text-muted">Passée</span>
+								{% else %}
+									<button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ myReservation.id }}">
+										Annuler
+									</button>
+									<twig:BootstrapModal id="deleteModal-{{ myReservation.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir annuler la réservation prévu pour le {{ myReservation.timeSlot|date('d/m/Y') }} à {{ myReservation.timeSlot|date('H:i') }} ?" action="{{ path('app_reservation_cancel', { id: myReservation.id } ) }}" token="cancel-reservation"/>
+								{% endif %}
+							</td>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="5">Aucune réservation.</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</section>
+{% endblock %}

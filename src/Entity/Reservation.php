@@ -26,10 +26,6 @@ class Reservation
     #[ORM\Column(name: 'reserv_created_at')]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(name: 'reserv_updated_at', nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
-
-
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(name: 'reserv_user', referencedColumnName: 'user_id', nullable: false)]
 
@@ -84,18 +80,6 @@ class Reservation
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
