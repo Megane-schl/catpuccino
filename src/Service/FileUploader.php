@@ -57,7 +57,7 @@ class FileUploader
         // Transform the file name unique and concat his extension
         $strNewFilename = $strBasefileName . uniqid() . '.' . $file->guessExtension();
 
-        // Déplace le fichier dans le répertoire /public/uploads/pictures
+        // move the files in the repertory /public/uploads/products or cats
         $file->move($directory, $strNewFilename);
 
         //return the new file name

@@ -7,6 +7,7 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent]
 final class ProductCard
 {
+    private int $_intId;
     private string $_strName;
     private float $_flPrice;
     private string $_strImg;
@@ -22,14 +23,24 @@ final class ProductCard
      * @param string $season The season name of the product
      * @param array $actions The differents buttons depend on the user roles
      */
-    public function mount(string $name, float $price, string $img, string $category, string $season = '', array $actions = []): void
+    public function mount(int $id, string $name, float $price, string $img, string $category, string $season = '', array $actions = []): void
     {
+        $this->_intId           = $id;
         $this->_strName         = $name;
         $this->_flPrice         = $price;
         $this->_strImg          = $img;
         $this->_strCategory     = $category;
         $this->_strSeasonName   = $season;
         $this->_arrActions      = $actions;
+    }
+
+    /**
+     * Collecting the product id's
+     * @return int the product id's object
+     */
+    public function getId(): int
+    {
+        return $this->_intId;
     }
 
     /**

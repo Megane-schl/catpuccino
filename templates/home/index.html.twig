@@ -39,12 +39,8 @@
 		<h1 class="py-5 mt-5 text-center">Nos boissons du moment</h1>
 		<div class="container py-5">
 			<div class="row">
-				{% set drinkList = [
-            { name: 'Cappuccino', price: 4.50, img: 'cappuccino.png' },
-            { name: 'Matcha Latte', price: 5.00, img: 'matcha.png' },
-            { name: 'Chocolat chaud', price: 4.00, img: 'chocolat.png' },
-            { name: 'Chai Latte', price: 4.80, img: 'chai.png' } ] %}
-				{% for drink in drinkList %}
+			
+				{# {% for drink in drinkList %}
 					<div class="col-6 col-md-3 mb-4">
 						<twig:ProductCard name="{{ drink.name }}" price="{{ drink.price }}" img="{{ drink.img }}">
 							<div class="mt-3">
@@ -52,7 +48,7 @@
 							</div>
 						</twig:ProductCard>
 					</div>
-				{% endfor %}
+				{% endfor %} #}
 			</div>
 		</div>
 	</section>

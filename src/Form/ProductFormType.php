@@ -38,6 +38,9 @@ class ProductFormType extends AbstractType
 
             ->add('img', FileType::class, [
                 'label'     => 'Image du produit',
+                'mapped'    => false,
+                //to keep the old image if not change
+                'required'  => false,
             ])
 
             ->add('description', TextareaType::class, [

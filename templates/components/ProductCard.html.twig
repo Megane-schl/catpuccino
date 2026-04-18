@@ -25,6 +25,18 @@
 					Voir les détails
 				</a>
 			</div>
+			{% if is_granted('ROLE_MODO') %}
+				<div class="d-flex justify-content-center gap-2 mt-3">
+					<twig:BootstrapButton type="primary" link="{{ path('app_product_update', { id: this.id }) }}" size="sm" text="Modifier"/>
+					<button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ this.id }}">
+						Supprimer
+					</button>
+					<twig:BootstrapModal id="deleteModal-{{ this.id }}" title="Avertissement" 
+					message="Êtes-vous sûr de vouloir supprimer le produit {{ this.name }} ?" 
+					action="{{ path('app_product_delete', { id: this.id } ) }}" token="delete-product"/>
+				</div>
+
+			{% endif %}
 		</div>
 	</div>
 </div>

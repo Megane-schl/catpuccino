@@ -35,7 +35,7 @@
 
 		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 			{% for product in productList %}
-				<twig:ProductCard name="{{ product.name }}" price="{{ product.price }}" category="{{ product.category.name }}" img="{{ product.img }}" season="{{ product.seasonName ?? '' }}"/>
+				<twig:ProductCard id="{{ product.id }}" name="{{ product.name }}" price="{{ product.price }}" category="{{ product.category.name }}" img="{{ product.img }}" season="{{ product.seasonName ?? '' }}"/>
 			{% else %}
 				<div class="col-12 text-center text-muted">
 					Aucun produit disponible pour le moment.

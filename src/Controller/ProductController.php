@@ -8,11 +8,13 @@ use App\Repository\ProductRepository;
 use App\Service\FileUploader;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/product', name: 'app_product_')]
@@ -89,5 +91,80 @@ final class ProductController extends AbstractController
             'product'       => $product,
             'allergenList'  => $arrAllergens
         ]);
+    }
+
+    /**
+     * Method to update a product in the database
+     * @param Request $request To collect the news informations about the product
+     * @param EntityManagerInterface $entityManager Use to update the product
+     * @param Product $product The product to update
+     * @param FileUploader $fileUploader Service to handle the image upload and remove
+     * @return Response The success or the failure of updating a product and redirect to the product details
+     */
+    #[Route('/{id<\d+>}/update', name: 'update')]
+    #[IsGranted('ROLE_MODO')]
+    public function update(
+        Product $product,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        FileUploader $fileUploader
+    ): Response {
+
+        $updateForm = $this->createForm(ProductFormType::class, $product);
+
+        $updateForm->handleRequest($request);
+
+        if ($updateForm->isSubmitted() && $updateForm->isValid()) {
+
+
+            $objUploadedFile  = $updateForm->get('img')->getData();
+
+            //call the fileuploader service
+            //if the image is changed
+            if ($objUploadedFile) {
+                
+                $fileUploader->removeProductImg($product->getImg());
+                $strNewFilename  = $fileUploader->uploadProductImg($objUploadedFile);
+                $product->setImg($strNewFilename);
+            }
+
+            $product->setUpdatedAt(new DateTimeImmutable('now'));
+            
+            $entityManager->flush();
+
+            $this->addFlash('success', "Le produit " . $product->getName() . " a été mis à jour");
+
+            return $this->redirectToRoute('app_product_show', [
+                'id' => $product->getId()
+            ]);
+        }
+
+        return $this->render('product/form.html.twig', [
+            'createForm'    => $updateForm,
+            'title'         => 'Modifier un produit',
+            'subtitle'      => 'Édition de : ' . $product->getName()
+        ]);
+    }
+
+    /**
+     * Method to soft delete a product
+     * @param Product $product The product to delete
+     * @param EntityManagerInterface $entityManager Use to save and change the data
+     * @return Response The success or the failure of deleting the product and redirect to the product list
+     */
+    #[Route('/{id<\d+>}/delete', name: 'delete', methods: ['POST'])]
+    #[IsGranted('ROLE_MODO')]
+    #[IsCsrfTokenValid('delete-product', '_csrf_token')]
+    public function delete(Product $product, EntityManagerInterface $entityManager): Response
+    {
+        try {
+            $product->setDeletedAt(new DateTimeImmutable('now'));
+            $entityManager->flush();
+            $this->addFlash('success', "Le produit a été supprimé");
+        } catch (Exception $exc) {
+            $this->addFlash('danger', "Une erreur est survenue. Réessayez");
+        }
+
+        return $this->redirectToRoute('app_product_index');
     }
 }
