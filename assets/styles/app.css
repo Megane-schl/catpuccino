@@ -373,13 +373,55 @@ nav {
 
 
 .btn.btn-outline-dark:hover,
-.btn-check:checked + .btn-outline-dark {
-    background-color: var(--darkCoffee); 
+.btn-check:checked+.btn-outline-dark {
+    background-color: var(--darkCoffee);
     border-color: var(--darkCoffee);
     color: white;
 }
 
 
-.btn-check:focus + .btn-outline-dark {
+.btn-check:focus+.btn-outline-dark {
     box-shadow: 0 0 0 0.25rem rgba(93, 64, 55, 0.25);
+}
+
+/* details product */
+.product-season-name {
+    background: var(--milkChocolate);
+}
+
+.badge-veg-glut {
+    background-color: #E1F5EE;
+    color: #085041;
+    font-size: 0.9rem;
+}
+
+.product-price {
+    color: var(--milkChocolate);
+    font-size: 1.5rem;
+}
+
+.product-badge-ingredient {
+    background-color: #EFEBE9;
+    color: var(--milkChocolate);
+    font-size: 0.9rem;
+}
+
+.product-badge-allergen {
+    background-color: #FCEBEB;
+    color: #791F1F;
+    font-weight: 500;
+}
+
+.badge-product-category {
+    background-color: var(--milkChocolate);
+
+}
+
+.img-product img {
+    max-height: 500px;
+    object-fit: contain;
+}
+
+.img-product {
+    background-color: var(--darkCoffee);
 }

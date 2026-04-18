@@ -14,7 +14,6 @@
 		<table class="table table-hover table-borderless align-middle shadow-sm">
 			<thead class="table-dark">
 				<tr class="text-center">
-					<th scope="col">Icone</th>
 					<th scope="col">Nom</th>
 					<th scope="col">Informations</th>
 					<th scope="col">Actions</th>
@@ -23,11 +22,6 @@
 			<tbody>
 				{% for allergen in allergenList %}
 					<tr>
-						<td class="text-center">
-							<div class="p-2 bg-light rounded d-inline-block border">
-								<twig:ux:icon name="streamline-plump:allergens-gluten-remix" class="w-8 h-8 text-warning"/>
-							</div>
-						</td>
 						<td class="fw-bold text-center">{{ allergen.name }}</td>
 						<td class="small text-muted">
 							{{ allergen.info }}

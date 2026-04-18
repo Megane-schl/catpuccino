@@ -264,4 +264,39 @@ class Product
 
         return $this;
     }
+
+    /**
+     * Check if the product is vegan
+     * @return bool True if all the ingredients in the product are vegan, else -> false
+     */
+    public function isVegan(): bool
+    {
+
+        //loop on all the ingredients in the product
+        foreach ($this->ingredients as $ingredient) {
+
+            if ($ingredient->isVegan() === false) {
+
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * Check if the product is gluten free
+     * @return bool True if all the ingredients in the product are without gluten, else -> false
+     */
+    public function isGlutenFree(): bool
+    {
+        //loop on all the allergens in the ingrédients product
+        foreach ($this->ingredients as $ingredient) {
+
+            if ($ingredient->hasGluten() === true) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

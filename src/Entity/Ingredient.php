@@ -167,4 +167,21 @@ class Ingredient
 
         return $this;
     }
+
+    /**
+     * Method to check search Gluten in the allergen
+     * @return bool true if Gluten exist, else false
+     */
+    public function hasGluten(): bool
+    {
+        //loop on all the allergens in the product
+        foreach ($this->allergen as $oneAllergen) {
+
+            if (strtoupper($oneAllergen->getName()) === 'GLUTEN') {
+
+                return true;
+            }
+        }
+        return false;
+    }
 }

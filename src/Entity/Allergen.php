@@ -50,6 +50,7 @@ class Allergen
     private Collection $users;
 
 
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();

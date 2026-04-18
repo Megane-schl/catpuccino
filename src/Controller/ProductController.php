@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/product', name: 'app_product_')]
-#[IsGranted('ROLE_MODO')]
 final class ProductController extends AbstractController
 {
     /**
@@ -58,7 +57,7 @@ final class ProductController extends AbstractController
             $strNewFilename = $fileUploader->uploadProductImg($objUploadedFile);
 
             $objProduct->setCreatedAt(new DateTimeImmutable('now'))
-                       ->setImg($strNewFilename);
+                ->setImg($strNewFilename);
 
             $entityManager->persist($objProduct);
             $entityManager->flush();
@@ -72,6 +71,23 @@ final class ProductController extends AbstractController
             'createForm'    => $createForm,
             'title'         => 'Ajouter un produit',
             'subtitle'      => 'Ajoutez une nouvelle douceur au meownu'
+        ]);
+    }
+
+    /**
+     * Method to show the details of one product
+     * @param Product $product To product to show
+     * @param ProductRepository $productRepository 
+     * @return Response The informations of the specific product
+     */
+    #[Route('/{id<\d+>}', name: 'show')]
+    public function show(Product $product, ProductRepository $productRepository): Response
+    {
+        $arrAllergens = $productRepository->findUniqueAllergensInProduct($product->getId());
+
+        return $this->render('product/show.html.twig', [
+            'product'       => $product,
+            'allergenList'  => $arrAllergens
         ]);
     }
 }

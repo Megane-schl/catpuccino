@@ -5,24 +5,42 @@
 
 
 {% block body %}
-<div class="container py-5">
-	<div class="text-center mb-5">
-		<h1 class="display-4 fw-bold">La carte de Catpuccino</h1>
-		<p class="lead text-muted">Découvrez nos douceurs artisanales à savourer avec nos petits félins.</p>
-		<div class="d-flex justify-content-end align-items-center my-5">
-			<twig:BootstrapButton type="success" link="{{ path('app_product_create') }}" text="+ Ajouter un produit" />
-		</div>
-	</div>
+	<div class="container py-5">
+		<div class="text-center mb-5">
+			<h1 class="display-4 fw-bold">La carte de Catpuccino</h1>
+			<p class="lead text-muted">Découvrez nos douceurs artisanales à savourer avec nos petits félins.</p>
+			<div class="container mt-5">
+				<div class="row justify-content-center">
+					<div class="col-md-6">
+						<form action="{{ path('app_reservation_my') }}" method="GET" class="position-relative">
+							<div class="input-group shadow-sm rounded-pill overflow-hidden border">
+								<span class="input-group-text bg-white border-0 ps-4">
+									<i class="fas fa-search text-muted"></i>
+								</span>
 
-	<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-		{% for product in productList %}
-		<twig:ProductCard name="{{ product.name }}" price="{{ product.price }}" img="{{ product.img }}"
-			season="{{ product.seasonName }}" />
-		{% else %}
-		<div class="col-12 text-center text-muted">
-			Aucun produit disponible pour le moment.
+								<input type="text" name="q" class="form-control border-0 py-3 shadow-none" placeholder="Rechercher une réservation..." style="border-radius: 0;">
+
+								<button class="btn btn-primary px-4 fw-bold" type="submit" style="border-radius: 0 50px 50px 0;">
+									Miaou !
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-end align-items-center my-5">
+				<twig:BootstrapButton type="success" link="{{ path('app_product_create') }}" text="+ Ajouter un produit"/>
+			</div>
 		</div>
-		{% endfor %}
+
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+			{% for product in productList %}
+				<twig:ProductCard name="{{ product.name }}" price="{{ product.price }}" category="{{ product.category.name }}" img="{{ product.img }}" season="{{ product.seasonName ?? '' }}"/>
+			{% else %}
+				<div class="col-12 text-center text-muted">
+					Aucun produit disponible pour le moment.
+				</div>
+			{% endfor %}
+		</div>
 	</div>
-</div>
 {% endblock %}

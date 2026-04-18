@@ -11,10 +11,10 @@
 		<div class="card-body d-flex flex-column text-center">
 
 			<div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
-				{# TODO: category when i create her #}
-				{# <span class="badge rounded-pill badge-custom">{{ this.categoryName }}</span> #}
-
-					{% if this.seasonName %}<span class="badge rounded-pill badge-custom badge-status"> {{ this.seasonName }}</span>
+				<span class="badge rounded-pill badge-custom">{{ this.category }}</span>
+				{% if this.seasonName %}
+					<span class="badge rounded-pill badge-custom badge-status">
+						{{ this.seasonName }}</span>
 				{% endif %}
 			</div>
 

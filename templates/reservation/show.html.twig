@@ -27,7 +27,7 @@
 			<tbody>
 				{% for reservation in reservationList %}
 					<tr class="text-center">
-						<td class="text-center">
+						<td>
 							{{ reservation.createdBy.lastname ~ ' ' ~ reservation.createdBy.firstname }}
 						</td>
 						<td class="text-center">{{ reservation.createdBy.email }}</td>
@@ -37,17 +37,17 @@
 						<td>
 							{{ reservation.timeSlot|date('H:i') }}
 						</td>
-						<td class="">
+						<td>
 							{{ reservation.nbPeople }}
 						</td>
-						<td class="">
+						<td>
 							{% if reservation.isCanceled %}
 								<span class="badge bg-danger">Annulée</span>
 							{% else %}
 								<span class="badge bg-success">Confirmée</span>
 							{% endif %}
 						</td>
-						<td class="text-center">
+						<td>
 							<div class="d-flex justify-content-center gap-2">
 								{% if reservation.isCanceled %}
 									<small class="text-muted">Déjà annulée</small>
@@ -60,9 +60,12 @@
 							</div>
 						</td>
 					</tr>
-				</td>
+				{% else %}
+					<tr>
+						<td colspan="7" class="text-center py-4">Aucune réservation trouvée.</td>
+					</tr>
+				{% endfor %}
 			</tbody>
-		</tr>
-	</td>
-</tbody></tr>{% else %}<tr>
-<td colspan="6">Aucune réservation.</td></tr>{% endfor %}</tbody></table></section>{% endblock %}
+		</table>
+	</section>
+{% endblock %}

@@ -28,6 +28,24 @@ class ProductRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getResult();
     }
+
+    /**
+     * Method to show unique allergens for a specific product
+     * @param int $id The id's product
+     * @return array The list of unique allergen found in the product's ingredients
+     */
+    public function findUniqueAllergensInProduct(int $id): array
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->select('DISTINCT al.name')
+            ->join('p.ingredients', 'i')
+            ->join('i.allergen', 'al')
+            ->where('p.id = :id ')
+            ->setParameter('id', $id);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Product[] Returns an array of Product objects
     //     */

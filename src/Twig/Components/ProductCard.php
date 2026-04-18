@@ -10,6 +10,7 @@ final class ProductCard
     private string $_strName;
     private float $_flPrice;
     private string $_strImg;
+    private string $_strCategory;
     private ?string $_strSeasonName = '';
     private array $_arrActions;
 
@@ -21,11 +22,12 @@ final class ProductCard
      * @param string $season The season name of the product
      * @param array $actions The differents buttons depend on the user roles
      */
-    public function mount(string $name, float $price, string $img, string $season = '', array $actions = []): void
+    public function mount(string $name, float $price, string $img, string $category, string $season = '', array $actions = []): void
     {
         $this->_strName         = $name;
         $this->_flPrice         = $price;
         $this->_strImg          = $img;
+        $this->_strCategory     = $category;
         $this->_strSeasonName   = $season;
         $this->_arrActions      = $actions;
     }
@@ -55,6 +57,15 @@ final class ProductCard
     public function getImg(): string
     {
         return $this->_strImg;
+    }
+
+    /**
+     * Collecting the product category's
+     * @return string the product category's object
+     */
+    public function getCategory(): string
+    {
+        return $this->_strCategory;
     }
 
     /**

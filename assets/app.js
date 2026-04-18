@@ -21,17 +21,16 @@ import { French } from 'flatpickr/dist/l10n/fr.js';
 
 document.addEventListener('turbo:load', () => {
     const flatpickrFields = document.querySelectorAll('.flatpickr');
-    if (flatpickrFields.length === 0) return;
-    flatpickr('.flatpickr', {
-        locale: French,
-        dateFormat: 'Y-m-d',
-        altInput: true,
-        altFormat: 'd/m/Y',
-    });
-});
+    if (flatpickrFields.length > 0) {
+        flatpickr('.flatpickr', {
+            locale: French,
+            dateFormat: 'Y-m-d',
+            altInput: true,
+            altFormat: 'd/m/Y',
+        });
+    }
 
-// script for create/update a product : checkbox appears if checked
-document.addEventListener('DOMContentLoaded', () => {
+    // script for create/update a product : checkbox appears if checked
 
     const checkbox = document.querySelector('#product_form_isSeasonal');
     const seasonPeriod = document.querySelectorAll('.seasonal');

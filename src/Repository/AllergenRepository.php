@@ -48,7 +48,7 @@ class AllergenRepository extends ServiceEntityRepository
 
     public function findAllActive(): array
     {
-        $queryBuilder = $this->createQueryBuilder('u')
+        $queryBuilder = $this->createQueryBuilder('al')
             ->where('al.deletedAt is NULL')
             ->orderBy('al.id', 'DESC');
 
