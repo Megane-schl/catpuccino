@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,18 +17,29 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    /**
-     * Method to show all the products that was not soft deleted
-     * @return array the list of the active products
-     */
-    public function findAllActive(): array
-    {
-        $queryBuilder = $this->createQueryBuilder('p')
-            ->where('p.deletedAt is NULL')
-            ->orderBy('p.id', 'DESC');
 
-        return $queryBuilder->getQuery()->getResult();
-    }
+    // can't use it in the paginator
+
+    // public function ProductIsVegan()
+    // {
+
+    //     $conn = $this->getEntityManager()->getConnection();
+
+    //     $sql = '
+    //         SELECT p.*
+    //         FROM products p 
+    //         WHERE p.product_id NOT IN (
+    //         SELECT pi.prd_ing_product
+    //             FROM products_ingredients pi
+    //             JOIN ingredients i ON pi.prd_ing_ingredient = i.ingredient_id
+    //             WHERE i.ingredient_is_vegan = false
+    //         )';
+
+    //     $resultSet = $conn->executeQuery($sql);
+
+    // 
+    //     return $resultSet->fetchAllAssociative();
+    // }
 
     /**
      * Method to show unique allergens for a specific product
@@ -45,6 +57,57 @@ class ProductRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getResult();
     }
+
+    /**
+     * Method that build the query builder used for pagination 
+     * @param string $name The search product to filter by name, category or ingredients
+     * @return QueryBuilder The query builder for the paginator
+     */
+    public function createPaginationQuery(?string $name = null, $isVegan = false, $isGlutenFree = false, $isLactoseFree = false): QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.deletedAt is NULL')
+            ->orderby('p.createdAt', 'DESC')
+            ->leftJoin('p.ingredients', 'i')
+            ->leftJoin('i.allergen', 'al')
+            ->groupBy('p.id');
+
+        if ($isVegan) {
+                // to be sure that the sum of the ingredients no vegan is 0, and if gluten is true
+                $queryBuilder->having("SUM(CASE WHEN i.isVegan = false THEN 1 ELSE 0 END) = 0");
+        }
+
+        if ($isGlutenFree) {
+                // to be sure that the sum of the ingredients no vegan is 0
+                $queryBuilder->andHaving("SUM(CASE WHEN al.name = 'Gluten' THEN 1 ELSE 0 END) = 0");
+        }
+
+        if ($isLactoseFree) {
+                // to be sure that the sum of the ingredients no vegan is 0
+                $queryBuilder->andHaving("SUM(CASE WHEN al.name = 'Lait' THEN 1 ELSE 0 END) = 0");
+        }
+
+        if ($name) {
+
+            $arrSearchSegments = explode(' ', $name);
+
+            $queryBuilder->join('p.category', 'cy');
+
+            for ($i = 0; $i < count($arrSearchSegments); $i++) {
+
+                if (trim($arrSearchSegments[$i]) != '') {
+
+                    $queryBuilder->andWhere("LOWER(p.name) LIKE LOWER(:value_$i) OR LOWER(cy.name) LIKE LOWER(:value_$i) 
+                    OR LOWER(i.name) LIKE LOWER (:value_$i)")
+                        ->setParameter("value_$i", '%' . $arrSearchSegments[$i] . '%');
+                }
+            }
+        }
+
+
+        return $queryBuilder;
+    }
+
 
     //    /**
     //     * @return Product[] Returns an array of Product objects

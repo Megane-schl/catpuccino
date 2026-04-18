@@ -11,36 +11,56 @@
 			<p class="lead text-muted">Découvrez nos douceurs artisanales à savourer avec nos petits félins.</p>
 			<div class="container mt-5">
 				<div class="row justify-content-center">
-					<div class="col-md-6">
-						<form action="{{ path('app_reservation_my') }}" method="GET" class="position-relative">
-							<div class="input-group shadow-sm rounded-pill overflow-hidden border">
-								<span class="input-group-text bg-white border-0 ps-4">
-									<i class="fas fa-search text-muted"></i>
-								</span>
+					<form action="{{ path('app_product_index') }}" method="GET" class="position-relative">
+						<div class="input-group shadow-sm rounded-pill overflow-hidden border">
 
-								<input type="text" name="q" class="form-control border-0 py-3 shadow-none" placeholder="Rechercher une réservation..." style="border-radius: 0;">
+							<input type="text" name="search_name" class="form-control border-0 py-3 shadow-none" placeholder="Rechercher un produit..." value="{{ searchName }}">
 
-								<button class="btn btn-primary px-4 fw-bold" type="submit" style="border-radius: 0 50px 50px 0;">
-									Miaou !
-								</button>
+							<button class="btn btn-dark px-4 fw-bold" type="submit">
+								<twig:ux:icon name="mingcute:search-ai-line" class="search-icon-magnifying-glass"/>
+							</button>
+						</div>
+						<div
+							class="d-flex flex-wrap gap-2 mb-4 justify-content-center my-5">
+							{# <a href="{{ path('app_product_index', { vegan: true, gluten: gluten, lactose: lactose }) }}"><input class="btn-check" type="checkbox" id="filterVegan" autocomplete="off">
+																																																																				<label class="btn btn-dark btn-reservation rounded-pill" for="filterVegan">Vegan</label>
+																																																																			</a> #}
+							<div class="form-check form-switch">
+								<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="vegan" value="1" {{ vegan ? 'checked' : '' }}>
+								<label class="form-check-label" for="flexSwitchCheckChecked">Vegan</label>
 							</div>
-						</form>
-					</div>
+							<div class="form-check form-switch">
+								<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="gluten" value="1" {{ gluten ? 'checked' : '' }}>
+								<label class="form-check-label" for="flexSwitchCheckChecked">Sans gluten</label>
+							</div>
+							<div class="form-check form-switch">
+								<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="lactose" value="1" {{ lactose ? 'checked' : '' }}>
+								<label class="form-check-label" for="flexSwitchCheckChecked">Sans lactose</label>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="d-flex justify-content-end align-items-center my-5">
+					<twig:BootstrapButton type="success" link="{{ path('app_product_create') }}" text="+ Ajouter un produit"/>
 				</div>
 			</div>
-			<div class="d-flex justify-content-end align-items-center my-5">
-				<twig:BootstrapButton type="success" link="{{ path('app_product_create') }}" text="+ Ajouter un produit"/>
-			</div>
-		</div>
 
-		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-			{% for product in productList %}
-				<twig:ProductCard id="{{ product.id }}" name="{{ product.name }}" price="{{ product.price }}" category="{{ product.category.name }}" img="{{ product.img }}" season="{{ product.seasonName ?? '' }}"/>
-			{% else %}
-				<div class="col-12 text-center text-muted">
-					Aucun produit disponible pour le moment.
-				</div>
-			{% endfor %}
+			<div class="count my-5 fw-semibold">
+				{{ pagination.getTotalItemCount }}
+				Produit(s) trouvé(s) !
+			</div>
+
+			<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+				{% for product in pagination %}
+					<twig:ProductCard id="{{ product.id }}" name="{{ product.name }}" price="{{ product.price }}" category="{{ product.category.name }}" img="{{ product.img }}" season="{{ product.seasonName ?? '' }}"/>
+				{% else %}
+					<div class="col-12 text-center text-muted">
+						Aucun produit disponible pour le moment.
+					</div>
+				{% endfor %}
+			</div>
+			<div class="navigation d-flex justify-content-center my-5">
+				{{ knp_pagination_render(pagination) }}
+			</div>
 		</div>
-	</div>
-{% endblock %}
+	{% endblock %}

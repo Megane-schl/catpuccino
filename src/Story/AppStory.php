@@ -539,7 +539,7 @@ final class AppStory extends Story
                 'ingredients' => [$objPomme, $objCannelle, $objSucre, $objBeurre, $objFarine],
             ],
             [
-                'name'        => 'Apple Pie',
+                'name'        => 'Tarte aux pommes',
                 'img'         => 'apple_pie.png',
                 'description' => 'Tarte aux pommes fondante à l\'américaine, dorée au four avec une pâte maison.',
                 'category'    => $objPatisserie,

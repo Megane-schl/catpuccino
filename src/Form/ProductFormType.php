@@ -64,6 +64,7 @@ class ProductFormType extends AbstractType
                 'required'  => false,
                 'attr' => [
                     'placeholder'   => 'Saint-Valentin, Halloween, Hiver...',
+                    'class'         => "mb-2"
                 ],
                 'row_attr' => [
                     'class'     => 'seasonal d-none' // <--  hide by default if isSesonal is not checked
@@ -75,7 +76,7 @@ class ProductFormType extends AbstractType
                 'required'          => false,
                 'widget'            => 'single_text',
                 'attr' => [
-                    'class'         => 'flatpickr',
+                    'class'         => 'flatpickr mb-2',
                 ],
                 'row_attr' => [
                     'class'     => 'seasonal d-none'
@@ -87,7 +88,7 @@ class ProductFormType extends AbstractType
                 'required'          => false,
                 'widget'            => 'single_text',
                 'attr' => [
-                    'class'         => 'flatpickr',
+                    'class'         => 'flatpickr mb-2',
                 ],
                 'row_attr' => [
                     'class'     => 'seasonal d-none'
@@ -100,6 +101,9 @@ class ProductFormType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,
+                'attr' => [
+                    'class' => 'rounded-pill',
+                ],
             ])
 
             ->add('ingredients', EntityType::class, [

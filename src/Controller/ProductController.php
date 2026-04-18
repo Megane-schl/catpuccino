@@ -9,6 +9,7 @@ use App\Service\FileUploader;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,14 +24,40 @@ final class ProductController extends AbstractController
     /**
      * Method to find all of the products in the database
      * @param ProductRepository $productRepository To collect the products
+     * @param PaginatorInterface paginator To handle the pagination
+     * @param Request $request To collect the searching in the URL
      * @return Response The list of the products
      */
     #[Route('/', name: 'index')]
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $arrProducts = $productRepository->findAllActive();
+
+        $strSearchName = $request->query->getString('search_name');
+
+        $gluten = $request->query->get('gluten');
+        $lactose = $request->query->get('lactose');
+        $vegan = $request->query->get('vegan');
+
+        $query = $productRepository->createPaginationQuery($strSearchName, $vegan, $gluten, $lactose);
+
+
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            $request->query->getInt('perPage', 10),/* limit per page */
+            [
+                'wrap-queries' => true, /* paginator option for a groupby */
+            ]
+
+        );
+
         return $this->render('product/index.html.twig', [
-            'productList' => $arrProducts,
+            'searchName'  => $strSearchName,
+            'pagination'  => $pagination,
+            'gluten'      => $gluten,
+            'vegan'       => $vegan,
+            'lactose'     => $lactose,
+
         ]);
     }
 
@@ -122,14 +149,14 @@ final class ProductController extends AbstractController
             //call the fileuploader service
             //if the image is changed
             if ($objUploadedFile) {
-                
+
                 $fileUploader->removeProductImg($product->getImg());
                 $strNewFilename  = $fileUploader->uploadProductImg($objUploadedFile);
                 $product->setImg($strNewFilename);
             }
 
             $product->setUpdatedAt(new DateTimeImmutable('now'));
-            
+
             $entityManager->flush();
 
             $this->addFlash('success', "Le produit " . $product->getName() . " a été mis à jour");

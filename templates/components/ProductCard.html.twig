@@ -12,7 +12,7 @@
 
 			<div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
 				<span class="badge rounded-pill badge-custom">{{ this.category }}</span>
-				{% if this.seasonName %}
+				{% if this.seasonName %} 
 					<span class="badge rounded-pill badge-custom badge-status">
 						{{ this.seasonName }}</span>
 				{% endif %}
@@ -21,7 +21,7 @@
 			<h5 class="card-title-product mt-2 fw-bold">{{ this.name }}</h5>
 
 			<div class="mt-3">
-				<a href="#" class="btn btn-custom w-100 rounded-pill py-2">
+				<a href="{{ path('app_product_show', { id: this.id }) }}" class="btn btn-custom w-100 rounded-pill py-2">
 					Voir les détails
 				</a>
 			</div>

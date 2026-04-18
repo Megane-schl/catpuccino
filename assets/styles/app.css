@@ -425,3 +425,8 @@ nav {
 .img-product {
     background-color: var(--darkCoffee);
 }
+
+/* search bar magnifying glass*/
+.search-icon-magnifying-glass {
+    font-size: 1.5rem;
+}

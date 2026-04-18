@@ -169,19 +169,21 @@ class Ingredient
     }
 
     /**
-     * Method to check search Gluten in the allergen
-     * @return bool true if Gluten exist, else false
+     * Method to check if the ingredient contains a specific getAllergen
+     * @param string $allergenName the allergen name to search for (gluten/lactose)
+     * @return bool true if the allergen exist, else false
      */
-    public function hasGluten(): bool
+    public function hasAllergen(string $allergenName): bool
     {
         //loop on all the allergens in the product
         foreach ($this->allergen as $oneAllergen) {
 
-            if (strtoupper($oneAllergen->getName()) === 'GLUTEN') {
+            if (strtoupper($oneAllergen->getName()) === strtoupper($allergenName)) {
 
                 return true;
             }
         }
         return false;
     }
+
 }

@@ -1,0 +1,13 @@
+<div{{attributes}}>
+	<form action="{{ this.action }}" method="GET" class="position-relative">
+		<div class="input-group shadow-sm rounded-pill overflow-hidden border">
+
+			<input type="text" name="search_name" class="form-control border-0 py-3 shadow-none" 
+            placeholder="{{ this.placeholder }}" value="{{ this.value }}">
+
+			<button class="btn btn-dark px-4 fw-bold" type="submit">
+				<twig:ux:icon name="mingcute:search-ai-line" class="search-icon-magnifying-glass"/>
+			</button>
+		</div>
+	</form>
+</div>

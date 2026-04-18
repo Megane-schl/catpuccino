@@ -283,7 +283,6 @@ class Product
         return true;
     }
 
-
     /**
      * Check if the product is gluten free
      * @return bool True if all the ingredients in the product are without gluten, else -> false
@@ -293,7 +292,23 @@ class Product
         //loop on all the allergens in the ingrédients product
         foreach ($this->ingredients as $ingredient) {
 
-            if ($ingredient->hasGluten() === true) {
+            if ($ingredient->hasAllergen('Gluten')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Check if the product is gluten free
+     * @return bool True if all the ingredients in the product are without lactose, else -> false
+     */
+    public function isLactoseFree(): bool
+    {
+        //loop on all the allergens in the ingrédients product
+        foreach ($this->ingredients as $ingredient) {
+
+            if ($ingredient->hasAllergen('Lait')) {
                 return false;
             }
         }

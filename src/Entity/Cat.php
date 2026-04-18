@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Enum\CatGender;
 use App\Repository\CatRepository;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -157,4 +158,39 @@ class Cat
 
         return $this;
     }
+
+    public function getAge(): string
+	{
+
+		$currentDate = new DateTimeImmutable();
+		$birthdate = new DateTimeImmutable($this->birthdate);
+
+		$calculAge = $currentDate->diff($birthdate);
+
+		// condition if the animal is born less than 1 month
+
+		if ($calculAge->m === 0 && $calculAge->y === 0) {
+			if ($calculAge->d > 1) {
+				return $calculAge->d . " jours";
+			} else {
+				return $calculAge->d . " jour";
+			}
+		}
+
+		// condition return the months
+
+		else if ($calculAge->y === 0) {
+
+			return $calculAge->m . " mois";
+		}
+
+		//condition return the years
+		else {
+			if ($calculAge->y > 1) {
+				return $calculAge->y . " ans";
+			} else {
+				return $calculAge->y . " an";
+			}
+		}
+	}
 }

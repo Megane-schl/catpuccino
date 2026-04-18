@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,16 +23,27 @@ final class UserController extends AbstractController
     /**
      * Method to find all of the users in the database
      * @param UserRepository $userRepository to collect the users
+     * @param PaginatorInterface paginator To handle the pagination
+     * @param Request $request To collect the searching in the URL
      * @return Response the list of the users
      */
     #[Route('/', name: 'index')]
     #[IsGranted('ROLE_ADMIN')]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $arrUsers = $userRepository->findAllActive();
+        $strSearchName = $request->query->getString('search_name');
+
+        $query = $userRepository->createPaginationQuery($strSearchName);
+
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            $request->query->getInt('perPage', 10) /* limit per page */
+        );
 
         return $this->render('user/index.html.twig', [
-            'userList' => $arrUsers
+            'searchName'  => $strSearchName,
+            'pagination'  => $pagination
         ]);
     }
     /**
