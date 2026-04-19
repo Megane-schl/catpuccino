@@ -1,0 +1,39 @@
+<div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif; color: #4A2C2A;">
+	<div style="background: #4A2C2A; padding: 2rem; text-align: center;">
+		<h1 style="color: #FFF8F0; margin: 0; font-size: 1.5rem;">Catpuccino</h1>
+	</div>
+
+	<div style="padding: 2rem; background: #FFF8F0;">
+		<h2 style="margin-top: 0;">Réservation annulée !</h2>
+
+		<p>Bonjour
+			{{ user.firstname }},</p>
+
+		<p>Votre réservation a bien été annulée. Voici le récapitulatif :</p>
+
+		<div>
+			<p>
+				<strong>Date :</strong>
+				{{ reservation.timeSlot|date('d/m/Y') }}</p>
+			<p>
+				<strong>Heure :</strong>
+				{{ reservation.timeSlot|date('H:i') }}</p>
+			<p>
+				<strong>Nombre de personnes :</strong>
+				{{ reservation.nbPeople }}</p>
+		</div>
+
+		<p>Nos petits félins vont vous manquer...</p>
+
+		<p style="margin-top: 2rem; opacity: 0.6; font-size: 0.85rem;">
+			À bientôt,<br>
+			L'équipe Catpuccino
+		</p>
+	</div>
+
+	<div style="background: #2C1810; color: #E8D5C4; padding: 1rem; text-align: center; font-size: 0.8rem;">
+		<p style="margin: 0;">
+			{{ 'now'|date('Y') }}
+			&copy; Catpuccino - 12 rue de Minou, 68000 Colmar</p>
+	</div>
+</div>

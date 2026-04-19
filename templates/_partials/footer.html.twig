@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer mt-5">
 	<div class="container">
 		<div
 			class="row g-4">
@@ -12,18 +12,18 @@
 			<!-- nav part -->
 			<div class="col-md-2 col-6">
 				<h6>Navigation</h6>
-				<ul class="list-unstyled small">
+				<ul class="list-unstyled small fw-semibold">
 					<li>
-						<a href="#">Accueil</a>
+						<a href="{{ path('app_home') }}">Accueil</a>
 					</li>
 					<li>
-						<a href="#">Nos produits</a>
+						<a href="{{ path('app_product_index') }}">Nos produits</a>
 					</li>
 					<li>
-						<a href="#">Nos chats</a>
+						<a href="{{ path('app_cat_index') }}">Nos chats</a>
 					</li>
 					<li>
-						<a href="#">Réserver</a>
+						<a href="{{ path('app_reservation_index') }}">Réserver</a>
 					</li>
 				</ul>
 			</div>

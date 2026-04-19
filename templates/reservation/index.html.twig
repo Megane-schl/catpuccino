@@ -4,56 +4,64 @@
 {% endblock %}
 
 {% block body %}
-<section class="container my-5 text-center">
-		<img class="img-fluid" src="{{ asset('images/catpuccino_banner.png') }}" alt="bannière Catpuccino">
-		<h1 class="mb-4">Réservez votre moment câlin</h1>
-		<p>Un café, un chat, un instant de douceur</p>
+	<main>
+		<div class="reservation-linear">
+			<div class="container">
+				<section class="reservation-hero row align-items-center text-center text-lg-start">
+					<div class="col-lg-6">
+						<h1 class="fw-bold">Votre moment<br>câlin</h1>
+						<p class="lead">Un café, un chat, un instant de douceur. Venez partager une pause hors du temps avec nos petits compagnons.</p>
+						<div class="mt-4">
+							<a href="{{ path('app_reservation_create') }}" class="btn-reserve">Réserver votre créneau</a>
+						</div>
+					</div>
+					<div class="col-lg-6 mt-4 mt-lg-0 d-flex justify-content-center gap-3">
+						<img src="{{ asset('images/chat-catpuccino.png') }}" class="cat-circle" alt="Chat 1">
+						<img src="{{ asset('images/chat-catpuccino2.png') }}" class="cat-circle" alt="Chat 2">
+					</div>
+				</section>
+			</div>
+		</div>
 
-		<a href="{{ path('app_reservation_create') }}" class="btn btn-primary btn-lg mt-4">
-			Réserver un créneau
-		</a>
-	</section>
-<section class="reservation-steps py-5">
-    <div class="container">
-        <div class="row text-center mb-5">
-            <div class="col-12">
-                <h2 class="display-6 fw-bold">Votre parenthèse enchantée en 3 étapes</h2>
-                <div class="divider-cat mx-auto">🐾</div>
-            </div>
-        </div>
+		<section class="rules-section container">
+			<h2 class="text-center mb-5 fw-bold">Bien vivre au Catpuccino</h2>
+			<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
 
-        <div class="row g-4 position-relative">
-            <div class="col-md-4">
-                <div class="step-item p-4">
-                    <div class="step-icon mb-3">☕</div>
-                    <h4>Choisissez votre créneau</h4>
-                    <p class="text-muted">Sélectionnez la date et l'heure qui vous conviennent pour votre pause douceur.</p>
-                </div>
-            </div>
+				<div class="col">
+					<div class="rule-card">
+						<div class="rule-icon"><twig:ux:icon name="token-branded:popcat"/></div>
+						<h5>Hygiène</h5>
+						<p>Merci de vous laver les mains à l'entrée. Nos chats sont sensibles, la propreté est leur priorité.</p>
+					</div>
+				</div>
 
-            <div class="col-md-4">
-                <div class="step-item p-4">
-                    <div class="step-icon mb-3">🐱</div>
-                    <h4>Préparez vos caresses</h4>
-                    <p class="text-muted">Grisou, Nougat et toute la bande vous attendent de pattes fermes.</p>
-                </div>
-            </div>
+				<div class="col">
+					<div class="rule-card">
+						<div class="rule-icon"><twig:ux:icon name="solar:cat-broken"/></div>
+						<h5>Respect du sommeil</h5>
+						<p>Un chat qui dort est un chat heureux. Merci de ne pas les réveiller, même pour une photo !</p>
+					</div>
+				</div>
 
-            <div class="col-md-4">
-                <div class="step-item p-4">
-                    <div class="step-icon mb-3">🍰</div>
-                    <h4>Savourez l'instant</h4>
-                    <p class="text-muted">Installez-vous, commandez votre boisson et laissez la magie opérer.</p>
-                </div>
-            </div>
-        </div>
+				<div class="col">
+					<div class="rule-card">
+						<div class="rule-icon"><twig:ux:icon name="fluent-emoji-high-contrast:paw-prints"/></div>
+						<h5>Douceur</h5>
+						<p>Pas de cris, pas de courses. Laissez les chats venir vers vous quand ils en ont envie.</p>
+					</div>
+				</div>
 
-        <div class="text-center mt-5">
-            <a href="#formulaire" class="btn btn-reserver-final px-5 py-3 shadow-lg">
-                Réserver mon moment câlin
-            </a>
-        </div>
-    </div>
-</section>
-	
+				<div class="col">
+					<div class="rule-card">
+						<div class="rule-icon"><twig:ux:icon name="openmoji:hacker-cat"/></div>
+						<h5>Photos</h5>
+						<p>Nos amis ont les yeux très sensibles. Le flash est strictement interdit dans le salon.</p>
+					</div>
+				</div>
+
+			</div>
+		</section>
+	</div>
+</main>
+
 {% endblock %}

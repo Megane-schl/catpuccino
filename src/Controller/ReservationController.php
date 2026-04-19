@@ -9,9 +9,11 @@ use App\Repository\SpecialScheduleRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -125,6 +127,10 @@ final class ReservationController extends AbstractController
      * Method to create a new reservarion in the database
      * @param Request $request To collect the new reservation
      * @param EntityManagerInterface $entityManager Use to create the new reservation
+     * @param ScheduleRepository $scheduleRepository To collect the regular opening/close hour of the coffee
+     * @param SpecialScheduleRepository $specialScheduleRepository To collect the special opening/close hour of the coffee
+     * @param ReservationRepository $reservationRepository To check existing reservations and time slots
+     * @param MailerInterface $mailer To send the confirmation email to the user
      * @return Response The success or the failure of creating a reservation 
      */
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
@@ -135,7 +141,8 @@ final class ReservationController extends AbstractController
         EntityManagerInterface $entityManager,
         ScheduleRepository $scheduleRepository,
         SpecialScheduleRepository $specialScheduleRepository,
-        ReservationRepository $reservationRepository
+        ReservationRepository $reservationRepository,
+        MailerInterface $mailer
     ): Response {
 
         //collect the selected date in the correct format of the database
@@ -213,6 +220,23 @@ final class ReservationController extends AbstractController
                 $entityManager->persist($objReservation);
                 $entityManager->flush();
 
+                /** @var User objCurrentUser The user actually connected on the application */
+
+                $objCurrentUser = $this->getUser();
+
+                $email = (new TemplatedEmail())
+                    ->from('contact@catpuccino.fr')
+                    ->to($objCurrentUser->getEmail()) //<-- the user connected in the session
+                    ->subject('Confirmation de réservation - Catpuccino')
+                    ->htmlTemplate('reservation/email_confirm.html.twig')
+                    ->context([
+                        'user'              => $objCurrentUser,
+                        'reservation'       => $objReservation,
+                    ]);
+
+                $mailer->send($email);
+                $this->addFlash('success', 'Vous avez reçu une confirmation par email !');
+
                 $this->addFlash('success', "Votre réservation a été enregistrée");
                 return $this->redirectToRoute('app_reservation_index');
             }
@@ -264,18 +288,36 @@ final class ReservationController extends AbstractController
      * Method to cancel a reservation
      * @param Reservation $reservation The reservation to cancel
      * @param EntityManagerInterface $entityManager Use to save and change the data
+     * @param MailerInterface $mailer  To send the confirmation email that the reservation is cancel to the user
      * @return Response The success or the failure of canceling the reservation 
      */
     #[Route('/{id<\d+>}/cancel', name: 'cancel')]
     #[IsGranted('ROLE_USER')]
     #[IsGranted('RESERVATION_CANCEL', subject: 'reservation', message: "Droit insuffisant pour annuler")]
     #[IsCsrfTokenValid('cancel-reservation', '_csrf_token')]
-    public function cancel(Reservation $reservation, EntityManagerInterface $entityManager): Response
+    public function cancel(Reservation $reservation, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
 
         try {
             $reservation->setIsCanceled(true);
             $entityManager->flush();
+
+            /** @var User objCurrentUser The user actually connected on the application */
+
+            $objCurrentUser = $this->getUser();
+
+            $email = (new TemplatedEmail())
+                ->from('contact@catpuccino.fr')
+                ->to($objCurrentUser->getEmail()) //<-- the user connected in the session
+                ->subject('Réservation annulée - Catpuccino')
+                ->htmlTemplate('reservation/email_cancel.html.twig')
+                ->context([
+                    'user'              => $objCurrentUser,
+                    'reservation'       => $reservation,
+                ]);
+
+            $mailer->send($email);
+            $this->addFlash('success', 'Vous avez reçu une confirmation par email !');
 
             if ($this->isGranted('ROLE_ADMIN')) {
                 $this->addFlash('success', "La réservation a été annulée");
