@@ -52,7 +52,7 @@ final class ProductController extends AbstractController
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1), /* page number */
-            $request->query->getInt('perPage', 10),/* limit per page */
+            $request->query->getInt('perPage', 9),/* limit per page */
             [
                 'wrap-queries' => true, /* paginator option for a groupby */
             ]

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\CatRepository;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 // use Symfony\Component\Mailer\MailerInterface;
@@ -10,11 +12,22 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController
 {
+    /**
+     * Method to display the home page 
+     * @param ProductRepository $productRepository To collect the latests products to show
+     * @param CatRepository $catRepository To collect some cats to show
+     * @return response The home page and the news products
+     */
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(ProductRepository $productRepository, CatRepository $catRepository): Response
     {
+
+        $newsProducts = $productRepository->findNewsProducts(4);
+        $newsCats = $catRepository->findNewsCats(3);
+
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'newsProducts'  => $newsProducts,
+            'newsCats'      => $newsCats,
         ]);
     }
     /* Email testing*/

@@ -90,6 +90,7 @@ class ProductRepository extends ServiceEntityRepository
             // count product that contain an ingredient with Milk
             $queryBuilder->andHaving("SUM(CASE WHEN al.name = 'Lait' THEN 1 ELSE 0 END) = 0");
         }
+
         //filter on category
         if ($category > 0) {
             $queryBuilder->andWhere('p.category = :catId')
@@ -113,8 +114,22 @@ class ProductRepository extends ServiceEntityRepository
             }
         }
 
-
         return $queryBuilder;
+    }
+
+    /**
+     * Method to display the latest products
+     * @param int $intLimit The number to choose how much latest products we want to display
+     * @return array The list of the latest products
+     */
+    public function findNewsProducts(int $intLimit): array
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.deletedAt is NULL')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults($intLimit);
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
 

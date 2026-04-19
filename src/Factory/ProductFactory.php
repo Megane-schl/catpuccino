@@ -36,7 +36,7 @@ final class ProductFactory extends PersistentObjectFactory
             'img' => self::faker()->text(255),
             'description' => self::faker()->text(),
             // 2 decimals / minimum 2euros / maximum 30 euros
-            'price' => self::faker()->randomFloat(2, 2, 30),
+            'price' => self::faker()->randomFloat(2, 2, 10),
             'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
         ];
     }

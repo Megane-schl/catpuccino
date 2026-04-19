@@ -29,6 +29,22 @@ class CatRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+
+    /**
+     * Method to display the latest cats
+     * @param int $intLimit The number to choose how much cats we want to display
+     * @return array The list of the latest cats
+     */
+    public function findNewsCats(int $intLimit): array
+    {
+        $queryBuilder = $this->createQueryBuilder('cat')
+            ->where('cat.deletedAt is NULL')
+            ->orderBy('cat.createdAt', 'DESC')
+            ->setMaxResults($intLimit);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Cat[] Returns an array of Cat objects
     //     */
