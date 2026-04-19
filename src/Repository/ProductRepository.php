@@ -61,9 +61,13 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * Method that build the query builder used for pagination 
      * @param string $name The search product to filter by name, category or ingredients
+     * @param bool $isVegan To filter by if a product is vegan
+     * @param bool $isGlutenFree To filter by if a product is gluten free
+     * @param bool $isGlutenFree To filter by if a product is lactose free
+     * @param int $category To filter by category
      * @return QueryBuilder The query builder for the paginator
      */
-    public function createPaginationQuery(?string $name = null, $isVegan = false, $isGlutenFree = false, $isLactoseFree = false): QueryBuilder
+    public function createPaginationQuery(?string $name = null, $isVegan = false, $isGlutenFree = false, $isLactoseFree = false, $category = 0): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('p')
             ->where('p.deletedAt is NULL')
@@ -73,18 +77,23 @@ class ProductRepository extends ServiceEntityRepository
             ->groupBy('p.id');
 
         if ($isVegan) {
-                // to be sure that the sum of the ingredients no vegan is 0, and if gluten is true
-                $queryBuilder->having("SUM(CASE WHEN i.isVegan = false THEN 1 ELSE 0 END) = 0");
+            // to be sure that the sum of the ingredients no vegan is 0, and if gluten is true
+            $queryBuilder->having("SUM(CASE WHEN i.isVegan = false THEN 1 ELSE 0 END) = 0");
         }
 
         if ($isGlutenFree) {
-                // to be sure that the sum of the ingredients no vegan is 0
-                $queryBuilder->andHaving("SUM(CASE WHEN al.name = 'Gluten' THEN 1 ELSE 0 END) = 0");
+            // to be sure that the sum of the ingredients no vegan is 0
+            $queryBuilder->andHaving("SUM(CASE WHEN al.name = 'Gluten' THEN 1 ELSE 0 END) = 0");
         }
 
         if ($isLactoseFree) {
-                // to be sure that the sum of the ingredients no vegan is 0
-                $queryBuilder->andHaving("SUM(CASE WHEN al.name = 'Lait' THEN 1 ELSE 0 END) = 0");
+            // to be sure that the sum of the ingredients no vegan is 0
+            $queryBuilder->andHaving("SUM(CASE WHEN al.name = 'Lait' THEN 1 ELSE 0 END) = 0");
+        }
+        //filter on category
+        if ($category > 0) {
+            $queryBuilder->andWhere('p.category = :catId')
+                ->setParameter('catId', $category);
         }
 
         if ($name) {

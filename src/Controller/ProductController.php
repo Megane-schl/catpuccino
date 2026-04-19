@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductFormType;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Service\FileUploader;
 use DateTimeImmutable;
@@ -24,21 +25,28 @@ final class ProductController extends AbstractController
     /**
      * Method to find all of the products in the database
      * @param ProductRepository $productRepository To collect the products
+     * @param CategoryRepository $categoryRepository To collect the categories for the filter
      * @param PaginatorInterface paginator To handle the pagination
      * @param Request $request To collect the searching in the URL
      * @return Response The list of the products
      */
     #[Route('/', name: 'index')]
-    public function index(ProductRepository $productRepository, PaginatorInterface $paginator, Request $request): Response
-    {
+    public function index(
+        ProductRepository $productRepository,
+        CategoryRepository $categoryRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
 
         $strSearchName = $request->query->getString('search_name');
 
-        $gluten = $request->query->get('gluten');
-        $lactose = $request->query->get('lactose');
-        $vegan = $request->query->get('vegan');
+        $blGluten = $request->query->getBoolean('gluten');
+        $blLactose = $request->query->getBoolean('lactose');
+        $blVegan = $request->query->getBoolean('vegan');
+        $intCategory = $request->query->getInt('category_filter');
+        $arrCategories = $categoryRepository->findAll();
 
-        $query = $productRepository->createPaginationQuery($strSearchName, $vegan, $gluten, $lactose);
+        $query = $productRepository->createPaginationQuery($strSearchName, $blVegan, $blGluten, $blLactose, $intCategory);
 
 
         $pagination = $paginator->paginate(
@@ -52,11 +60,13 @@ final class ProductController extends AbstractController
         );
 
         return $this->render('product/index.html.twig', [
-            'searchName'  => $strSearchName,
-            'pagination'  => $pagination,
-            'gluten'      => $gluten,
-            'vegan'       => $vegan,
-            'lactose'     => $lactose,
+            'searchName'        => $strSearchName,
+            'pagination'        => $pagination,
+            'gluten'            => $blGluten,
+            'vegan'             => $blVegan,
+            'lactose'           => $blLactose,
+            'categorySelect'    => $intCategory,
+            'categoryList'      => $arrCategories,
 
         ]);
     }

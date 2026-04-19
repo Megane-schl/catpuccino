@@ -605,7 +605,7 @@ final class AppStory extends Story
                 'name'        => 'Cookies coeur',
                 'img'         => 'cookies.png',
                 'description' => 'Cookies pour l\'amour de Grisou',
-                'category'    => $objBoissonChaude,
+                'category'    => $objPatisserie,
                 'ingredients' => [$objChocolatNoir, $objFarineSansGluten],
             ],
             [
