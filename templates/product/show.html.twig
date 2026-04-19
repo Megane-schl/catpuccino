@@ -17,7 +17,7 @@
 				<div class="card border-0 rounded-4 overflow-hidden shadow-sm">
 					<div class="row g-0 align-items-stretch">
 						<div class="col-md-6 d-flex align-items-center justify-content-center img-product">
-							<img src="{{ asset('uploads/products/' ~ product.img) }}" alt="{{ product.name }}" class="img-fluid p-4">
+							<img src="{{ asset('uploads/products/' ~ (product.img ?? 'default.png')) }}" alt="{{ product.name }}" class="img-fluid p-4">
 						</div>
 
 						<div class="col-md-6 p-4 p-lg-5 d-flex flex-column justify-content-center">
@@ -65,7 +65,7 @@
 									</div>
 								</div>
 							{% endif %}
-							
+
 							{% if app.user %}
 								{% for ingredient in product.ingredients %}
 									{% for allergen in ingredient.allergen %}

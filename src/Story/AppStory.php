@@ -710,6 +710,7 @@ final class AppStory extends Story
             'lion.png',
             'moccha.png',
             'nougat.png',
+            'fifille.png'
         ];
 
         //copying the img in upload
@@ -723,6 +724,7 @@ final class AppStory extends Story
         $objChocolatChaud   = ProductFactory::find(['name' => 'Chocolat Chaud Viennois']);
         $objGrisoucchiato   = ProductFactory::find(['name' => 'Grisoucchiato']);
         $objMatchaLatte     = ProductFactory::find(['name' => 'Matcha Latte']);
+        $objCookiesCoeur    = ProductFactory::find(['name' => 'Cookies coeur']);
 
         CatFactory::createSequence([
             [
@@ -759,6 +761,13 @@ final class AppStory extends Story
                 'description' => 'Nougat, gourmande insatiable, surveille la vitrine à pâtisseries.',
                 'gender'      => CatGender::Female,
                 'product'     => $objChocolatChaud,
+            ],
+            [
+                'name'        => 'Fifille',
+                'img'         => 'fifille.png',
+                'description' => 'Fifille adore les câlins.',
+                'gender'      => CatGender::Female,
+                'product'     => $objCookiesCoeur,
             ],
         ]);
     }

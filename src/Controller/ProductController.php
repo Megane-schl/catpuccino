@@ -93,10 +93,15 @@ final class ProductController extends AbstractController
             /** @var UploadedFile $objUploadedFile */
             $objUploadedFile = $createForm->get('img')->getData();
 
-            $strNewFilename = $fileUploader->uploadProductImg($objUploadedFile);
+            // if there is not an image, put a default image
+            if ($objUploadedFile) {
+                $strNewFilename = $fileUploader->uploadProductImg($objUploadedFile);
+                $objProduct->setImg($strNewFilename);
+            } else {
+                $objProduct->setImg('default.png');
+            }
 
-            $objProduct->setCreatedAt(new DateTimeImmutable('now'))
-                ->setImg($strNewFilename);
+            $objProduct->setCreatedAt(new DateTimeImmutable('now'));
 
             $entityManager->persist($objProduct);
             $entityManager->flush();

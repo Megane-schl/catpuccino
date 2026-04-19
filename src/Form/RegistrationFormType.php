@@ -56,7 +56,7 @@ class RegistrationFormType extends AbstractType
                 'label'  => "Accepter les conditions d'utilisation",
                 'constraints' => [
                     new IsTrue(
-                        message: 'Vous devez accepter les conditions.',
+                        message: 'Vous devez accepter les conditions',
                     ),
                 ],
             ])

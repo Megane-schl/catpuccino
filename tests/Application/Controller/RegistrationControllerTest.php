@@ -9,6 +9,9 @@ use Zenstruck\Foundry\Attribute\ResetDatabase;
 #[ResetDatabase]
 class RegistrationControllerTest extends WebTestCase
 {
+    /**
+     * Method to test if the registration page is accessible
+     */
     public function testRegisterPageShow(): void
     {
         $client = static::createClient();
@@ -17,6 +20,10 @@ class RegistrationControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    /**
+     * Method to test if a user can register with valid informations and receive a confirmation email
+     */
+
     public function testRegisterSuccess(): void
     {
         $client = static::createClient();
@@ -24,13 +31,12 @@ class RegistrationControllerTest extends WebTestCase
         
         $this->assertResponseIsSuccessful();
 
-        // On complète le formulaire avec des informations correctes
+        // Complete the form with correct
 
-        $client->submitForm("S'inscrire", [
-            'registration_form[email]'                  => "john.doe@email.com",
-            'registration_form[lastname]'               => "Doe",
-            'registration_form[firstname]'              => "John",
-            'registration_form[birthdate]'              => "2000-04-05",
+       $client->submitForm("S'inscrire", [
+            'registration_form[lastname]'               => "Grigri",
+            'registration_form[firstname]'              => "Grisou",
+            'registration_form[email]'                  => "grisou.grisou@gmail.com",
             'registration_form[plainPassword][first]'   => "M?sth3erbe!!yyyyyyyyy",
             'registration_form[plainPassword][second]'  => "M?sth3erbe!!yyyyyyyyy",
             'registration_form[agreeTerms]'             => true,
@@ -38,22 +44,25 @@ class RegistrationControllerTest extends WebTestCase
 
         $this->assertResponseRedirects();
 
-        // Vérifie qu'un mail est envoyé après l'inscription
-        // Attention à vérifier qu'un mail est envoyé AVANT de follow la redirection
+        // Verify that an email is send after the registration
+        // Don'y forget to verify that an email is send before the redirection
         // cf. https://symfony.com/doc/current/mailer.html#write-a-functional-test
         $this->assertEmailCount(1);
 
-        // Récupère le dernier e-mail envoyé
+        // collect the last email send
         $email = $this->getMailerMessage();
 
-        // Test le destinataire et l'objet du mail
-        $this->assertEmailAddressContains($email, 'To', 'john.doe@email.com');
-        $this->assertEmailSubjectContains($email, "Please Confirm your Email");
+        // Test the user that receives the email and the email object
+        $this->assertEmailAddressContains($email, 'To', 'grisou.grisou@gmail.com');
+        $this->assertEmailSubjectContains($email, "Veuillez confirmer votre email");
 
         $client->followRedirect();
-        $this->assertRouteSame('app_dashboard');
+        $this->assertRouteSame('app_login');
     }
 
+    /**
+     * Method to test te register with an email thats already exist in the database
+     */
     public function testRegisterWithExistingEmail(): void
     {
         $client = static::createClient();
@@ -61,27 +70,30 @@ class RegistrationControllerTest extends WebTestCase
         
         $this->assertResponseIsSuccessful();
 
-        // On complète le formulaire avec une adresse email déjà utilisée
-        // => créer au préalable un user dans la base
+        // Complet the form with a email already use
+        // => create an user in the database
         $objExtistingUser = UserFactory::createOne();
 
-        // On utilise l'email de l'utilisateur créé par la Factory
+        // Use the email in the factory
         $client->submitForm("S'inscrire", [
+            'registration_form[lastname]'               => "Grigri",
+            'registration_form[firstname]'              => "Grisou",
             'registration_form[email]'                  => $objExtistingUser->getEmail(),
-            'registration_form[lastname]'               => "Minou",
-            'registration_form[firstname]'              => "Tigrou",
             'registration_form[plainPassword][first]'   => "M?sth3erbe!!yyyyyyyyy",
             'registration_form[plainPassword][second]'  => "M?sth3erbe!!yyyyyyyyy",
             'registration_form[agreeTerms]'             => true,
         ]);
 
-        $this->assertResponseStatusCodeSame(422); //< Code 422 que l'on voit dans le Profiler lors d'un essai en web
+        $this->assertResponseStatusCodeSame(422); 
 
-        $this->assertAnySelectorTextContains('div', "There is already an account with this email");
+        $this->assertAnySelectorTextContains('div', "Cette adresse e-mail est déjà utilisée");
 
         $this->assertEmailCount(0);
     }
 
+    /**
+     * Method to test to register with password not identical
+     */
     public function testRegisterWithMismatchPassword(): void
     {
         $client = static::createClient();
@@ -89,25 +101,27 @@ class RegistrationControllerTest extends WebTestCase
         
         $this->assertResponseIsSuccessful();
 
-        // On complète le formulaire avec des mots de passe différents
-        // On utilise l'email de l'utilisateur créé par la Factory
+        // Complete the form with two differents password
+        // Use the user email create with the factory
         $client->submitForm("S'inscrire", [
-            'registration_form[email]'                  => "john.doe@email.com",
-            'registration_form[lastname]'               => "Doe",
-            'registration_form[firstname]'              => "John",
-            'registration_form[birthdate]'              => "2000-04-05",
+            'registration_form[lastname]'               => "Grigri",
+            'registration_form[firstname]'              => "Grisou",
+            'registration_form[email]'                  => "grisou.grisou@gmail.com",
             'registration_form[plainPassword][first]'   => "M?sth3erbe!!yyyyyyyyy",
-            'registration_form[plainPassword][second]'  => "M?sth3erbe!!zzzzzzzzz",
+            'registration_form[plainPassword][second]'  => "M?sth3erbe!!hihihiMYS",
             'registration_form[agreeTerms]'             => true,
         ]);
 
-        $this->assertResponseStatusCodeSame(422); //< Code 422 que l'on voit dans le Profiler lors d'un essai en web
+        $this->assertResponseStatusCodeSame(422); 
 
-        $this->assertAnySelectorTextContains('div', "Les champs doivent être identiques");
+        $this->assertAnySelectorTextContains('div', "Le mot de passe doit être identique");
 
         $this->assertEmailCount(0);
     }
 
+    /**
+     * Method to test to register without agree the terms
+     */
     public function testRegisterWithoutAgreeTerms(): void
     {
         $client = static::createClient();
@@ -115,12 +129,10 @@ class RegistrationControllerTest extends WebTestCase
         
         $this->assertResponseIsSuccessful();
 
-        // On complète le formulaire en ne cochant pas la case "Agree terms"
-        $client->submitForm("S'inscrire", [
-            'registration_form[email]'                  => "john.doe@email.com",
-            'registration_form[lastname]'               => "Doe",
-            'registration_form[firstname]'              => "John",
-            'registration_form[birthdate]'              => "2000-04-05",
+         $client->submitForm("S'inscrire", [
+            'registration_form[lastname]'               => "Grigri",
+            'registration_form[firstname]'              => "Grisou",
+            'registration_form[email]'                  => "grisou.grisou@gmail.com",
             'registration_form[plainPassword][first]'   => "M?sth3erbe!!yyyyyyyyy",
             'registration_form[plainPassword][second]'  => "M?sth3erbe!!yyyyyyyyy",
             'registration_form[agreeTerms]'             => false,
