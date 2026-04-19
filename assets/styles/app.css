@@ -430,3 +430,46 @@ nav {
 .search-icon-magnifying-glass {
     font-size: 1.5rem;
 }
+
+.card-cat {
+    background: linear-gradient(180deg, #c4b5a5 0%, #8c7b6b 60%, #4a3f35 100%);
+    height: 500px;
+}
+
+.card-cat img {
+    width: 800px;
+}
+
+.card-cat img {
+    position: absolute;
+    top: 10%;
+    transform: translate(-50%, -50%);
+    max-height: 550px;
+    object-fit: contain;
+    top: 50%;
+    left: 50%;
+    transition: transform 0.3s ease;
+    transform: translate(-50%, -50%);
+}
+
+
+.card-cat img {
+    transition: transform 0.3s ease;
+}
+
+.card-cat:hover img {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+
+.card-cat-fav {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.card-cat-gender {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.card-cat-info {
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+}

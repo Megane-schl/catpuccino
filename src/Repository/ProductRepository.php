@@ -77,17 +77,17 @@ class ProductRepository extends ServiceEntityRepository
             ->groupBy('p.id');
 
         if ($isVegan) {
-            // to be sure that the sum of the ingredients no vegan is 0, and if gluten is true
+            // exclude product that have ingredients no vegan
             $queryBuilder->having("SUM(CASE WHEN i.isVegan = false THEN 1 ELSE 0 END) = 0");
         }
 
         if ($isGlutenFree) {
-            // to be sure that the sum of the ingredients no vegan is 0
+            // count product that contain an ingredient with Gluten
             $queryBuilder->andHaving("SUM(CASE WHEN al.name = 'Gluten' THEN 1 ELSE 0 END) = 0");
         }
 
         if ($isLactoseFree) {
-            // to be sure that the sum of the ingredients no vegan is 0
+            // count product that contain an ingredient with Milk
             $queryBuilder->andHaving("SUM(CASE WHEN al.name = 'Lait' THEN 1 ELSE 0 END) = 0");
         }
         //filter on category

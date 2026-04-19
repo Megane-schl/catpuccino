@@ -27,7 +27,7 @@ final class AllergenController extends AbstractController
     #[IsGranted('ROLE_MODO')]
     public function index(AllergenRepository $allergenRepository): Response
     {
-        $arrAllergens = $allergenRepository->findAll();
+        $arrAllergens = $allergenRepository->findAllActive();
         return $this->render('allergen/index.html.twig', [
             'allergenList' => $arrAllergens,
         ]);

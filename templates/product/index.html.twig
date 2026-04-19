@@ -41,9 +41,11 @@
 					</form>
 				</form>
 			</div>
-			<div class="d-flex justify-content-end align-items-center my-5">
-				<twig:BootstrapButton type="success" link="{{ path('app_product_create') }}" text="+ Ajouter un produit"/>
-			</div>
+			{% if is_granted('ROLE_MODO') %}
+				<div class="d-flex justify-content-end align-items-center my-5">
+					<twig:BootstrapButton type="success" link="{{ path('app_product_create') }}" text="+ Ajouter un produit"/>
+				</div>
+			{% endif %}
 		</div>
 
 		<div class="count my-5 fw-semibold">

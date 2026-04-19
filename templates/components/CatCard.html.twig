@@ -1,0 +1,37 @@
+<div{{attributes}}>
+	<div class="col">
+		<div class="card card-cat border-0 rounded-4 overflow-hidden position-relative">
+			<div class="d-flex justify-content-between align-items-center position-absolute w-100 px-3 py-3">
+				<h2 class="text-white fw-bold m-0">{{ this.name }}</h2>
+				{% if this.product %}
+					<span class="badge rounded-pill card-cat-fav">
+						<twig:ux:icon name="typcn:heart"/>
+						{{ this.product }}
+					</span>
+				{% endif %}
+			</div>
+			<img src="{{ asset('uploads/cats/' ~ this.img) }}" alt="{{ this.name }}" class="position-absolute bottom-0 start-50">
+			<div class="position-absolute bottom-0 start-0 end-0 p-3 card-cat-info">
+				<div class="d-flex gap-2 align-items-center mb-1">
+					<span class="badge rounded-pill card-cat-gender">{{ this.gender }}</span>
+					<small class="text-white-50"></small>
+				</div>
+				<small class="text-white-50">{{ this.age }}</small>
+				<p class="text-white-50 small mb-1">{{ this.description }}</p>
+                {% if is_granted('ROLE_MODO') %}
+				<div class="d-flex justify-content-center gap-2">
+					<twig:BootstrapButton type="primary" link="{{ path('app_cat_update', { id: this.id }) }}" size="sm" text="Modifier"/>
+					<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ this.id }}">
+						Supprimer
+					</button>
+					<twig:BootstrapModal id="deleteModal-{{ this.id }}" 
+                    title="Avertissement" 
+                    message="Êtes-vous sûr de vouloir supprimer le chat {{ this.name }} ?" 
+                    action="{{ path('app_cat_delete', { id: this.id } ) }}" 
+                    token="delete-cat"/>
+				</div>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+</div>

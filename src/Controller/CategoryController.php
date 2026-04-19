@@ -7,10 +7,12 @@ use App\Form\CategoryFormType;
 use App\Repository\CategoryRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/category', name: 'app_category_')]
@@ -24,7 +26,7 @@ final class CategoryController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(CategoryRepository $categoryRepository): Response
     {
-        $arrCategories = $categoryRepository->findAll();
+        $arrCategories = $categoryRepository->findAllActive();
         return $this->render('category/index.html.twig', [
             'categoryList' => $arrCategories,
         ]);
@@ -98,5 +100,27 @@ final class CategoryController extends AbstractController
             'title'         => 'Modifier une catégorie',
             'subtitle'      => 'Édition de : ' . $category->getName()
         ]);
+    }
+
+    /**
+     * Method to soft delete a category
+     * @param Category $category The category to delete
+     * @param EntityManagerInterface $entityManager Use to save and change the data
+     * @return Response The success or the failure of deleting the category and redirect to the category list
+     */
+    #[Route('/{id<\d+>}/delete', name: 'delete', methods: ['POST'])]
+    #[IsGranted('ROLE_MODO')]
+    #[IsCsrfTokenValid('delete-category', '_csrf_token')]
+    public function delete(Category $category, EntityManagerInterface $entityManager): Response
+    {
+        try {
+            $category->setDeletedAt(new DateTimeImmutable('now'));
+            $entityManager->flush();
+            $this->addFlash('success', "La catégorie " . $category->getName() . " a été supprimée");
+        } catch (Exception $exc) {
+            $this->addFlash('danger', "Une erreur est survenue. Réessayez");
+        }
+
+        return $this->redirectToRoute('app_category_index');
     }
 }

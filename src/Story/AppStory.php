@@ -2,9 +2,11 @@
 
 namespace App\Story;
 
+use App\Enum\CatGender;
 use App\Enum\WeekDay;
 use App\Factory\AllergenFactory;
 use App\Factory\CategoryFactory;
+use App\Factory\CatFactory;
 use App\Factory\IngredientFactory;
 use App\Factory\ProductFactory;
 use App\Factory\ScheduleFactory;
@@ -497,7 +499,7 @@ final class AppStory extends Story
         $objPatisserie    = CategoryFactory::find(['name' => 'Pâtisserie']);
         $objViennoiserie  = CategoryFactory::find(['name' => 'Viennoiserie']);
 
-        $arrImages = [
+        $arrImagesProduct = [
             'apfel_strudel.png',
             'apple_pie.png',
             'blueberry_shake.png',
@@ -511,6 +513,7 @@ final class AppStory extends Story
             'cookies.png',
             'croissant.png',
             'french_toast_miffy.png',
+            'grisoucchiato.png',
             'hot_chocolate.png',
             'latte_macchiato.png',
             'matcha_latte.png',
@@ -524,9 +527,9 @@ final class AppStory extends Story
         ];
 
         //copying the img in upload
-        foreach ($arrImages as $image) {
-            if (file_exists('public/fixtures/' . $image)) {
-                copy('public/fixtures/' . $image, 'public/uploads/products/' . $image);
+        foreach ($arrImagesProduct as $imageP) {
+            if (file_exists('public/fixtures/' . $imageP)) {
+                copy('public/fixtures/' . $imageP, 'public/uploads/products/' . $imageP);
             }
         }
 
@@ -691,6 +694,71 @@ final class AppStory extends Story
                 'description' => 'Viennoiserie feuilletée pur beurre avec deux barres de chocolat noir fondant.',
                 'category'    => $objViennoiserie,
                 'ingredients' => [$objFarine, $objBeurre, $objChocolatNoir, $objOeufs, $objSucre],
+            ],
+            [
+                'name'        => 'Grisoucchiato',
+                'img'         => 'grisoucchiato.png',
+                'description' => 'Grisoucchiato un délice tigré sur son nuage de pattoune ',
+                'category'    => $objBoissonChaude,
+                'ingredients' => [$objLaitNoisette, $objCafe],
+            ],
+        ]);
+
+        $arrImagesCats = [
+            'grisou2.png',
+            'guignol.png',
+            'lion.png',
+            'moccha.png',
+            'nougat.png',
+        ];
+
+        //copying the img in upload
+        foreach ($arrImagesCats as $imageC) {
+            if (file_exists('public/fixtures/' . $imageC)) {
+                copy('public/fixtures/' . $imageC, 'public/uploads/cats/' . $imageC);
+            }
+        }
+
+        $objCatpuccino      = ProductFactory::find(['name' => 'Catpuccino']);
+        $objChocolatChaud   = ProductFactory::find(['name' => 'Chocolat Chaud Viennois']);
+        $objGrisoucchiato   = ProductFactory::find(['name' => 'Grisoucchiato']);
+        $objMatchaLatte     = ProductFactory::find(['name' => 'Matcha Latte']);
+
+        CatFactory::createSequence([
+            [
+                'name'        => 'Grisou',
+                'img'         => 'grisou2.png',
+                'description' => 'Grisou voleuse en série de bâtons et reine du café',
+                'gender'      => CatGender::Female,
+                'product'     => $objGrisoucchiato,
+            ],
+            [
+                'name'        => 'Guignol',
+                'img'         => 'guignol.png',
+                'description' => 'Guignol, le clown du café, toujours prêt à faire des bêtises.',
+                'gender'      => CatGender::Male,
+                'product'     => $objCatpuccino,
+            ],
+            [
+                'name'        => 'Lion',
+                'img'         => 'lion.png',
+                'description' => 'Lion, majestueux et paresseux, râle 20h par jour.',
+                'gender'      => CatGender::Male,
+            ],
+            [
+                'name'        => 'Moccha',
+                'img'         => 'moccha.png',
+                'description' => 'Moccha, douce et câline, adore se blottir sur les genoux.',
+                'gender'      => CatGender::Female,
+                'product'     => $objMatchaLatte,
+
+            ],
+            [
+                'name'        => 'Nougat',
+                'img'         => 'nougat.png',
+                'description' => 'Nougat, gourmande insatiable, surveille la vitrine à pâtisseries.',
+                'gender'      => CatGender::Female,
+                'product'     => $objChocolatChaud,
             ],
         ]);
     }

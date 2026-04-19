@@ -21,7 +21,6 @@ class IngredientRepository extends ServiceEntityRepository
      * Method to show all the ingredients that was not soft deleted
      * @return array the list of the active ingredients
      */
-
     public function findAllActive(): array
     {
         $queryBuilder = $this->createQueryBuilder('i')

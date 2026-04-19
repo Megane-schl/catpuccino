@@ -9,12 +9,12 @@ final class FormCard
 {
     private string $_strTitle;
     private string $_strSubTitle = ''; // <-- initialize it to make it not mandatory
+
     /**
      * Mount the component in the DOM
      * @param string $title The title of the form
      * @param string $subtitle The subtitle of the form
      */
-
     public function mount(string $title, string $subtitle = ''): void
     {
         $this->_strTitle    = $title;

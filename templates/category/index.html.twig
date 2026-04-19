@@ -24,14 +24,17 @@
 						<td class="fw-bold text-center">{{ category.name }}</td>
 						<td class="text-center">
 							<div class="d-flex justify-content-center gap-2">
-								<twig:BootstrapButton
-								type="primary" link="{{ path('app_category_update', { id: category.id }) }}" size="sm" text="Modifier" :outlined="true"/>
-							{# <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ category.id }}">
-																Supprimer
-															</button>
-															<twig:BootstrapModal id="deleteModal-{{ category.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir supprimer la catégorie {{ category.name }} ?" action="{{ path('app_category_delete', { id: category.id } ) }}" token="delete-category"/> #}
+								<twig:BootstrapButton type="primary" link="{{ path('app_category_update', { id: category.id }) }}" size="sm" text="Modifier" :outlined="true"/>
+								<button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ category.id }}">
+									Supprimer
+								</button>
+								<twig:BootstrapModal id="deleteModal-{{ category.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir supprimer la catégorie {{ category.name }} ?" action="{{ path('app_category_delete', { id: category.id } ) }}" token="delete-category"/>
 							</div>
 						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="2" class="text-center text-muted py-4">Aucune catégorie pour le moment.</td>
 					</tr>
 				{% endfor %}
 			</tbody>

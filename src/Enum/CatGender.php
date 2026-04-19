@@ -4,6 +4,6 @@ namespace App\Enum;
 
 enum CatGender: string
 {
-    case Male = 'M';
-    case Female = 'F';
+    case Male = 'Mâle';
+    case Female = 'Femelle';
 }

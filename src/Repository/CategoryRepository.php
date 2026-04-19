@@ -16,6 +16,18 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    /**
+     * Method to show all the categories that was not soft deleted
+     * @return array the list of the active categories
+     */
+    public function findAllActive(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->where('c.deletedAt is NULL')
+            ->orderBy('c.id', 'DESC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
     //    /**
     //     * @return Category[] Returns an array of Category objects
     //     */

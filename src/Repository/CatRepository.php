@@ -16,6 +16,19 @@ class CatRepository extends ServiceEntityRepository
         parent::__construct($registry, Cat::class);
     }
 
+    /**
+     * Method to show all the cats that was not soft deleted
+     * @return array the list of the active cats
+     */
+    public function findAllActive(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('cat')
+            ->where('cat.deletedAt is NULL')
+            ->orderBy('cat.id', 'ASC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Cat[] Returns an array of Cat objects
     //     */

@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Allergen;
 use App\Entity\Ingredient;
-use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -41,6 +40,7 @@ class IngredientFormType extends AbstractType
                 'required' => false,
                 'expanded' => true
             ])
+
 
             ->add('submit', SubmitType::class, [
                 'label' => "Enregistrer",

@@ -16,6 +16,18 @@ class AllergenRepository extends ServiceEntityRepository
         parent::__construct($registry, Allergen::class);
     }
 
+    /**
+     * Method to show all the allergens that was not soft deleted
+     * @return array the list of the active allergens
+     */
+    public function findAllActive(): array
+    {
+        $queryBuilder = $this->createQueryBuilder('al')
+            ->where('al.deletedAt is NULL')
+            ->orderBy('al.id', 'DESC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
     //    /**
     //     * @return Allergen[] Returns an array of Allergen objects
     //     */
@@ -41,17 +53,4 @@ class AllergenRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    /**
-     * Method to show all the allergens that was not soft deleted
-     * @return array the list of the active allergens
-     */
-
-    public function findAllActive(): array
-    {
-        $queryBuilder = $this->createQueryBuilder('al')
-            ->where('al.deletedAt is NULL')
-            ->orderBy('al.id', 'DESC');
-
-        return $queryBuilder->getQuery()->getResult();
-    }
 }

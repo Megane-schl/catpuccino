@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos chats - Catpuccino
+{% endblock %}
+
+{% block body %}
+	<div class="container py-5">
+		<div class="text-center mb-5">
+			<h1 class="display-4 fw-bold">Nos pensionnaires</h1>
+			<p class="lead text-muted">Venez faire connaissance avec nos adorables félins</p>
+		</div>
+		{% if is_granted('ROLE_MODO') %}
+			<div class="d-flex justify-content-end align-items-center my-5">
+				<twig:BootstrapButton type="success" link="{{ path('app_cat_create') }}" text="+ Ajouter un chat"/>
+			</div>
+		{% endif %}
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+			{% for cat in catList %}
+				<twig:CatCard id="{{ cat.id }}" name="{{ cat.name }}" img="{{ cat.img }}" gender="{{ cat.gender.value }}" age="{{ cat.age }}" description="{{ cat.description }}" product="{{ cat.product.name ?? '' }}"/>
+			{% else %}
+				<div class="col-12 text-center text-muted">
+					Aucun chat pour le moment.
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
