@@ -171,7 +171,9 @@ footer {
 
 
 #ingredient_form_allergen,
-#product_form_ingredients {
+#product_form_ingredients,
+#user_info_form_allergen,
+#registration_form_allergen {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -179,7 +181,10 @@ footer {
 }
 
 #ingredient_form_allergen .form-check,
-#product_form_ingredients .form-check {
+#product_form_ingredients .form-check,
+#user_info_form_allergen .form-check,
+#registration_form_allergen .form-check
+ {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -191,7 +196,9 @@ footer {
 }
 
 #ingredient_form_allergen .form-check-input,
-#product_form_ingredients .form-check-input {
+#product_form_ingredients .form-check-input,
+#user_info_form_allergen .form-check-input,
+#registration_form_allergen .form-check-input{
     margin: 0;
 }
 
