@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/schedule', name: 'app_schedule_')]
-#[IsGranted('ROLE_MODO')]
+#[IsGranted('ROLE_ADMIN')]
 final class ScheduleController extends AbstractController
 {
     /**
@@ -23,6 +23,7 @@ final class ScheduleController extends AbstractController
      * @return Response The list of the days
      */
     #[Route('/', name: 'index')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(ScheduleRepository $scheduleRepository): Response
     {
         $arrSchedules = $scheduleRepository->findAllDayOrder();
@@ -39,7 +40,7 @@ final class ScheduleController extends AbstractController
      * @return Response The success or the failure of updating the day and redirect to the schedule list
      */
     #[Route('/{id<\d+>}/update', name: 'update')]
-    #[IsGranted('ROLE_MODO')]
+    #[IsGranted('ROLE_ADMIN')]
     public function update(Schedule $schedule, Request $request, EntityManagerInterface $entityManager): Response
     {
 
