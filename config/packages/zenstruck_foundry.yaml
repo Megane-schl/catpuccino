@@ -16,3 +16,5 @@ when@dev: &dev
     #        autoconfigure: true
 
 when@test: *dev
+
+when@prod: *dev

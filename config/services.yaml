@@ -25,5 +25,6 @@ services:
         arguments:
             $productsImgDirectory: '%kernel.project_dir%/public/uploads/products'
             $catsImgDirectory: '%kernel.project_dir%/public/uploads/cats'
+    
 
 
