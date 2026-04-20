@@ -40,12 +40,11 @@
 			<div class="row">
 				{% for product in newsProducts %}
 					<div class="col-6 col-md-3 mb-4">
-						<twig:ProductCard id="{{ product.id }}" 
-						name="{{ product.name }}" 
-						price="{{ product.price }}" 
-						category="{{ product.category.name }}" 
-						img="{{ product.img }}" 
-						season="{{ product.seasonName ?? '' }}"/>
+						<twig:ProductCard id="{{ product.id }}" name="{{ product.name }}" price="{{ product.price }}" category="{{ product.category.name }}" img="{{ product.img }}" season="{{ product.seasonName ?? '' }}"/>
+					</div>
+				{% else %}
+					<div class="col-12 text-center text-muted">
+						Aucune nouveauté pour le moment.
 					</div>
 				{% endfor %}
 			</div>
@@ -57,13 +56,7 @@
 		<div class="row justify-content-center">
 			{% for cat in newsCats %}
 				<div class="col-md-4 mb-4">
-					<twig:CatCard id="{{ cat.id }}" 
-					name="{{ cat.name }}" 
-					img="{{ cat.img }}" 
-					gender="{{ cat.gender.value }}" 
-					age="{{ cat.age }}" 
-					description="{{ cat.description }}" 
-					product="{{ cat.product.name ?? '' }}"/>
+					<twig:CatCard id="{{ cat.id }}" name="{{ cat.name }}" img="{{ cat.img }}" gender="{{ cat.gender.value }}" age="{{ cat.age }}" description="{{ cat.description }}" product="{{ cat.product.name ?? '' }}"/>
 				</div>
 			{% else %}
 				<div class="col-12 text-center text-muted">

@@ -1,0 +1,168 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon espace - Catpuccino
+{% endblock %}
+
+{% block body %}
+	<section class="container py-5">
+
+		<h1 class="mb-0 text-center">Mon espace</h1>
+		<div class="d-flex justify-content-center align-items-center gap-3 mb-5">
+			<div class="avatar-letters d-flex justify-content-center align-items-center rounded-circle">
+				{{ app.user.firstname|first|upper }}{{ app.user.lastname|first|upper }}
+			</div>
+			<div>
+				<h2 class="fs-4 fw-bold mb-0">{{ app.user.firstname }}
+					{{ app.user.lastname }}</h2>
+				<p class="mb-0 small">Bienvenue dans ton petit coin douillet</p>
+			</div>
+		</div>
+
+		<div class="text-center my-5">
+
+			<span class="fw-bold">
+				Mon compte
+			</span>
+		</div>
+
+		<div class="row g-3 mb-2">
+			<div class="col-6 col-md-3 card-dashboard">
+				<a href="{{ path('app_user_update', {id: app.user.id}) }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+					<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+						<twig:ux:icon name="ri:user-fill"/>
+					</div>
+					<p class="fw-bold mb-0 small">Mon profil</p>
+					<p class="mb-0">Mes infos</p>
+				</a>
+			</div>
+			<div class="col-6 col-md-3 card-dashboard">
+				<a href="{{ path('app_reservation_my') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+					<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+						<twig:ux:icon name="fa6-regular:calendar"/>
+					</div>
+					<p class="fw-bold mb-0 small">Mes réservations</p>
+					<p class="mb-0">Mes créneaux</p>
+				</a>
+			</div>
+			<div class="col-6 col-md-3 card-dashboard">
+				<a href="{{ path('app_reservation_create') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+					<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+						<twig:ux:icon name="simple-line-icons:plus"/>
+					</div>
+					<p class="fw-bold mb-0 small">Réserver</p>
+					<p class="mb-0">Nouveau créneau</p>
+				</a>
+			</div>
+			<div class="col-6 col-md-3 card-dashboard">
+				<a href="{{ path('app_logout') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+					<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+						<twig:ux:icon name="tabler:logout"/>
+					</div>
+					<p class="fw-bold mb-0 small">Déconnexion</p>
+					<p class="mb-0">À bientôt !</p>
+				</a>
+			</div>
+		</div>
+
+		{% if is_granted('ROLE_MODO') %}
+			<div class="text-center my-5 fw-bold">
+				<span>Gestion du café</span>
+			</div>
+
+			<div class="row g-3 mb-2">
+				<div class="col-6 col-md-3 card-dashboard">
+					<a href="{{ path('app_product_index') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+						<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+							<twig:ux:icon name="ph:coffee-bold"/>
+						</div>
+						<p class="fw-bold mb-0 small">Produits</p>
+						<p class="mb-0">La carte du café</p>
+					</a>
+				</div>
+				<div class="col-6 col-md-3 card-dashboard">
+					<a href="{{ path('app_category_index') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+						<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+							<twig:ux:icon name="carbon:expand-categories"/>
+						</div>
+						<p class="fw-bold mb-0 small">Catégories</p>
+						<p class="mb-0">Organiser la carte</p>
+					</a>
+				</div>
+				<div class="col-6 col-md-3 card-dashboard">
+					<a href="{{ path('app_cat_index') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+						<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+							<twig:ux:icon name="mdi:cat"/>
+						</div>
+						<p class="fw-bold mb-0 small">Chats</p>
+						<p class="mb-0">Nos minous</p>
+					</a>
+				</div>
+				<div class="col-6 col-md-3 card-dashboard">
+					<a href="{{ path('app_reservation_show') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+						<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+							<twig:ux:icon name="line-md:calendar"/>
+						</div>
+						<p class="fw-bold mb-0 small">Réservations</p>
+						<p class="mb-0">Tous les créneaux</p>
+					</a>
+				</div>
+				<div class="col-6 col-md-3 card-dashboard">
+					<a href="{{ path('app_allergen_index') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+						<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+							<twig:ux:icon name="streamline-sharp:allergens-peanut"/>
+						</div>
+						<p class="fw-bold mb-0 small">Allergènes</p>
+						<p class="mb-0">Sécurité alimentaire</p>
+					</a>
+				</div>
+				<div class="col-6 col-md-3 card-dashboard">
+					<a href="{{ path('app_ingredient_index') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+						<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+							<twig:ux:icon name="hugeicons:chocolate"/>
+						</div>
+						<p class="fw-bold mb-0 small">Ingrédients</p>
+						<p class="mb-0">Ce qu'on utilise</p>
+					</a>
+				</div>
+			</div>
+		{% endif %}
+
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="text-center my-5">
+				<span class="fw-bold">
+					Administration
+				</span>
+			</div>
+
+			<div class="row g-3 mb-2">
+				<div class="col-6 col-md-3 card-dashboard">
+					<a href="{{ path('app_user_index') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+						<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+							<twig:ux:icon name="fa7-solid:users"/>
+						</div>
+						<p class="fw-bold mb-0 small">Utilisateurs</p>
+						<p class="mb-0">Gérer les comptes</p>
+					</a>
+				</div>
+				<div class="col-6 col-md-3 card-dashboard">
+					<a href="{{ path('app_schedule_index') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+						<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+							<twig:ux:icon name="tabler:clock-hour-2" class="icon-dashboard"/>
+						</div>
+						<p class="fw-bold mb-0 small">Horaires</p>
+						<p class="mb-0">Heures d'ouverture</p>
+					</a>
+				</div>
+				<div class="col-6 col-md-3 card-dashboard">
+					<a href="{{ path('app_special_schedule_index') }}" class="cp-card h-100 d-flex flex-column align-items-center text-center text-decoration-none p-3">
+						<div class="cp-ico rounded-3 d-flex align-items-center justify-content-center mb-2">
+							<twig:ux:icon name="eos-icons:hourglass"/>
+						</div>
+						<p class="fw-bold mb-0 small">Jours spéciaux</p>
+						<p class="mb-0">Événements</p>
+					</a>
+				</div>
+			</div>
+		{% endif %}
+	</section>
+{% endblock %}

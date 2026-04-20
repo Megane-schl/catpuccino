@@ -50,6 +50,7 @@ final class SpecialScheduleController extends AbstractController
 
         $createForm->handleRequest($request);
 
+        
         if ($createForm->isSubmitted() && $createForm->isValid()) {
 
             $objSpecialSchedule->setCreatedAt(new DateTimeImmutable('now'));

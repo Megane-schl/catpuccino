@@ -21,8 +21,6 @@ class SpecialScheduleFormType extends AbstractType
             ->add('date', DateType::class, [
                 'label'  => 'Date de l\'horaire exceptionnel :',
                 'widget' => 'single_text',
-                'html5'  => false, // <-- html5 was prioritary on flatpickr
-                'format' => 'yyyy-MM-dd',
                 'attr'   => [
                     'class' => 'flatpickr',
                     'placeholder' => 'Sélectionnez une date...',

@@ -8,6 +8,7 @@
 	<section class="container my-5">
 		<h1 class="mb-5 text-center">Gestion des réservations</h1>
 		<div class="d-flex justify-content-center align-items-center my-5 gap-5">
+			<twig:BootstrapButton type="dark" link="{{ path('app_dashboard') }}" text="Retour à mon espace"/>
 			<twig:BootstrapButton type="success" link="{{ path('app_reservation_show') }}" :outlined="true" text="Toutes les réservations"/>
 			<twig:BootstrapButton type="dark" link="{{ path('app_reservation_today') }}" :outlined="true" text="Voir les réservations prévues d'aujourd'hui"/>
 		</div>

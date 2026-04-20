@@ -12,7 +12,8 @@
 				<twig:SearchBar action="{{ path('app_user_index') }}" placeholder="Rechercher un utilisateur..." value="{{ searchName }}"/>
 			</div>
 		</div>
-		<div class="d-flex justify-content-end align-items-center my-5">
+		<div class="d-flex justify-content-between align-items-center my-5">
+			<twig:BootstrapButton type="dark" link="{{ path('app_dashboard') }}" text="Retour à mon espace"/>
 			<twig:BootstrapButton type="success" link="{{ path('app_user_create') }}" text="+ Nouvel utilisateur"/>
 		</div>
 

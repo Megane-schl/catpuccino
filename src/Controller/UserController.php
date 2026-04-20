@@ -133,9 +133,23 @@ final class UserController extends AbstractController
 
             $entityManager->flush();
 
-            $this->addFlash('success', "L'utilisateur a été mis à jour");
 
+            //adapt it depend if its a connected user
+
+            if ($user === $this->getUser()) {
+                $this->addFlash('success', "Votre profil a été mis à jour");
+                return $this->redirectToRoute('app_dashboard');
+            }
+            $this->addFlash('success', "L'utilisateur a été mis à jour");
             return $this->redirectToRoute('app_user_index');
+        }
+
+        if ($this->getUser() === $user) {
+            return $this->render('user/form.html.twig', [
+                'userForm' => $userForm,
+                'title'    => 'Mon profil',
+                'subtitle' => 'Modifier mes informations'
+            ]);
         }
 
         return $this->render('user/form.html.twig', [

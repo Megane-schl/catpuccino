@@ -6,7 +6,11 @@
 
 {% block body %}
 	<div class="container text-center mt-5">
-		<twig:BootstrapButton type="dark" link="{{ path('app_user_index') }}" text="Retour à la liste"/>
+		{% if is_granted('ROLE_ADMIN') %}
+			<twig:BootstrapButton type="dark" link="{{ path('app_user_index') }}" text="Retour à la liste"/>
+		{% else %}
+			<twig:BootstrapButton type="dark" link="{{ path('app_dashboard') }}" text="Retour à mon espace"/>
+		{% endif %}
 	</div>
 	<twig:FormCard title="{{ title }}" subtitle="{{ subtitle }}">
 		{{ form(userForm) }}

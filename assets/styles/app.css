@@ -183,8 +183,7 @@ footer {
 #ingredient_form_allergen .form-check,
 #product_form_ingredients .form-check,
 #user_info_form_allergen .form-check,
-#registration_form_allergen .form-check
- {
+#registration_form_allergen .form-check {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -198,7 +197,7 @@ footer {
 #ingredient_form_allergen .form-check-input,
 #product_form_ingredients .form-check-input,
 #user_info_form_allergen .form-check-input,
-#registration_form_allergen .form-check-input{
+#registration_form_allergen .form-check-input {
     margin: 0;
 }
 
@@ -681,4 +680,56 @@ footer {
 
 .error-grisou {
     width: 800px;
+}
+
+/* Dashboard page */
+
+.cp-ava-txt {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--capuccino);
+    z-index: 1;
+}
+
+
+.cp-sep-txt {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cookie);
+    white-space: nowrap;
+}
+
+
+.cp-card {
+    background-color: #FDF9F5;
+    border: 0.5px solid var(--tiramisu2);
+    border-radius: 14px;
+    transition: transform 0.15s, border-color 0.15s;
+}
+
+.cp-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--cookie);
+}
+
+.cp-ico {
+    color: var(--darkCoffee);
+    background-color: var(--tiramisu2);
+    width: 52px;
+    height: 52px;
+    padding: 12px;
+    font-size: 1.5rem;
+}
+
+.card-dashboard a {
+    color: #C68B59;
+    background-color: var(--darkCoffee);
+}
+
+
+.cp-back:hover {
+    background-color: var(--cookie);
+    color: white;
 }

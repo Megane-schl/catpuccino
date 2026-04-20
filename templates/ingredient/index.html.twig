@@ -5,64 +5,56 @@
 
 {% block body %}
 
-<section class="container my-5">
-	<h1 class="mb-5 text-center">Gestion des ingrédients</h1>
-	<div class="d-flex justify-content-end align-items-center my-5">
-		<twig:BootstrapButton type="success" link="{{ path('app_ingredient_create') }}"
-			text="+ Ajouter un ingrédient" />
-	</div>
+	<section class="container my-5">
+		<h1 class="mb-5 text-center">Gestion des ingrédients</h1>
+		<div class="d-flex justify-content-between align-items-center my-5">
+			<twig:BootstrapButton type="dark" link="{{ path('app_dashboard') }}" text="Retour à mon espace"/>
+			<twig:BootstrapButton type="success" link="{{ path('app_ingredient_create') }}" text="+ Ajouter un ingrédient"/>
+		</div>
 
-	<table class="table table-hover table-borderless align-middle shadow-sm">
-		<thead class="table-dark">
-			<tr class="text-center">
-				<th scope="col">Nom</th>
-				<th scope="col">Vegan</th>
-				<th scope="col">Allergènes</th>
-				<th scope="col">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for ingredient in ingredientList %}
-			<tr>
-				<td class="fw-bold text-center">
-					{{ ingredient.name }}
-				</td>
-				<td class="text-center">
-					{% if ingredient.isVegan %}
-					<span class="badge bg-success">Végan</span>
-					{% else %}
-					<span class="badge bg-danger">Non végan</span>
-					{% endif %}
-				</td>
-				<td class="text-center">
-					{% for allergen in ingredient.allergen %}
-					<span class="badge rounded-pill bg-dark text-white">{{ allergen.name }}</span>
-					{% else %}
-					<span class="text-muted small">
-						Aucun
-					</span>
-					{% endfor %}
-				</td>
-				<td class="text-center">
-					<div class="d-flex justify-content-center gap-2">
-						<twig:BootstrapButton type="primary"
-							link="{{ path('app_ingredient_update', { id: ingredient.id }) }}" size="sm" text="Modifier"
-							:outlined="true" />
-						<button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-							data-bs-target="#deleteModal-{{ ingredient.id }}">
-							Supprimer
-						</button>
-						<twig:BootstrapModal id="deleteModal-{{ ingredient.id }}" title="Avertissement"
-							message="Êtes-vous sûr de vouloir supprimer l'ingrédient {{ ingredient.name }} ?"
-							action="{{ path('app_ingredient_delete', { id: ingredient.id } ) }}"
-							token="delete-ingredient" />
-					</div>
-				</td>
-			</tr>
-		</tbody>
-		</tbody>
+		<table class="table table-hover table-borderless align-middle shadow-sm">
+			<thead class="table-dark">
+				<tr class="text-center">
+					<th scope="col">Nom</th>
+					<th scope="col">Vegan</th>
+					<th scope="col">Allergènes</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for ingredient in ingredientList %}
+					<tr>
+						<td class="fw-bold text-center">
+							{{ ingredient.name }}
+						</td>
+						<td class="text-center">
+							{% if ingredient.isVegan %}
+								<span class="badge bg-success">Végan</span>
+							{% else %}
+								<span class="badge bg-danger">Non végan</span>
+							{% endif %}
+						</td>
+						<td class="text-center">
+							{% for allergen in ingredient.allergen %}
+								<span class="badge rounded-pill bg-dark text-white">{{ allergen.name }}</span>
+							{% else %}
+								<span class="text-muted small">
+									Aucun
+								</span>
+							{% endfor %}
+						</td>
+						<td class="text-center">
+							<div class="d-flex justify-content-center gap-2">
+								<twig:BootstrapButton type="primary" link="{{ path('app_ingredient_update', { id: ingredient.id }) }}" size="sm" text="Modifier" :outlined="true"/>
+								<button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ ingredient.id }}">
+									Supprimer
+								</button>
+								<twig:BootstrapModal id="deleteModal-{{ ingredient.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir supprimer l'ingrédient {{ ingredient.name }} ?" action="{{ path('app_ingredient_delete', { id: ingredient.id } ) }}" token="delete-ingredient"/>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</tbody>
 		</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-</section>{% endblock %}
+	{% endfor %}
+</tbody></table></section>{% endblock %}

@@ -7,7 +7,8 @@
 
 	<section class="container my-5">
 		<h1 class="mb-5 text-center">Gestion des catégories</h1>
-		<div class="d-flex justify-content-end align-items-center my-5">
+		<div class="d-flex justify-content-between align-items-center my-5">
+			<twig:BootstrapButton type="dark" link="{{ path('app_dashboard') }}" text="Retour à mon espace"/>
 			<twig:BootstrapButton type="success" link="{{ path('app_category_create') }}" text="+ Ajouter une catégorie"/>
 		</div>
 
