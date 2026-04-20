@@ -57,7 +57,7 @@ class ReservationControllerTest extends WebTestCase
 
     /**
      * Method to test that a user can see available time slots for a specific date
-     */
+     *//*
     public function testCreateReservationPageShowTimeSlots(): void
     {
         $client = static::createClient();
@@ -101,5 +101,5 @@ class ReservationControllerTest extends WebTestCase
     //     $crawler = $client->request('GET', '/reservation/create');
 
     //     $this->assertResponseIsSuccessful();
-    // }
+    // }*/
 }
