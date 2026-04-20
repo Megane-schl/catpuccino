@@ -526,11 +526,11 @@ class AppFixtures extends Fixture
         ];
 
         //copying the img in upload
-        foreach ($arrImagesProduct as $imageP) {
-            if (file_exists('public/fixtures/' . $imageP)) {
-                copy('public/fixtures/' . $imageP, 'public/uploads/products/' . $imageP);
-            }
-        }
+        // foreach ($arrImagesProduct as $imageP) {
+        //     if (file_exists('public/fixtures/' . $imageP)) {
+        //         copy('public/fixtures/' . $imageP, 'public/uploads/products/' . $imageP);
+        //     }
+        // }
 
         ProductFactory::createSequence([
             [
@@ -713,11 +713,11 @@ class AppFixtures extends Fixture
         ];
 
         //copying the img in upload
-        foreach ($arrImagesCats as $imageC) {
-            if (file_exists('public/fixtures/' . $imageC)) {
-                copy('public/fixtures/' . $imageC, 'public/uploads/cats/' . $imageC);
-            }
-        }
+        // foreach ($arrImagesCats as $imageC) {
+        //     if (file_exists('public/fixtures/' . $imageC)) {
+        //         copy('public/fixtures/' . $imageC, 'public/uploads/cats/' . $imageC);
+        //     }
+        // }
 
         $objCatpuccino      = ProductFactory::find(['name' => 'Catpuccino']);
         $objChocolatChaud   = ProductFactory::find(['name' => 'Chocolat Chaud Viennois']);
