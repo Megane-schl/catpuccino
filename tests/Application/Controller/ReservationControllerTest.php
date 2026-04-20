@@ -59,9 +59,8 @@ class ReservationControllerTest extends WebTestCase
     /**
      * Method to test that a user can see available time slots for a specific date
      */
- /*   public function testCreateReservationPageShowTimeSlots(): void
+    public function testCreateReservationPageShowTimeSlots(): void
     {
- 
 
         $client = static::createClient();
 
@@ -69,11 +68,19 @@ class ReservationControllerTest extends WebTestCase
 
         $client->loginUser($objUser);
 
-        //create a for the actual day to test
-        $intToday = (int)date('N');
+        //array of week day 
+        $arrDays = [
+            1 => WeekDay::Monday,
+            2 => WeekDay::Tuesday,
+            3 => WeekDay::Wednesday,
+            4 => WeekDay::Thursday,
+            5 => WeekDay::Friday,
+            6 => WeekDay::Saturday,
+            7 => WeekDay::Sunday,
+        ];
 
         $objSchedule    = ScheduleFactory::createOne([
-            'day'       => WeekDay::from($intToday),
+            'day'       => $arrDays[date('N')],
             'openTime'  => new DateTimeImmutable('00:01'),
             'closeTime' => new DateTimeImmutable('23:59'), //< for the sime slot is not passed
             'isClose'   => false,

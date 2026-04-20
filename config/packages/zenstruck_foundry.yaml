@@ -17,4 +17,3 @@ when@dev: &dev
 
 when@test: *dev
 
-when@prod: *dev
