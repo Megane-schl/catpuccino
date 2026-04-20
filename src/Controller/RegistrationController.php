@@ -75,7 +75,6 @@ class RegistrationController extends AbstractController
      * @param TranslatorInterface $translator Used to translate verification errors
      * @param UserRepository $userRepository To find the user by id
      * @return Response Redirect to login page if success else error
-     * 
      */
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response
