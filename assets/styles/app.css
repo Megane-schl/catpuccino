@@ -705,13 +705,6 @@ footer {
     opacity: 0.8;
 }
 
-.footer-divider {
-    border: none;
-    border-top: 1px solid #C68B59;
-    opacity: 0.3;
-    margin: 1.5rem auto;
-    width: 60%;
-}
 
 .footer h6 {
     color: #C68B59;
@@ -747,4 +740,39 @@ footer {
 
 .footer .text-center:last-child {
     padding-top: 1.5rem;
+}
+
+.titleCoffee {
+    color: var(--darkCoffee);
+}
+
+/* dashboard */
+.catpuccino-profile-card {
+    background: #ffffff;
+    border-radius: 1.5rem;
+    border: 1px solid #f0e6dd;
+    max-width: 500px;
+}
+
+.catpuccino-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: var(--milkChocolate); 
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.catpuccino-user-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.catpuccino-welcome-text {
+    font-size: 0.9rem;
+    color: #8a7a6a; /* Un marron grisé plus doux */
+    font-style: italic;
 }

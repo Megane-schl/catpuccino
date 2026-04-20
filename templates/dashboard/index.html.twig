@@ -6,16 +6,24 @@
 {% block body %}
 	<section class="container py-5">
 
-		<h1 class="mb-0 text-center">Mon espace</h1>
-		<div class="d-flex justify-content-center align-items-center gap-3 mb-5">
-			<div class="avatar-letters d-flex justify-content-center align-items-center rounded-circle">
-				{{ app.user.firstname|first|upper }}{{ app.user.lastname|first|upper }}
+		<div class="d-flex justify-content-center w-100">
+
+			<div class="catpuccino-profile-card d-flex align-items-center p-4 mb-4 shadow-sm w-100" style="max-width: 500px;">
+				<div class="catpuccino-avatar d-flex justify-content-center align-items-center">
+					{{ app.user.firstname|first|upper }}{{ app.user.lastname|first|upper }}
+				</div>
+
+				<div class="catpuccino-info-wrapper ms-3">
+					<h1 class="catpuccino-user-name mb-0">
+						{{ app.user.firstname }}
+						{{ app.user.lastname }}
+					</h1>
+					<p class="catpuccino-welcome-text mb-0">
+						Ton carnet de bord, version ronron.
+					</p>
+				</div>
 			</div>
-			<div>
-				<h2 class="fs-4 fw-bold mb-0">{{ app.user.firstname }}
-					{{ app.user.lastname }}</h2>
-				<p class="mb-0 small">Bienvenue dans ton petit coin douillet</p>
-			</div>
+
 		</div>
 
 		<div class="text-center my-5">
