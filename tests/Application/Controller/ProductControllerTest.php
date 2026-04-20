@@ -133,7 +133,7 @@ class ProductControllerTest extends WebTestCase
     /**
      * Method to test that a moderator can successfully create a product with the create form
      */
-    /*
+    
     public function testCreateProductFormSubmit(): void
     {
         $client = static::createClient();
@@ -142,7 +142,7 @@ class ProductControllerTest extends WebTestCase
 
         // Ingredient factory is configurate with a random 0 to 3 allergen
         AllergenFactory::createMany(3);
-        $objIngredient  = IngredientFactory::createOne();
+        $objIngredient  = IngredientFactory::createMany(3);
         $objCategory    = CategoryFactory::createOne();
 
         $crawler = $client->request('GET', '/product/create');
@@ -156,13 +156,16 @@ class ProductControllerTest extends WebTestCase
             'product_form[price]'           => 5.50,
             'product_form[description]'     => 'Miam miaou grisouuuuuu',
             'product_form[category]'        => $objCategory->getId(),
-            'product_form[ingredients]'     => $objIngredient->getId()
+            'product_form[ingredients][0]'  => $objIngredient[0]->getId(),
+            'product_form[ingredients][1]'  => $objIngredient[1]->getId(),
+            'product_form[ingredients][2]'  => $objIngredient[2]->getId(),
+
         ]);
 
         $this->assertResponseRedirects();
 
         $client->followRedirect();
 
-        $this->assertRouteSame('app_product_show');
-    }*/
+        $this->assertRouteSame('app_product_index');
+    }
 }
