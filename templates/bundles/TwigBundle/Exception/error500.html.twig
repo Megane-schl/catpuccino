@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur serveur - Catpuccino
+{% endblock %}
+
+{% block body %}
+	<div class="container min-vh-90 d-flex align-items-center justify-content-center">
+		<div class="row justify-content-center">
+			<div class="col-md-8 text-center error-grisou">
+				<img src="{{ asset('images/grisou_baton_casse_500.png') }}" alt="Grisou 500" class="img-fluid mb-4">
+				<p class="lead text-muted mb-4">Oups ! Grisou a renversé le café sur le serveur !</p>
+				<a href="{{ path('app_home') }}" class="btn btn-dark btn-lg rounded-pill px-5">
+					Retour à l'accueil
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

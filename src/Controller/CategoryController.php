@@ -16,6 +16,7 @@ use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/category', name: 'app_category_')]
+#[IsGranted('ROLE_MODO')]
 final class CategoryController extends AbstractController
 {
     /**
@@ -24,6 +25,7 @@ final class CategoryController extends AbstractController
      * @return Response The list of the categories
      */
     #[Route('/', name: 'index')]
+    #[IsGranted('ROLE_MODO')]
     public function index(CategoryRepository $categoryRepository): Response
     {
         $arrCategories = $categoryRepository->findAllActive();

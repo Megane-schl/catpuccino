@@ -2,7 +2,7 @@
 	<div class="card h-100 card-product-custom shadow-sm">
 
 		<div class="position-relative img-wrapper">
-			<img src="{{ asset('uploads/products/' ~ this.img) }}" class="card-img-top" alt="{{ this.name }}">
+			<img src="{{ asset('uploads/products/' ~ this.img ?? 'default.png') }}" class="card-img-top" alt="{{ this.name }}">
 			<span class="position-absolute top-0 end-0 m-3 badge rounded-pill badge-price shadow-sm">
 				{{ this.price }}€
 			</span>
@@ -12,7 +12,7 @@
 
 			<div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
 				<span class="badge rounded-pill badge-custom">{{ this.category }}</span>
-				{% if this.seasonName %} 
+				{% if this.seasonName %}
 					<span class="badge rounded-pill badge-custom badge-status">
 						{{ this.seasonName }}</span>
 				{% endif %}
@@ -31,9 +31,7 @@
 					<button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ this.id }}">
 						Supprimer
 					</button>
-					<twig:BootstrapModal id="deleteModal-{{ this.id }}" title="Avertissement" 
-					message="Êtes-vous sûr de vouloir supprimer le produit {{ this.name }} ?" 
-					action="{{ path('app_product_delete', { id: this.id } ) }}" token="delete-product"/>
+					<twig:BootstrapModal id="deleteModal-{{ this.id }}" title="Avertissement" message="Êtes-vous sûr de vouloir supprimer le produit {{ this.name }} ?" action="{{ path('app_product_delete', { id: this.id } ) }}" token="delete-product"/>
 				</div>
 			{% endif %}
 		</div>

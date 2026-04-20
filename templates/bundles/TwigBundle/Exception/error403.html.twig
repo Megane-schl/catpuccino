@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accès refusé - Catpuccino
+{% endblock %}
+
+{% block body %}
+	<div class="container min-vh-90 d-flex align-items-center justify-content-center">
+		<div class="row justify-content-center">
+			<div class="col-md-8 text-center error-grisou">
+				<img src="{{ asset('images/grisou_baton_protection_403.png') }}" alt="Grisou 403" class="img-fluid mb-4">
+				<p class="lead text-muted mb-4">Miaou ! Grisou t'interdit l'accès à cette page !</p>
+				<a href="{{ path('app_home') }}" class="btn btn-dark btn-lg rounded-pill px-5">
+					Retour à l'accueil
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

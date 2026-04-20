@@ -678,3 +678,7 @@ footer {
     border-top: 1px solid rgba(232, 213, 196, 0.1);
     padding-top: 1.5rem;
 }
+
+.error-grisou {
+    width: 800px;
+}

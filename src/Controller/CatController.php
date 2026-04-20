@@ -56,10 +56,15 @@ final class CatController extends AbstractController
             /** @var UploadedFile $objUploadedFile */
             $objUploadedFile = $createForm->get('img')->getData();
 
-            $strNewFilename = $fileUploader->uploadCatsImg($objUploadedFile);
+            //default picture
+            if ($objUploadedFile) {
+                $strNewFilename = $fileUploader->uploadCatsImg($objUploadedFile);
+                $objCat->setImg($strNewFilename);
+            } else {
+                $objCat->setImg('default.png');
+            }
 
-            $objCat->setCreatedAt(new DateTimeImmutable('now'))
-                ->setImg($strNewFilename);
+            $objCat->setCreatedAt(new DateTimeImmutable('now'));
 
             $entityManager->persist($objCat);
             $entityManager->flush();

@@ -22,12 +22,12 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class ReservationController extends AbstractController
 {
     /**
-     * 
+     * Method to display the reservation page 
+     * @return Response the reservation page
      */
     #[Route('/', name: 'index')]
-    public function index(Request $request): Response
+    public function index(): Response
     {
-
         return $this->render('reservation/index.html.twig');
     }
 
@@ -68,7 +68,7 @@ final class ReservationController extends AbstractController
             $schedule = $scheduleRepository->find($objDate->format('N')); //<-- N : mean 1 for Monday, 7 For Sunday...
 
             // if the regular schedule is close return empty array
-            if ($schedule->isClose()) {
+            if ($schedule === null || $schedule->isClose()) {
                 return [];
             }
             // collecting the open time / close time and max people 
