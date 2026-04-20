@@ -40,7 +40,7 @@ final class UserFactory extends PersistentObjectFactory
         $dteDeletedAt = self::faker()->dateTime();
 
         return [
-            'email'         => self::faker()->email(),
+            'email'         => self::faker()->unique()->safeEmail(),
             'firstname'     => self::faker()->firstName(),
             'lastname'      => self::faker()->lastName(),
             'password'      => $this->userPasswordHasher->hashPassword(new User(), self::DEFAULT_PASSWORD),

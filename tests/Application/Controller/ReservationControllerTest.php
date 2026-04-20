@@ -7,7 +7,8 @@ use App\Factory\ScheduleFactory;
 use App\Factory\UserFactory;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Zenstruck\Foundry\Test\ResetDatabase;
+use Zenstruck\Foundry\Attribute\ResetDatabase;
+
 
 #[ResetDatabase]
 class ReservationControllerTest extends WebTestCase
@@ -57,9 +58,11 @@ class ReservationControllerTest extends WebTestCase
 
     /**
      * Method to test that a user can see available time slots for a specific date
-     *//*
-    public function testCreateReservationPageShowTimeSlots(): void
+     */
+ /*   public function testCreateReservationPageShowTimeSlots(): void
     {
+ 
+
         $client = static::createClient();
 
         $objUser = UserFactory::createOne();
@@ -67,7 +70,7 @@ class ReservationControllerTest extends WebTestCase
         $client->loginUser($objUser);
 
         //create a for the actual day to test
-        $intToday = date('N');
+        $intToday = (int)date('N');
 
         $objSchedule    = ScheduleFactory::createOne([
             'day'       => WeekDay::from($intToday),
@@ -84,7 +87,7 @@ class ReservationControllerTest extends WebTestCase
 
         $this->assertSelectorTextContains('h1', 'Réserver un créneau');
 
-        $this->assertSelectorTextNotContains('p', 'Aucun créneau disponible');
+        //$this->assertSelectorTextNotContains('p', 'Aucun créneau disponible');
     }
 
     /**

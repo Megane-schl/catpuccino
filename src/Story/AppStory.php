@@ -42,7 +42,7 @@ final class AppStory extends Story
 
         AllergenFactory::createSequence([
             [
-                'name'     => 'Gluten',
+                'name'  => 'Gluten',
                 'info'  => 'Céréales (blé, épeautre, Khorasan, seigle, orge, avoine) et produits à base de ces céréales. Inclut sirops de glucose, maltodextrines et distillats alcooliques.',
             ],
             [
