@@ -22,6 +22,13 @@ class RegistrationController extends AbstractController
 {
     public function __construct(private EmailVerifier $emailVerifier) {}
 
+    /**
+     * Method to register a new user in the database
+     * @param Request $request The request to collect the User
+     * @param UserPasswordHasherInterface $userPasswordHasher To hashed the password
+     * @param EntityManagerInterface $entityManager To create the user in the database
+     * @return Response The success or the failure of register the user
+     */
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
@@ -62,6 +69,14 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    /**
+     * Method to verify the user's email address 
+     * @param Request $request
+     * @param TranslatorInterface $translator Used to translate verification errors
+     * @param UserRepository $userRepository To find the user by id
+     * @return Response Redirect to login page if success else error
+     * 
+     */
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response
     {
