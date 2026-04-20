@@ -23,11 +23,11 @@
 		<form method="post">
 			<div class="mb-3">
 				<label for="username" class="mb-2">Adresse e-mail</label>
-				<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+				<input type="email" value="{{ last_username }}" placeholder="exemple@gmail.fr" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
 			</div>
 			<div class="mb-3">
 				<label for="password" class="mb-2">Mot de passe</label>
-				<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+				<input type="password" placeholder="••••••••••" name="_password" id="password" class="form-control" autocomplete="current-password" required>
 				<input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
 			</div>
 			<!-- Remember me -->

@@ -1,70 +1,49 @@
 <footer class="footer mt-5">
 	<div class="container">
-		<div
-			class="row g-4">
-			<!-- logo part -->
-			<div class="col-md-4 logo">
-				<a href="{{ path('app_home') }}">
-					<img src="{{ asset('images/logo_catpuccino.svg') }}" alt="Logo Catpuccino">
-				</a>
-				<p class="small mt-2">Café, pâtisseries et ronronthérapie à Colmar.</p>
-			</div>
-			<!-- nav part -->
-			<div class="col-md-2 col-6">
+		<div class="text-center footer-logo">
+			<a href="{{ path('app_home') }}">
+				<img src="{{ asset('images/logo_catpuccino.svg') }}" alt="Logo Catpuccino">
+			</a>
+			<p class="small mt-2">Café, pâtisseries et ronronthérapie à Colmar.</p>
+		</div>
+
+		<hr class="footer-divider">
+
+		<div class="row g-4 justify-content-center text-center">
+			<!-- nav -->
+			<div class="col-md-3 col-6">
 				<h6>Navigation</h6>
 				<ul class="list-unstyled small fw-semibold">
-					<li>
-						<a href="{{ path('app_home') }}">Accueil</a>
-					</li>
-					<li>
-						<a href="{{ path('app_product_index') }}">Nos produits</a>
-					</li>
-					<li>
-						<a href="{{ path('app_cat_index') }}">Nos chats</a>
-					</li>
-					<li>
-						<a href="{{ path('app_reservation_index') }}">Réserver</a>
-					</li>
-					<li>
-						<a href="{{ path('app_mentions_legales') }}">Mentions légales</a>
-					</li>
+					<li><a href="{{ path('app_home') }}">Accueil</a></li>
+					<li><a href="{{ path('app_product_index') }}">Nos produits</a></li>
+					<li><a href="{{ path('app_cat_index') }}">Nos chats</a></li>
+					<li><a href="{{ path('app_reservation_index') }}">Réserver</a></li>
+					<li><a href="{{ path('app_mentions_legales') }}">Mentions légales</a></li>
 				</ul>
 			</div>
 			<!-- contact part -->
 			<div class="col-md-3 col-6">
-				<h6 class="mb-3">Contact</h6>
+				<h6>Contact</h6>
 				<ul class="list-unstyled small">
 					<li>12 rue de Minou, 68000 Colmar</li>
 					<li>03 89 00 00 00</li>
 					<li>contact@catpuccino.fr</li>
 				</ul>
 			</div>
-			<!-- schedules part-->
-			<div class="col-md-3">
-				<h6>Horaire</h6>
+			<!-- schedules part -->
+			<div class="col-md-3 col-6">
+				<h6>Horaires</h6>
 				<ul class="list-unstyled small">
-					<li>
-						Lundi - Fermé
-					</li>
-					<li>
-						Mardi Mercredi 09h30 - 19h
-					</li>
-					<li>
-						Jeudi Vendredi 10h30 - 20h
-					</li>
-					<li>
-						Samedi Dimanche 09h30 - 20h
-					</li>
-
+					<li>Lundi - Fermé</li>
+					<li>Mar Mer — 09h30 - 19h</li>
+					<li>Jeu Ven — 10h30 - 20h</li>
+					<li>Sam Dim — 09h30 - 20h</li>
 				</ul>
 			</div>
 		</div>
+
 		<div class="text-center mt-3">
-			<small>
-				&copy;
-				{{ 'now'|date('Y') }}
-				Catpuccino - Tous droits réservés
-			</small>
+			<small>&copy; {{ 'now'|date('Y') }} Catpuccino - Tous droits réservés</small>
 		</div>
 	</div>
 </footer>

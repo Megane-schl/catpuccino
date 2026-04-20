@@ -185,7 +185,7 @@ final class ReservationController extends AbstractController
                 }
                 //error message
                 if ($arrMatchingSlot == null) {
-                    $this->addFlash('danger', 'Veuillez sélectionnez un créneau');
+                    $this->addFlash('danger', 'Veuillez sélectionner un créneau');
                     return $this->redirectToRoute('app_reservation_create');
                 }
                 if ($intNbPeople < 1) {

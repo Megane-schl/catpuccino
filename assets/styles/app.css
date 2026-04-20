@@ -633,51 +633,6 @@ footer {
     }
 }
 
-/* FOOTER */
-.footer {
-    background: #2C1810;
-    color: #E8D5C4;
-    padding: 3.5rem 0 1.5rem;
-}
-
-
-.footer h6 {
-    color: #C68B59;
-    font-weight: 700;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
-}
-
-.footer ul li {
-    margin-bottom: 0.5rem;
-    color: #E8D5C4;
-    opacity: 0.65;
-}
-
-.footer ul li a {
-    color: #E8D5C4;
-    text-decoration: none;
-    opacity: 0.65;
-    transition: all 0.3s ease;
-}
-
-.footer ul li a:hover {
-    opacity: 1;
-    color: #C68B59;
-}
-
-.footer small {
-    color: #E8D5C4;
-    opacity: 0.35;
-}
-
-.footer .text-center {
-    border-top: 1px solid rgba(232, 213, 196, 0.1);
-    padding-top: 1.5rem;
-}
-
 .error-grisou {
     width: 800px;
 }
@@ -695,7 +650,6 @@ footer {
 .cp-sep-txt {
     font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--cookie);
     white-space: nowrap;
@@ -732,4 +686,65 @@ footer {
 .cp-back:hover {
     background-color: var(--cookie);
     color: white;
+}
+
+/* FOOTER */
+.footer {
+    background: #2C1810;
+    color: #E8D5C4;
+    padding: 3rem 0 1.5rem;
+}
+
+.footer-logo img {
+    max-height: 60px;
+}
+
+.footer-logo p {
+    color: #C68B59;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.footer-divider {
+    border: none;
+    border-top: 1px solid #C68B59;
+    opacity: 0.3;
+    margin: 1.5rem auto;
+    width: 60%;
+}
+
+.footer h6 {
+    color: #C68B59;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.footer ul li {
+    margin-bottom: 0.5rem;
+    color: #E8D5C4;
+    opacity: 0.65;
+}
+
+.footer ul li a {
+    color: #E8D5C4;
+    text-decoration: none;
+    opacity: 0.65;
+    transition: all 0.3s ease;
+}
+
+.footer ul li a:hover {
+    opacity: 1;
+    color: #C68B59;
+}
+
+.footer small {
+    color: #E8D5C4;
+    opacity: 0.35;
+}
+
+.footer .text-center:last-child {
+    padding-top: 1.5rem;
 }

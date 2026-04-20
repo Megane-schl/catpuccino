@@ -67,8 +67,14 @@ class RegistrationFormType extends AbstractType
                 'type'              => PasswordType::class,
 
                 'invalid_message'   => 'Le mot de passe doit être identique',
-                'first_options'     => ['label' => 'Mot de passe'],
-                'second_options'    => ['label' => 'Confirmer le mot de passe'],
+                'first_options'     => [
+                    'label' => 'Mot de passe',
+                    'attr'  => ['placeholder' => '••••••••'],
+                ],
+                'second_options'    => [
+                    'label' => 'Confirmer le mot de passe',
+                    'attr'  => ['placeholder' => '••••••••'],
+                ],
 
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
